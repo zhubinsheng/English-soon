@@ -1,8 +1,14 @@
 package gdyj.tydic.com.jinlingapp.ui;
 
+import android.animation.AnimatorInflater;
+import android.animation.StateListAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -51,10 +57,18 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
         super.onCreate(savedInstanceState);
         mLoginPresenter = new PhoneLoginPresenter(this);
     }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.user_set, container, false);
         unbinder = ButterKnife.bind(this,layout);
+        StateListAnimator animator = AnimatorInflater.loadStateListAnimator(getActivity(), R.drawable.anim_state_list_m01);
+        //Drawable mDrawable = LayoutToDrawable(R.drawable.foreground_selector);
+        //StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(getActivity(), R.drawable.foreground_selector);
+        login.setStateListAnimator(animator);
+        login.setForeground(getResources().getDrawable(R.drawable.foreground_selector));
+        //login.setBackgroundResource(R.drawable.foreground_selector);
         return layout;
     }
     @Override

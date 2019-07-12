@@ -16,7 +16,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
-    private static final String BASE_URL = "http://192.168.43.43:8080/jeecg-boot/";
+    private static final String BASE_URL = "http://www.baidu.com/";
+    //private static final String BASE_URL = "http://192.168.43.43:8080/jeecg-boot/";
     private static final long CONNECT_TIME_OUT = 60L;
     private static final long READ_TIME_OUT = 10L;
     private static final long WRITE_TIME_OUT = 10L;
