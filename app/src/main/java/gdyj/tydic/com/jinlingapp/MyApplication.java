@@ -6,6 +6,8 @@ import android.content.Context;
 import com.facebook.stetho.Stetho;
 import com.mob.MobSDK;
 
+import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
+
 /**
  * Created by zhao
  */
@@ -26,6 +28,8 @@ public class MyApplication extends Application {
         super.onCreate();
         MobSDK.init(this);
         Stetho.initializeWithDefaults(this);
+        TTSUtils.getInstance().init();
+
         mContext = this;
         instance = this;
         context=getApplicationContext();

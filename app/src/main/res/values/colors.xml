@@ -6,4 +6,9 @@
     <color name="spinner_bg">#333244</color>
     <color name="white_text_color">#F0F0F0</color>
     <color name="gray_color">#4b4b58</color>
+
+    <color name="color_blue">#008577</color>
+    <color name="color_green">#00574B</color>
+    <color name="color_gray">#D81B60</color>
+
 </resources>

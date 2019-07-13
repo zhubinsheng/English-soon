@@ -12,6 +12,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 import gdyj.tydic.com.jinlingapp.net.PersonalProtocol;
 import gdyj.tydic.com.jinlingapp.present.PhoneLoginContract;
 import gdyj.tydic.com.jinlingapp.present.PhoneLoginPresenter;
+import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
 
 /**
  * @author zbs
@@ -158,5 +160,20 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
             }
         });
         page.show(context);
+    }
+
+    private void speak() {
+        String text = "测试成功";
+        // 需要合成的文本text的长度不能超过1024个GBK字节。
+        /*if (TextUtils.isEmpty(mInput.getText())) {
+            text = "百度语音，面向广大开发者永久免费开放语音合成技术。";
+            mInput.setText(text);
+        }
+        // 合成前可以修改参数：
+        // Map<String, String> params = getParams();
+        // synthesizer.setParams(params);
+        int result = synthesizer.speak(text);
+        checkResult(result, "speak");*/
+        TTSUtils.getInstance().speak(text);
     }
 }

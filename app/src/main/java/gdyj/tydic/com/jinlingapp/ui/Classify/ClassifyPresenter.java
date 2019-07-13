@@ -6,6 +6,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import gdyj.tydic.com.jinlingapp.MyApplication;
+import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
 import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
@@ -52,14 +53,17 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
                     @Override
                     public void accept(ClassifyL loginResult) throws Exception {
                         Log.e(TAG,"4getApplication is "+loginResult);
-                        if(mView!=null){
+                        if(mView!=null&&loginResult.getCode()!=200&&loginResult.getResult()==null){
+                            mView.onLoginSuccess(loginResult);
+                        }else {
+                            mView.onLoginFail("获取单词列表失败");
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
-                            //    mView.onLoginFail(MyApplication.getAppContext().getString(R.string.login_fail_tip));
+                                mView.onLoginFail("网络出问题啦，请稍后再试");
                         }
                     }
                 });

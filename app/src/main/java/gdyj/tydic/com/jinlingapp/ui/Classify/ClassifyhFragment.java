@@ -10,13 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
 import gdyj.tydic.com.jinlingapp.bean.BaseEntity;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
 import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
 import gdyj.tydic.com.jinlingapp.net.PersonalProtocol;
 import gdyj.tydic.com.jinlingapp.net.RetrofitManager;
@@ -37,7 +40,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
     private PersonalProtocol personalProtocol;
-    private List<EnglishInfo> englishInfoList;
+    private List< ClassifyL.ResultBean> englishInfoList;
 
     private ClassifyPresenter classifyPresenter;
     @Override
@@ -64,6 +67,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
         }else {
+            Toasty.error(getActivity(), "尚未登录，请先登录哦", Toast.LENGTH_SHORT, true).show();
             return;
         }
         classifyPresenter.getClassify(token);
@@ -111,12 +115,13 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     }
 
     @Override
-    public void onLoginSuccess() {
+    public void onLoginSuccess(ClassifyL loginResult) {
 
+        englishAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoginFail(String errorTip) {
-
+        Toasty.error(getActivity(), errorTip, Toast.LENGTH_LONG, true).show();
     }
 }

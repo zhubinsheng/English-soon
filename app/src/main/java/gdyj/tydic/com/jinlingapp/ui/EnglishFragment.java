@@ -51,7 +51,7 @@ public class EnglishFragment extends Fragment {
         initView();
         //initData(); // retrofit请求范例
 //        initData2();  //搭配使用范例
-        initAdapter();
+        //initAdapter();
 }
 
     private void initData2() {
@@ -66,7 +66,7 @@ public class EnglishFragment extends Fragment {
                             @Override
                             public void run() {
                                 englishInfoList = englishInfoBaseEntity.gettList();
-                                englishAdapter.addData(englishInfoList);
+                                //englishAdapter.addData(englishInfoList);
                                 englishAdapter.loadMoreComplete();
 
                             }
@@ -121,7 +121,7 @@ public class EnglishFragment extends Fragment {
     }
 
     private void initAdapter() {
-        englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
+        //englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         englishAdapter.openLoadAnimation();
         mRecyclerView.setAdapter(englishAdapter);
     }

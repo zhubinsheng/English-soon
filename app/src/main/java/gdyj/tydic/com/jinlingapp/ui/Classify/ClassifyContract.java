@@ -1,5 +1,6 @@
 package gdyj.tydic.com.jinlingapp.ui.Classify;
 
+import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 
 /**
@@ -8,7 +9,7 @@ import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 public interface ClassifyContract {
     interface View{
         void onValidCodeSend();
-        void onLoginSuccess();
+        void onLoginSuccess(ClassifyL loginResult);
         void onLoginFail(String errorTip);
     }
 
