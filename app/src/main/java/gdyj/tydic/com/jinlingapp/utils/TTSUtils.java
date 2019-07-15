@@ -3,7 +3,8 @@ package gdyj.tydic.com.jinlingapp.utils;
 import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
- 
+import android.widget.Toast;
+
 import com.baidu.tts.client.SpeechError;
 import com.baidu.tts.client.SpeechSynthesizer;
 import com.baidu.tts.client.SpeechSynthesizerListener;
@@ -15,6 +16,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 
 /**
@@ -31,9 +33,9 @@ public class TTSUtils implements SpeechSynthesizerListener {
     private static final String SPEECH_FEMALE_MODEL_NAME = "bd_etts_speech_female.dat";
     private static final String TEXT_MODEL_NAME = "bd_etts_text.dat";
  
-    private static final String APIKEY = "6kl3vrfNvLRo8iIWp93NRwkw";
-    private static final String SECRETKEY = "ae9d2a7fb54ce8f2f80c46c22ca4acaf";
-    private static final String APPID = "9978777";
+    private static final String APIKEY = "zToWtAkk1gSPyY2vk9xcVjdS";
+    private static final String SECRETKEY = "OiAciNFpBBXY9nHhNwYSx1dMQc92lkGm";
+    private static final String APPID = "16806137";
  
     private TTSUtils() {
     }
@@ -50,7 +52,7 @@ public class TTSUtils implements SpeechSynthesizerListener {
     }
  
     public void init() {
-        Context context = MyApplication.getContext();
+        Context context = MyApplication.getAppContext();
         File file = new File(SAMPLE_DIR);
         if (!file.exists()) {
             file.mkdirs();
@@ -143,6 +145,8 @@ public class TTSUtils implements SpeechSynthesizerListener {
     @Override
     public void onError(String s, SpeechError speechError) {
         // 监听到出错，在此添加相关操作
+        //System.out.println("========================"+s+speechError.code+speechError.description);
+        Toasty.error(MyApplication.getAppContext(), "请将此界面发送给管理员"+speechError.code, Toast.LENGTH_LONG, true).show();
     }
  
     public static void copyAssetsFile2SDCard(Context context, String fileName, String path) {

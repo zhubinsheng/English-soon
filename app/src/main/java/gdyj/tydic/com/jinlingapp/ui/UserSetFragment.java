@@ -91,6 +91,14 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     }
 
     private void initData() {
+       /* new Thread(){
+            @Override
+            public void run() {
+                //需要在子线程中处理的逻辑
+                TTSUtils.getInstance().init();
+                //initialTts(); // 初始化TTS引擎
+            }
+        }.start();*/
     }
 
     private void initView() {
@@ -107,14 +115,15 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.button:
+                speak();
                 //  String phone = mEdtPhone.getText().toString();
-                String phone = "123";
+               /* String phone = "123";
                 String validNumber = "321";
                 SysLoginModel sysLoginModel = new SysLoginModel();
                 sysLoginModel.setCaptcha("123");
                 sysLoginModel.setUsername("admin19");
                 sysLoginModel.setPassword("123456");
-                mLoginPresenter.PhoneLogin(sysLoginModel);
+                mLoginPresenter.PhoneLogin(sysLoginModel);*/
                 break;
             case R.id.button1:
                 //sendCode(getActivity());
@@ -163,7 +172,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     }
 
     private void speak() {
-        String text = "测试成功";
+        String text = "onSynthesizeFinish";
         // 需要合成的文本text的长度不能超过1024个GBK字节。
         /*if (TextUtils.isEmpty(mInput.getText())) {
             text = "百度语音，面向广大开发者永久免费开放语音合成技术。";

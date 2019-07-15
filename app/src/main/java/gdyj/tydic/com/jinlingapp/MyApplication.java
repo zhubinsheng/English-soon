@@ -9,7 +9,7 @@ import com.mob.MobSDK;
 import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
 
 /**
- * Created by zhao
+ * Created by z
  */
 
 public class MyApplication extends Application {
@@ -26,13 +26,16 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MobSDK.init(this);
-        Stetho.initializeWithDefaults(this);
-        TTSUtils.getInstance().init();
+
 
         mContext = this;
         instance = this;
         context=getApplicationContext();
+
+
+        MobSDK.init(this);
+        Stetho.initializeWithDefaults(this);
+
     }
 
     public static Application getAppContext() {

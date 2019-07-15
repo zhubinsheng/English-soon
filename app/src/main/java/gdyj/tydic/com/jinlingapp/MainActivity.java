@@ -23,12 +23,14 @@ import java.util.List;
 import java.util.Map;
 
 
+import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
 import gdyj.tydic.com.jinlingapp.ui.EnglishFragment;
 import gdyj.tydic.com.jinlingapp.ui.MainFragment;
 import gdyj.tydic.com.jinlingapp.ui.UserSetFragment;
 import gdyj.tydic.com.jinlingapp.utils.InitConfig;
 import gdyj.tydic.com.jinlingapp.utils.OfflineResource;
+import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -57,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initPermission();
-        //initialTts(); // 初始化TTS引擎
-
+        initData();
         mTabLayout = (TabLayout) findViewById(R.id.testFragmentTablayout);
         mViewPager = (ViewPager) findViewById(R.id.testFragmentViewPager);
         // 创建Fragment集合
@@ -213,6 +214,10 @@ public class MainActivity extends AppCompatActivity {
         //注册，将观察者和被观察者关联，将会触发OnSubscribe.call方法
         observable.subscribe(observer);*/
 
+    private void initData() {
+        new MyThred().run();
+
+    }
     /**
      * android 6.0 以上需要动态申请权限
      */
@@ -328,6 +333,22 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, activityClass));
     }
 
+
+    class MyThred extends Thread{
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(5000);
+                //需要在子线程中处理的逻辑
+                TTSUtils.getInstance().init();
+                //initialTts(); // 初始化TTS引擎
+            } catch (InterruptedException e){
+                Toasty.warning(MyApplication.getAppContext(),"子线程合成语音失败，请联系管理员");
+            }
+        }
+
     }
+
+}
 
 

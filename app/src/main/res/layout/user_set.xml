@@ -20,7 +20,7 @@
             android:padding="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/calculatoron"
+            android:src="@drawable/ceshi"
             />
 
         <LinearLayout
@@ -111,14 +111,31 @@
 
     </gdyj.tydic.com.jinlingapp.fragment.ButtunView>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录" />
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="登录1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="登录1" />
+        <com.kyleduo.switchbutton.SwitchButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            app:kswTextExtra="10dp"
+            app:kswTextOff="OFF"
+            app:kswTextOn="ON"
+            app:kswTintColor="#49416E"/>
+    </LinearLayout>
+
 </LinearLayout>
