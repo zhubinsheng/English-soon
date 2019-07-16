@@ -4,24 +4,18 @@ import android.animation.AnimatorInflater;
 import android.animation.StateListAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,13 +25,10 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
-import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
-import gdyj.tydic.com.jinlingapp.net.PersonalProtocol;
 import gdyj.tydic.com.jinlingapp.present.PhoneLoginContract;
 import gdyj.tydic.com.jinlingapp.present.PhoneLoginPresenter;
-import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
+import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 
 /**
  * @author zbs

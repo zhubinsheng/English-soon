@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.utils;
+package gdyj.tydic.com.jinlingapp.baiduUtils;
  
 import android.content.Context;
 import android.os.Environment;
@@ -91,6 +91,7 @@ public class TTSUtils implements SpeechSynthesizerListener {
         int result = mSpeechSynthesizer.speak(msg);
         if (result < 0) {
             Log.e(TAG, "error,please look up error code = " + result + " in doc or URL:http://yuyin.baidu.com/docs/tts/122 ");
+            Toasty.warning(MyApplication.getAppContext(),"子线程合成语音失败，请联系管理员");
         }
     }
  

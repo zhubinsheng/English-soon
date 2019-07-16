@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
@@ -31,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 
 public class ClassifyhFragment extends Fragment implements ClassifyContract.View{
     private static final String BASE_URL = "http://192.168.43.43:8089/english/";
@@ -40,7 +42,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
     private PersonalProtocol personalProtocol;
-    private List< ClassifyL.ResultBean> englishInfoList;
+    //private List< ClassifyL.ResultBean> englishInfoList;
 
     private ClassifyPresenter classifyPresenter;
     @Override
@@ -63,12 +65,12 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 }
 
     private void initData() {
-        String token ;
+        String token = null;
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
         }else {
             Toasty.error(getActivity(), "尚未登录，请先登录哦", Toast.LENGTH_SHORT, true).show();
-            return;
+            //return;
         }
         classifyPresenter.getClassify(token);
     }
@@ -89,9 +91,33 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     }
 
     private void initAdapter() {
+        List<ClassifyL.ResultBean> englishInfoList = new ArrayList<>();
+        ClassifyL.ResultBean resultBean = new ClassifyL.ResultBean();
+        resultBean.setClassify("ceshi first");
+        resultBean.setWord("1");
+        resultBean.setMeaning("yes");
+        ClassifyL.ResultBean resultBean1 = new ClassifyL.ResultBean();
+        resultBean1.setClassify("ceshi two");
+        resultBean1.setWord("1");
+        resultBean1.setMeaning("yes");
+        englishInfoList..add(resultBean);
+        englishInfoList.add(resultBean1);
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         englishAdapter.openLoadAnimation();
         mRecyclerView.setAdapter(englishAdapter);
+        //开启动画（默认为渐显效果）
+        englishAdapter.openLoadAnimation();
+        //条目长按事件
+        englishAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(getActivity(), "长按了第" + (position + 1) + "条条目", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+        // 开启滑动删除
+        englishAdapter.enableSwipeItem();
+        //englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
     }
 
     protected void setBackBtn() {

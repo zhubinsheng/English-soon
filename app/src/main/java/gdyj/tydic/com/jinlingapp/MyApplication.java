@@ -2,11 +2,9 @@ package gdyj.tydic.com.jinlingapp;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
-import com.facebook.stetho.Stetho;
 import com.mob.MobSDK;
-
-import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
 
 /**
  * Created by z
@@ -32,9 +30,9 @@ public class MyApplication extends Application {
         instance = this;
         context=getApplicationContext();
 
-
+        MultiDex.install(this);
         MobSDK.init(this);
-        Stetho.initializeWithDefaults(this);
+        //Stetho.initializeWithDefaults(this);
 
     }
 

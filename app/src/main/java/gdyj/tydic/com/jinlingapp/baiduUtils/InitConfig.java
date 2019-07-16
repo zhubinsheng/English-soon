@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.utils;
+package gdyj.tydic.com.jinlingapp.baiduUtils;
 
 import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;

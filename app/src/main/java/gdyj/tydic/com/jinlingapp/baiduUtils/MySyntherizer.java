@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.utils;
+package gdyj.tydic.com.jinlingapp.baiduUtils;
 
 import android.content.Context;
 import android.os.Handler;

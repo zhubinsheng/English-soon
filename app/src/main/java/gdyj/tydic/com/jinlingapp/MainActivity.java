@@ -11,9 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.baidu.tts.chainofresponsibility.logger.LoggerProxy;
 import com.baidu.tts.client.SpeechSynthesizer;
-import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
 
 import java.io.IOException;
@@ -28,9 +26,8 @@ import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
 import gdyj.tydic.com.jinlingapp.ui.EnglishFragment;
 import gdyj.tydic.com.jinlingapp.ui.MainFragment;
 import gdyj.tydic.com.jinlingapp.ui.UserSetFragment;
-import gdyj.tydic.com.jinlingapp.utils.InitConfig;
-import gdyj.tydic.com.jinlingapp.utils.OfflineResource;
-import gdyj.tydic.com.jinlingapp.utils.TTSUtils;
+import gdyj.tydic.com.jinlingapp.baiduUtils.OfflineResource;
+import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -58,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initPermission();
         initData();
         mTabLayout = (TabLayout) findViewById(R.id.testFragmentTablayout);
         mViewPager = (ViewPager) findViewById(R.id.testFragmentViewPager);
@@ -339,6 +335,7 @@ public class MainActivity extends AppCompatActivity {
         public void run() {
             try {
                 Thread.sleep(5000);
+                initPermission();
                 //需要在子线程中处理的逻辑
                 TTSUtils.getInstance().init();
                 //initialTts(); // 初始化TTS引擎

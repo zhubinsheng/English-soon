@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.utils;
+package gdyj.tydic.com.jinlingapp.baiduUtils;
 
 /**
  * Created by fujiayi on 2017/9/13.
