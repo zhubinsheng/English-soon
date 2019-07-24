@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.present;
+package gdyj.tydic.com.jinlingapp.ui.UserSet;
 
 import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
 import gdyj.tydic.com.jinlingapp.bean.LoginResilt;

@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.ui;
+package gdyj.tydic.com.jinlingapp.ui.UserSet;
 
 import android.animation.AnimatorInflater;
 import android.animation.StateListAnimator;
@@ -24,11 +24,10 @@ import butterknife.Unbinder;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
+import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
-import gdyj.tydic.com.jinlingapp.present.PhoneLoginContract;
-import gdyj.tydic.com.jinlingapp.present.PhoneLoginPresenter;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
+import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 
 /**
  * @author zbs
@@ -42,6 +41,8 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     Button login;
     @BindView(R.id.button1)
     Button login1;
+    @BindView(R.id.button2)
+    Button login2;
     @BindView(R.id.title)
     TextView title;
 
@@ -102,28 +103,35 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     }
 
 
-    @OnClick({R.id.button, R.id.button1})
+    @OnClick({R.id.button, R.id.button1, R.id.button2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.button:
-                speak();
+                //speak();
                 //  String phone = mEdtPhone.getText().toString();
-               /* String phone = "123";
-                String validNumber = "321";
+
+
                 SysLoginModel sysLoginModel = new SysLoginModel();
                 sysLoginModel.setCaptcha("123");
                 sysLoginModel.setUsername("admin19");
                 sysLoginModel.setPassword("123456");
-                mLoginPresenter.PhoneLogin(sysLoginModel);*/
+                mLoginPresenter.PhoneLogin(sysLoginModel);
+
                 break;
             case R.id.button1:
                 //sendCode(getActivity());
-                SysLoginModel sysLoginModel1 = new SysLoginModel();
+                /*SysLoginModel sysLoginModel1 = new SysLoginModel();
                 sysLoginModel1.setCaptcha("123");
                 sysLoginModel1.setUsername("admin19");
                 sysLoginModel1.setPassword("123456");
-                mLoginPresenter.PhoneRegister(sysLoginModel1);
+                mLoginPresenter.PhoneRegister(sysLoginModel1);*/
+                sendCode(getContext());
                 break;
+            case R.id.button2:
+                break;
+
+
+                default:break;
         }
     }
 
@@ -134,11 +142,22 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
     @Override
     public void onLoginSuccess() {
+        Toasty.success(getContext(),"登录成功").show();
 
     }
 
     @Override
     public void onLoginFail(String errorTip) {
+
+    }
+
+    @Override
+    public void onRegisterSuccess() {
+        Toasty.success(getContext(),"注册成功").show();
+    }
+
+    @Override
+    public void onRegisterFail(String errorTip) {
 
     }
 
@@ -154,8 +173,16 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                     String country = (String) phoneMap.get("country"); // 国家代码，如“86”
                     String phone = (String) phoneMap.get("phone"); // 手机号码，如“13800138000”
                     // TODO 利用国家代码和手机号码进行后续的操作
+                    Toasty.warning(getContext(),phone);
+                    SysLoginModel sysLoginModel = new SysLoginModel();
+                    sysLoginModel.setCaptcha("123");
+                    sysLoginModel.setUsername("admin19");
+                    sysLoginModel.setPassword("123456");
+                    mLoginPresenter.PhoneRegister(sysLoginModel);
+
                 } else{
                     // TODO 处理错误的结果
+                    Toasty.warning(getContext(),"注册失败").show();
                 }
             }
         });

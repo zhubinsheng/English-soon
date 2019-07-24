@@ -3,22 +3,22 @@ package gdyj.tydic.com.jinlingapp;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
 import java.util.List;
 
-// 1.创建Adapter
-public class TestFragmentAdapter extends FragmentPagerAdapter {
-    // 用来添加Fragment
-    private List<Fragment> fragments;
-    // 用来存储Fragment标题
-    private String title[] = {"首页","成长树","发现","我的"};
+/**
+ * @author binshengzhu
+ */
 
-    public void setFragments(List<Fragment> fragments) {
+public class MyFragmentAdapter extends FragmentPagerAdapter {
+    private List<Fragment> fragments;
+    private String[] title = {"首页", "成长树", "发现", "我的"};
+
+    void setFragments(List<Fragment> fragments) {
         this.fragments = fragments;
         notifyDataSetChanged();
     }
 
-    public TestFragmentAdapter(FragmentManager fm) {
+    MyFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 

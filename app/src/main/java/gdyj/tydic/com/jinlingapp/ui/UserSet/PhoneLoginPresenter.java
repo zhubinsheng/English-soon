@@ -1,18 +1,16 @@
-package gdyj.tydic.com.jinlingapp.present;
+package gdyj.tydic.com.jinlingapp.ui.UserSet;
 
 import android.util.Log;
+
 import com.google.gson.Gson;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import gdyj.tydic.com.jinlingapp.MyApplication;
+import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
 import gdyj.tydic.com.jinlingapp.bean.LoginResilt;
 import gdyj.tydic.com.jinlingapp.bean.Result;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 import gdyj.tydic.com.jinlingapp.bean.SysUser;
-import gdyj.tydic.com.jinlingapp.net.RetrofitManager;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -31,7 +29,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
 
     public PhoneLoginPresenter(PhoneLoginContract.View view){
         this.mView = view;
-        mPhoneLoginApi = RetrofitManager.create(LoginApi.class);
+        mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class);
     }
 
     @Override
@@ -85,7 +83,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                             if(loginResult!=null && loginResult.getMessage()!=null){
                                 mView.onLoginFail(loginResult.getMessage());
                             }else{
-                            //    mView.onLoginFail(MyApplication.getAppContext().getString(R.string.login_fail_tip));
+                                //mView.onLoginFail(MyApplication.getAppContext().getString(R.string.login_fail_tip));
                             }
                         }
                     }
@@ -93,7 +91,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
-                        //    mView.onLoginFail(MyApplication.getAppContext().getString(R.string.login_fail_tip));
+                            //mView.onLoginFail(MyApplication.getAppContext().getString(R.string.login_fail_tip));
                         }
                     }
                 });
@@ -112,13 +110,14 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     public void accept(Result<SysUser> loginResult) throws Exception {
                         Log.e(TAG,"4getApplication is "+loginResult);
                         if(mView!=null){
+                            mView.onRegisterSuccess();
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
-                            //    mView.onLoginFail(MyApplication.getAppContext().getString(R.string.login_fail_tip));
+                                mView.onRegisterFail("注册失败，网络问题");
                         }
                     }
                 });

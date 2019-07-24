@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.ui;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.vo.Classify;
 
 public class ClassifyAdapter extends BaseAdapter implements View.OnClickListener {

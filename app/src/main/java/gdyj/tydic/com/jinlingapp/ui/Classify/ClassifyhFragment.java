@@ -1,5 +1,6 @@
 package gdyj.tydic.com.jinlingapp.ui.Classify;
 
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,37 +13,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemSwipeListener;
+import com.mingle.widget.LoadingView;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
-import gdyj.tydic.com.jinlingapp.bean.BaseEntity;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
-import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
-import gdyj.tydic.com.jinlingapp.net.PersonalProtocol;
-import gdyj.tydic.com.jinlingapp.net.RetrofitManager;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 
+/**
+ * @author binshengzhu
+ */
 public class ClassifyhFragment extends Fragment implements ClassifyContract.View{
-    private static final String BASE_URL = "http://192.168.43.43:8089/english/";
+    private Unbinder unbinder;
     private View layout;
     private ImageView back;
     private TextView title;
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
-    private PersonalProtocol personalProtocol;
-    //private List< ClassifyL.ResultBean> englishInfoList;
+    private List< ClassifyL.ResultBean> englishInfoList =new ArrayList<>();
+    private Box<Note> notesBox;
+
+    @BindView(R.id.loadView)
+    LoadingView loadingView;
 
     private ClassifyPresenter classifyPresenter;
     @Override
@@ -54,7 +55,14 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_classify, container, false);
+        unbinder = ButterKnife.bind(this,layout);
         return layout;
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        classifyPresenter.onDetach();
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -68,11 +76,12 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         String token = null;
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
+            classifyPresenter.getClassify(token);
         }else {
-            Toasty.error(getActivity(), "尚未登录，请先登录哦", Toast.LENGTH_SHORT, true).show();
+            Toasty.warning(getActivity(), "尚未登录，请先登录哦", Toast.LENGTH_SHORT, true).show();
             //return;
         }
-        classifyPresenter.getClassify(token);
+
     }
 
     private void initView() {
@@ -91,7 +100,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     }
 
     private void initAdapter() {
-        List<ClassifyL.ResultBean> englishInfoList = new ArrayList<>();
+       /* List<ClassifyL.ResultBean> englishInfoList = new ArrayList<>();
         ClassifyL.ResultBean resultBean = new ClassifyL.ResultBean();
         resultBean.setClassify("ceshi first");
         resultBean.setWord("1");
@@ -100,11 +109,11 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         resultBean1.setClassify("ceshi two");
         resultBean1.setWord("1");
         resultBean1.setMeaning("yes");
-        englishInfoList..add(resultBean);
-        englishInfoList.add(resultBean1);
+        englishInfoList.add(resultBean);
+        englishInfoList.add(resultBean1);*/
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         englishAdapter.openLoadAnimation();
-        mRecyclerView.setAdapter(englishAdapter);
+
         //开启动画（默认为渐显效果）
         englishAdapter.openLoadAnimation();
         //条目长按事件
@@ -115,9 +124,38 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
                 return false;
             }
         });
+
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+                Toast.makeText(getActivity(), "onItemSwipeStart", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+                Toast.makeText(getActivity(), "clearView", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                Toast.makeText(getActivity(), "onItemSwiped", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+                Toast.makeText(getActivity(), "onItemSwipeMoving", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+
+
+
+
         // 开启滑动删除
         englishAdapter.enableSwipeItem();
-        //englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
+        englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
+
+
+
+        mRecyclerView.setAdapter(englishAdapter);
     }
 
     protected void setBackBtn() {
@@ -142,12 +180,15 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
     @Override
     public void onLoginSuccess(ClassifyL loginResult) {
-
+        englishInfoList = loginResult.getResult();
+        loadingView.setVisibility(View.GONE);
         englishAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoginFail(String errorTip) {
-        Toasty.error(getActivity(), errorTip, Toast.LENGTH_LONG, true).show();
+        Toasty.warning(getActivity(), errorTip, Toast.LENGTH_LONG, true).show();
     }
+
+
 }

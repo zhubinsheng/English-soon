@@ -2,16 +2,18 @@ package gdyj.tydic.com.jinlingapp.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.support.v4.app.Fragment;
 
-import gdyj.tydic.com.jinlingapp.ClassifyAdapter;
+import gdyj.tydic.com.jinlingapp.MainActivity;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.HeaderAndFooterAdapter;
 
@@ -51,6 +53,34 @@ public class MainFragment extends Fragment implements ClassifyAdapter.OnClickIte
       initAdapter();
 
     View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classify_header,null);
+    EditText editText = (EditText) headerView.findViewById(R.id.editText);
+   /* eidtext.setKeyListener(null);
+    //eidtext.setClickable(false);//不可点击，但是这个效果我这边没体现出来，不知道怎没用
+
+    eidtext.setText("123465798");
+
+    eidtext.setFocusable(true);
+    eidtext.setFocusableInTouchMode(true);
+    eidtext.requestFocus();
+
+    InputMethodManager inputManager =
+            (InputMethodManager)eidtext.getContext().getSystemService(MainActivity.INPUT_METHOD_SERVICE);
+    inputManager.showSoftInput(eidtext, 0);
+
+    eidtext.setSelection(eidtext.getText().length());*/
+
+
+    editText.setFocusable(true);
+    editText.setFocusableInTouchMode(true);
+    editText.requestFocus();
+    InputMethodManager inputManager =
+            (InputMethodManager) editText.getContext().getSystemService(MainActivity.INPUT_METHOD_SERVICE);
+    inputManager.showSoftInput(editText, 0);
+
+
+
+
+
     /*View headerViewTwo = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_classify_header,null);*/
     headerAndFooterAdapter.addHeaderView(headerView);
     /*headerAndFooterAdapter.addHeaderView(headerViewTwo);*/

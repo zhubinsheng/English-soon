@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 apply plugin: 'com.mob.sdk'
+apply plugin: 'io.objectbox'
 
 MobSDK {
     appKey "2ad185e9135fa"
@@ -34,6 +35,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion = '28.0.3'
 }
 
 dependencies {
@@ -77,5 +79,7 @@ dependencies {
     implementation files('libs/com.baidu.tts_2.3.2.20180713_6101c2a.jar')
     //加大类限制
     implementation 'com.android.support:multidex:1.0.3'
+    //加载动画
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
 
 }

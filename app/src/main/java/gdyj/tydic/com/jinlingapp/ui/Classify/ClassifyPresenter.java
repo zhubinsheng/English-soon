@@ -1,30 +1,11 @@
 package gdyj.tydic.com.jinlingapp.ui.Classify;
 
-import android.util.Log;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import gdyj.tydic.com.jinlingapp.MyApplication;
-import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
+import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
-import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
-import gdyj.tydic.com.jinlingapp.bean.LoginResult;
-import gdyj.tydic.com.jinlingapp.bean.Result;
-import gdyj.tydic.com.jinlingapp.bean.ResultBean;
-import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
-import gdyj.tydic.com.jinlingapp.bean.SysUser;
-import gdyj.tydic.com.jinlingapp.net.RetrofitManager;
-import gdyj.tydic.com.jinlingapp.present.LoginApi;
-import gdyj.tydic.com.jinlingapp.present.PhoneLoginContract;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
-
-import static gdyj.tydic.com.jinlingapp.ui.MainFragment.TAG;
 
 /**
  * Created by
@@ -36,7 +17,7 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
 
     public ClassifyPresenter(ClassifyContract.View view){
         this.mView = view;
-        classifyApi = RetrofitManager.create(ClassifyApi.class);
+        classifyApi = MyRetrofitManager.create(ClassifyApi.class);
     }
 
 
@@ -52,11 +33,10 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
                 .subscribe(new Consumer<ClassifyL>() {
                     @Override
                     public void accept(ClassifyL loginResult) throws Exception {
-                        Log.e(TAG,"4getApplication is "+loginResult);
-                        if(mView!=null&&loginResult.getCode()!=200&&loginResult.getResult()==null){
+                        if(mView!=null&&loginResult.getResult()!=null){
                             mView.onLoginSuccess(loginResult);
                         }else {
-                            mView.onLoginFail("获取单词列表失败");
+                            mView.onLoginFail("获取单词列表为空，请重试");
                         }
                     }
                 }, new Consumer<Throwable>() {

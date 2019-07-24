@@ -1,5 +1,13 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Transient;
+
+/**
+ * @author binshengzhu
+ */
+@Entity
 public class LoginResilt {
     /**
      * success : true
@@ -8,10 +16,13 @@ public class LoginResilt {
      * result : {"userInfo":{"id":"8c94bea8bd03cc2489bf8309d3740042","username":"string","realname":null,"password":"984262da947acd0c","salt":"U9H7kOhP","avatar":null,"birthday":null,"sex":null,"email":null,"phone":null,"status":1,"delFlag":"0","createBy":"xingzai","createTime":"2019-07-07 09:43:09","updateBy":null,"updateTime":null},"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjI1OTU0NDEsInVzZXJuYW1lIjoic3RyaW5nIn0.mXX_5zADzryQ4WjWyY530hcf1eSjNppV5zO89TNqkZQ"}
      * timestamp : 1562593641850
      */
+    @Id
+    long boxId;
 
     private boolean success;
     private String message;
     private Integer code;
+    @Transient
     private ResultBean result;
     private long timestamp;
 

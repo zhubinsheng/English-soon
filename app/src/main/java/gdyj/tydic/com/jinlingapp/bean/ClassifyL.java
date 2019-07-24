@@ -2,6 +2,10 @@ package gdyj.tydic.com.jinlingapp.bean;
 
 import java.util.List;
 
+/**
+ * @author binshengzhu
+ */
+
 public class ClassifyL {
     /**
      * success : true
@@ -57,6 +61,7 @@ public class ClassifyL {
         this.result = result;
     }
 
+
     public static class ResultBean {
         /**
          * word : null
@@ -64,23 +69,23 @@ public class ClassifyL {
          * classify : 人教版7年级下
          */
 
-        private Object word;
-        private Object meaning;
+        private String word;
+        private String meaning;
         private String classify;
 
-        public Object getWord() {
+        public String getWord() {
             return word;
         }
 
-        public void setWord(Object word) {
+        public void setWord(String word) {
             this.word = word;
         }
 
-        public Object getMeaning() {
+        public String getMeaning() {
             return meaning;
         }
 
-        public void setMeaning(Object meaning) {
+        public void setMeaning(String meaning) {
             this.meaning = meaning;
         }
 

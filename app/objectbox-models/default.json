@@ -1,0 +1,73 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2611658797384111404",
+      "lastPropertyId": "4:3610771140896306928",
+      "name": "ResultBean",
+      "properties": [
+        {
+          "id": "1:8342976045358361289",
+          "name": "boxId"
+        },
+        {
+          "id": "2:6963540270849996353",
+          "name": "word"
+        },
+        {
+          "id": "3:7915820306544258812",
+          "name": "meaning"
+        },
+        {
+          "id": "4:3610771140896306928",
+          "indexId": "2:5704501578431004214",
+          "name": "classify"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:5149149504843192220",
+      "lastPropertyId": "5:2395428532911090797",
+      "name": "LoginResilt",
+      "properties": [
+        {
+          "id": "1:1771450507107870040",
+          "name": "boxId"
+        },
+        {
+          "id": "2:507119159895358075",
+          "name": "success"
+        },
+        {
+          "id": "3:9024163641798531879",
+          "name": "message"
+        },
+        {
+          "id": "4:8165001696485620079",
+          "name": "code"
+        },
+        {
+          "id": "5:2395428532911090797",
+          "name": "timestamp"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:5149149504843192220",
+  "lastIndexId": "2:5704501578431004214",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [
+    1794899940506815465
+  ],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

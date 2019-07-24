@@ -1,19 +1,26 @@
 package gdyj.tydic.com.jinlingapp;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.mob.MobSDK;
 
+import gdyj.tydic.com.jinlingapp.bean.MyObjectBox;
+import io.objectbox.BoxStore;
+
 /**
- * Created by z
+ * @author binshengzhu
  */
 
 public class MyApplication extends Application {
 
+    @SuppressLint("StaticFieldLeak")
     private static MyApplication mContext;
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
+    @SuppressLint("StaticFieldLeak")
     private static MyApplication instance;
     private String jwt;
     private Boolean hasjwt = false;
@@ -24,14 +31,13 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-
         mContext = this;
         instance = this;
         context=getApplicationContext();
 
         MultiDex.install(this);
         MobSDK.init(this);
+        initObjectBox();
         //Stetho.initializeWithDefaults(this);
 
     }
@@ -57,6 +63,17 @@ public class MyApplication extends Application {
 
     public void setHasjwt(Boolean hasjwt) {
         this.hasjwt = hasjwt;
+    }
+
+    private BoxStore boxStore;
+
+    private void initObjectBox() {
+        //第一次没运行之前，MyObjectBox默认会有报错提示，可以忽略。创建实体类， make之后报错就会不提示
+        boxStore = MyObjectBox.builder().androidContext(this).build();
+    }
+
+    public BoxStore getBoxStore() {
+        return boxStore;
     }
 }
 

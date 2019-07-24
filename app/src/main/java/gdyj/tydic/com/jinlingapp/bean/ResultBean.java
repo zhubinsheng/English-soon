@@ -1,29 +1,44 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Index;
+import io.objectbox.annotation.NameInDb;
+import io.objectbox.annotation.Unique;
+
+/**
+ * @author binshengzhu
+ */
+@Entity
 public class ResultBean {
         /**
          * word : null
          * meaning : null
          * classify : 人教版7年级下
          */
+        @Id
+        long boxId;
 
-        private Object word;
-        private Object meaning;
+        private String word;
+        private String meaning;
+    @Unique
+    @Index
+    @NameInDb("classify")
         private String classify;
 
-        public Object getWord() {
+        public String getWord() {
             return word;
         }
 
-        public void setWord(Object word) {
+        public void setWord(String word) {
             this.word = word;
         }
 
-        public Object getMeaning() {
+        public String getMeaning() {
             return meaning;
         }
 
-        public void setMeaning(Object meaning) {
+        public void setMeaning(String meaning) {
             this.meaning = meaning;
         }
 
