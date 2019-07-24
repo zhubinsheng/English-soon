@@ -24,6 +24,7 @@ public class MyApplication extends Application {
     private static MyApplication instance;
     private String jwt;
     private Boolean hasjwt = false;
+    private BoxStore boxStore;
 
     public static MyApplication getInstance() {
         return instance;
@@ -64,8 +65,6 @@ public class MyApplication extends Application {
     public void setHasjwt(Boolean hasjwt) {
         this.hasjwt = hasjwt;
     }
-
-    private BoxStore boxStore;
 
     private void initObjectBox() {
         //第一次没运行之前，MyObjectBox默认会有报错提示，可以忽略。创建实体类， make之后报错就会不提示

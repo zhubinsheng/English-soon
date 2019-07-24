@@ -11,7 +11,13 @@ import io.objectbox.annotation.Unique;
  */
 @Entity
 public class ResultBean {
-        /**
+    public ResultBean(String word, String meaning, String classify) {
+        this.word = word;
+        this.meaning = meaning;
+        this.classify = classify;
+    }
+
+    /**
          * word : null
          * meaning : null
          * classify : 人教版7年级下

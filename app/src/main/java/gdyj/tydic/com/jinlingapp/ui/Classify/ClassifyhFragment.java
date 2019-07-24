@@ -28,6 +28,11 @@ import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
+import gdyj.tydic.com.jinlingapp.bean.ResultBean;
+import gdyj.tydic.com.jinlingapp.bean.ResultBean_;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
+import io.objectbox.query.Query;
 
 /**
  * @author binshengzhu
@@ -40,7 +45,10 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
     private List< ClassifyL.ResultBean> englishInfoList =new ArrayList<>();
-    private Box<Note> notesBox;
+    private Box<ResultBean> notesBox;
+    private Query<ResultBean> notesQuery;
+    private BoxStore boxStore;
+
 
     @BindView(R.id.loadView)
     LoadingView loadingView;
@@ -56,6 +64,9 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_classify, container, false);
         unbinder = ButterKnife.bind(this,layout);
+        boxStore=MyApplication.getInstance().getBoxStore();
+        notesBox = boxStore.boxFor(ResultBean.class);
+        notesQuery = notesBox.query().order(ResultBean_.word).build();
         return layout;
     }
     @Override
@@ -73,6 +84,9 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 }
 
     private void initData() {
+        ResultBean resultBean=new ResultBean("1","2","3");
+        notesBox.put(resultBean);
+        List<ResultBean> resultBeans = notesQuery.find();
         String token = null;
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
