@@ -1,9 +1,9 @@
 package gdyj.tydic.com.jinlingapp.ui.UserSet;
 
 import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
+import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.LoginResilt;
 import gdyj.tydic.com.jinlingapp.bean.LoginResult;
-import gdyj.tydic.com.jinlingapp.bean.Result;
 import gdyj.tydic.com.jinlingapp.bean.SysUser;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -33,6 +33,6 @@ public interface LoginApi {
 
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("api/register")
-    Observable<Result<SysUser>> PhoneRegister(@Body RequestBody  requestBody);
+    Observable<BaseResult<SysUser>> PhoneRegister(@Body RequestBody  requestBody);
 
 }

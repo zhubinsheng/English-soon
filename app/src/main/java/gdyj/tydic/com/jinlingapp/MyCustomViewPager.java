@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.ui; /**
+package gdyj.tydic.com.jinlingapp; /**
  * 禁止viewpager页面的滑动的效果
  * Created by Administrator on 2017/6/1.
  */
@@ -16,15 +16,15 @@ import android.view.MotionEvent;
  *
  * @author ex-panyong
  */
-public class CustomViewPager extends ViewPager {
+public class MyCustomViewPager extends ViewPager {
     private boolean noScroll = false;
 
-    public CustomViewPager(Context context, AttributeSet attrs) {
+    public MyCustomViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         // TODO Auto-generated constructor stub
     }
 
-    public CustomViewPager(@NonNull Context context) {
+    public MyCustomViewPager(@NonNull Context context) {
         super(context);
     }
 

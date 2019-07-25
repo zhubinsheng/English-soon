@@ -17,7 +17,6 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
-import gdyj.tydic.com.jinlingapp.ui.CustomViewPager;
 import gdyj.tydic.com.jinlingapp.ui.EnglishFragment;
 import gdyj.tydic.com.jinlingapp.ui.MainFragment;
 import gdyj.tydic.com.jinlingapp.ui.UserSet.UserSetFragment;
@@ -28,14 +27,14 @@ import gdyj.tydic.com.jinlingapp.ui.UserSet.UserSetFragment;
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CODE_ADDRESS = 100;
     TabLayout mTabLayout;
-    CustomViewPager mViewPager;
+    MyCustomViewPager mViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTabLayout = (TabLayout) findViewById(R.id.testFragmentTablayout);
-        mViewPager = (CustomViewPager) findViewById(R.id.testFragmentViewPager);
+        mViewPager = (MyCustomViewPager) findViewById(R.id.testFragmentViewPager);
         // 创建Fragment集合
         List<Fragment> fragments = new ArrayList<>();
         // 将Fragment添加到集合
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // 初始化适配器
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager());
         adapter.setFragments(fragments);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(adapter);
         // 设置ViewPager
         mTabLayout.setupWithViewPager(mViewPager);

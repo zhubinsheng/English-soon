@@ -1,7 +1,8 @@
 package gdyj.tydic.com.jinlingapp.ui.Classify;
 
 import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
-import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
+import gdyj.tydic.com.jinlingapp.bean.BaseResult;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -9,6 +10,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by
+ * @author binshengzhu
  */
 public class ClassifyPresenter implements ClassifyContract.Presenter {
 
@@ -27,14 +29,14 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
 
     @Override
     public void getClassify(String token) {
-        Observable<ClassifyL> observable = classifyApi.GetClassify(token);
+        Observable<BaseResult<ClassifyBean>> observable = classifyApi.GetClassify(token);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<ClassifyL>() {
+                .subscribe(new Consumer<BaseResult<ClassifyBean>>() {
                     @Override
-                    public void accept(ClassifyL loginResult) throws Exception {
-                        if(mView!=null&&loginResult.getResult()!=null){
-                            mView.onLoginSuccess(loginResult);
+                    public void accept(BaseResult<ClassifyBean> classifyBeanBaseResult) throws Exception {
+                        if(mView!=null&&classifyBeanBaseResult.gettList()!=null){
+                            mView.onLoginSuccess(classifyBeanBaseResult.gettList());
                         }else {
                             mView.onLoginFail("获取单词列表为空，请重试");
                         }

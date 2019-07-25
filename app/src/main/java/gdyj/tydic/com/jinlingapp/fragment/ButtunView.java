@@ -1,13 +1,10 @@
 package gdyj.tydic.com.jinlingapp.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;

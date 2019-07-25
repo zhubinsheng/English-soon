@@ -10,8 +10,8 @@ import io.objectbox.annotation.Unique;
  * @author binshengzhu
  */
 @Entity
-public class ResultBean {
-    public ResultBean(String word, String meaning, String classify) {
+public class ClassifyBean {
+    public ClassifyBean(String word, String meaning, String classify) {
         this.word = word;
         this.meaning = meaning;
         this.classify = classify;

@@ -1,6 +1,6 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
-import java.io.Serializable;
+import java.util.List;
 
 /**
  *   接口返回数据格式
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @date  2019年1月19日
  */
 
-public class Result<T> implements Serializable {
+public class BaseResult<T> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -73,7 +73,14 @@ public class Result<T> implements Serializable {
 
 	private T result;
 
-	public Result() {
-		
+	private List<T> tList;
+
+
+	public List<T> gettList() {
+		return tList;
+	}
+
+	public void settList(List<T> tList) {
+		this.tList = tList;
 	}
 }

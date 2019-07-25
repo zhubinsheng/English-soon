@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
+import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.LoginResilt;
-import gdyj.tydic.com.jinlingapp.bean.Result;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 import gdyj.tydic.com.jinlingapp.bean.SysUser;
 import io.reactivex.Observable;
@@ -102,12 +102,12 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
         Gson gson = new Gson();
         String requestBody = gson.toJson(sysLoginModel);
         RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),requestBody);
-        Observable<Result<SysUser>> observable = mPhoneLoginApi.PhoneRegister(body);
+        Observable<BaseResult<SysUser>> observable = mPhoneLoginApi.PhoneRegister(body);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<Result<SysUser>>() {
+                .subscribe(new Consumer<BaseResult<SysUser>>() {
                     @Override
-                    public void accept(Result<SysUser> loginResult) throws Exception {
+                    public void accept(BaseResult<SysUser> loginResult) throws Exception {
                         Log.e(TAG,"4getApplication is "+loginResult);
                         if(mView!=null){
                             mView.onRegisterSuccess();

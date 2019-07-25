@@ -27,9 +27,7 @@ import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
-import gdyj.tydic.com.jinlingapp.bean.ClassifyL;
-import gdyj.tydic.com.jinlingapp.bean.ResultBean;
-import gdyj.tydic.com.jinlingapp.bean.ResultBean_;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
@@ -44,9 +42,9 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private TextView title;
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
-    private List< ClassifyL.ResultBean> englishInfoList =new ArrayList<>();
-    private Box<ResultBean> notesBox;
-    private Query<ResultBean> notesQuery;
+    private List<ClassifyBean> englishInfoList =new ArrayList<>();
+    private Box<ClassifyBean> notesBox;
+    private Query<ClassifyBean> notesQuery;
     private BoxStore boxStore;
 
 
@@ -65,8 +63,8 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         layout = inflater.inflate(R.layout.fragment_classify, container, false);
         unbinder = ButterKnife.bind(this,layout);
         boxStore=MyApplication.getInstance().getBoxStore();
-        notesBox = boxStore.boxFor(ResultBean.class);
-        notesQuery = notesBox.query().order(ResultBean_.word).build();
+        notesBox = boxStore.boxFor(ClassifyBean.class);
+        //notesQuery = notesBox.query().order(ClassifyBean.).build();
         return layout;
     }
     @Override
@@ -84,9 +82,6 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 }
 
     private void initData() {
-        ResultBean resultBean=new ResultBean("1","2","3");
-        notesBox.put(resultBean);
-        List<ResultBean> resultBeans = notesQuery.find();
         String token = null;
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
@@ -193,10 +188,13 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     }
 
     @Override
-    public void onLoginSuccess(ClassifyL loginResult) {
-        englishInfoList = loginResult.getResult();
+    public void onLoginSuccess(List<ClassifyBean> classifyBean) {
+        englishInfoList = classifyBean;
         loadingView.setVisibility(View.GONE);
         englishAdapter.notifyDataSetChanged();
+        //ResultBean resultBean=new ResultBean("1","2","3");
+        notesBox.put(classifyBean);
+        // List<ResultBean> resultBeans = notesQuery.find();
     }
 
     @Override
