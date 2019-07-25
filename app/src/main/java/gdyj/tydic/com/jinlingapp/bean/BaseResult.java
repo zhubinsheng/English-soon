@@ -53,13 +53,6 @@ public class BaseResult<T> {
 		this.code = code;
 	}
 
-	public T getResult() {
-		return result;
-	}
-
-	public void setResult(T result) {
-		this.result = result;
-	}
 
 	/**
 	 * 返回代码
@@ -71,16 +64,16 @@ public class BaseResult<T> {
 	 * 返回数据对象 data
 	 */
 
-	private T result;
+	//private T result;
 
-	private List<T> tList;
+	private List<T> result;
 
 
-	public List<T> gettList() {
-		return tList;
+	public List<T> getResult() {
+		return result;
 	}
 
-	public void settList(List<T> tList) {
-		this.tList = tList;
+	public void setResult(List<T> result) {
+		this.result = result;
 	}
 }

@@ -16,8 +16,7 @@ import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.vo.Classify;
 
 public class ClassifyAdapter extends BaseAdapter implements View.OnClickListener {
- 
-  private static final String TAG = ClassifyAdapter.class.getSimpleName();
+
   private List<Classify> data;
   private LayoutInflater inflater;
   private OnClickItemListener listener;//持有接口
@@ -105,7 +104,6 @@ public class ClassifyAdapter extends BaseAdapter implements View.OnClickListener
   @Override
   public void onClick(View v) {
     Integer position = (Integer) v.getTag();
-    Log.e(TAG, "onClick: "+position );
     if (listener!=null) {
       listener.onOnclickItem(position);
     }

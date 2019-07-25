@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.ui;
+package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,29 +15,43 @@ import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
+import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyContract;
+import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyPresenter;
 
-public class EnglishFragment extends Fragment {
+public class EnglishFragment extends Fragment implements ClassifyContract.View {
     private View layout;
     private ImageView back;
     private TextView title;
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
-    private List<EnglishInfo> englishInfoList;
+    private List<ClassifyBean> englishInfoList;
+    private EnglishWordPresenter englishWordPresenter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.fragment_classify, container, false);
+        layout = inflater.inflate(R.layout.fragment_english, container, false);
+        englishWordPresenter = new EnglishWordPresenter(this);
         return layout;
     }
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initView();
-
+        initData();
         //initAdapter();
 }
 
+    private void initData() {
+        englishWordPresenter.getClassify();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        englishWordPresenter.onDetach();
+    }
 
     private void initView() {
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
@@ -75,4 +89,21 @@ public class EnglishFragment extends Fragment {
 
     }
 
+    @Override
+    public void onValidCodeSend() {
+
+    }
+
+    @Override
+    public void onLoginSuccess(List<ClassifyBean> classifyBeans) {
+        englishInfoList = classifyBeans;
+        //englishAdapter.notifyDataSetChanged();
+        englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
+        mRecyclerView.setAdapter(englishAdapter);
+    }
+
+    @Override
+    public void onLoginFail(String errorTip) {
+
+    }
 }

@@ -27,9 +27,37 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "2:5149149504843192220",
+      "lastPropertyId": "5:2395428532911090797",
+      "name": "LoginResilt",
+      "properties": [
+        {
+          "id": "1:1771450507107870040",
+          "name": "boxId"
+        },
+        {
+          "id": "2:507119159895358075",
+          "name": "success"
+        },
+        {
+          "id": "3:9024163641798531879",
+          "name": "message"
+        },
+        {
+          "id": "4:8165001696485620079",
+          "name": "code"
+        },
+        {
+          "id": "5:2395428532911090797",
+          "name": "timestamp"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "1:2611658797384111404",
+  "lastEntityId": "2:5149149504843192220",
   "lastIndexId": "2:5704501578431004214",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

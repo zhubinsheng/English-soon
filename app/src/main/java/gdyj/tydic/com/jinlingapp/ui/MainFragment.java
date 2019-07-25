@@ -23,7 +23,7 @@ import gdyj.tydic.com.jinlingapp.adapter.HeaderAndFooterAdapter;
 public class MainFragment extends Fragment implements ClassifyAdapter.OnClickItemListener {
   public static final String TAG = MainFragment.class.getSimpleName();
   private ListView mListView;
-  private ClassifyAdapter adapter;
+  //private ClassifyAdapter adapter;
   private ImageView mHeaderImage;
   private ImageView mBottomImage;
   private View layout;

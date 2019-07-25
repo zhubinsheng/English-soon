@@ -17,7 +17,7 @@ import java.util.List;
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
-import gdyj.tydic.com.jinlingapp.ui.EnglishFragment;
+import gdyj.tydic.com.jinlingapp.ui.EnglishWord.EnglishFragment;
 import gdyj.tydic.com.jinlingapp.ui.MainFragment;
 import gdyj.tydic.com.jinlingapp.ui.UserSet.UserSetFragment;
 

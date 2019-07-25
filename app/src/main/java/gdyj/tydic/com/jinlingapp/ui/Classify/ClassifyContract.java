@@ -15,6 +15,6 @@ public interface ClassifyContract {
     }
 
     interface Presenter{
-        void getClassify(String token);
+        void getClassify();
     }
 }

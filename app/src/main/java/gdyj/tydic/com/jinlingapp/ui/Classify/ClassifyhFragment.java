@@ -79,18 +79,43 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         initView();
         initData(); // retrofit请求范例
         initAdapter();
-}
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Toasty.warning(getActivity(), "onStart", Toast.LENGTH_SHORT, true).show();
+        //initData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Toasty.warning(getActivity(), "onResume", Toast.LENGTH_LONG, true).show();
+        //initData();
+    }
+
+    @Override
+    public void onPause() {
+        Toasty.warning(getActivity(), "onPause", Toast.LENGTH_LONG, true).show();
+        super.onPause();
+    }
+
+    @Override
+    public void onStop() {
+        //Toasty.warning(getActivity(), "onStop", Toast.LENGTH_LONG, true).show();
+        super.onStop();
+    }
     private void initData() {
-        String token = null;
+        classifyPresenter.getClassify();
+        /*String token = null;
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
             classifyPresenter.getClassify(token);
         }else {
             Toasty.warning(getActivity(), "尚未登录，请先登录哦", Toast.LENGTH_SHORT, true).show();
             //return;
-        }
-
+        }*/
     }
 
     private void initView() {
@@ -191,7 +216,9 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     public void onLoginSuccess(List<ClassifyBean> classifyBean) {
         englishInfoList = classifyBean;
         loadingView.setVisibility(View.GONE);
-        englishAdapter.notifyDataSetChanged();
+        //englishAdapter.notifyDataSetChanged();
+        englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
+        mRecyclerView.setAdapter(englishAdapter);
         //ResultBean resultBean=new ResultBean("1","2","3");
         notesBox.put(classifyBean);
         // List<ResultBean> resultBeans = notesQuery.find();
@@ -201,6 +228,4 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     public void onLoginFail(String errorTip) {
         Toasty.warning(getActivity(), errorTip, Toast.LENGTH_LONG, true).show();
     }
-
-
 }
