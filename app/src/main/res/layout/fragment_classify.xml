@@ -33,17 +33,31 @@
         app:isb_track_progress_size="4dp"
         app:isb_only_thumb_draggable="false"/>
 
-    <com.mingle.widget.LoadingView
+    <!--<com.mingle.widget.LoadingView
         android:id="@+id/loadView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         app:loadingText="加载中..."
-        android:visibility="visible"/>
+        android:visibility="visible"/>-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <!--<ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:srcCompat="@drawable/chongdietouming"
+             />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
+
+
 
 </LinearLayout>

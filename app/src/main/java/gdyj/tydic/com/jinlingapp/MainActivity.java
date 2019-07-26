@@ -49,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(adapter);
         // 设置ViewPager
         mTabLayout.setupWithViewPager(mViewPager);
-        initPermission();
+
+        new Thread(){
+            @Override
+            public void run() {
+                //需要在子线程中处理的逻辑
+                initPermission();
+            }
+        }.start();
+
     }
 
     /**

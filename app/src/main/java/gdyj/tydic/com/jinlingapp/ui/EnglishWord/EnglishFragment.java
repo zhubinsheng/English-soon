@@ -13,12 +13,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
-import gdyj.tydic.com.jinlingapp.bean.EnglishInfo;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyContract;
-import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyPresenter;
 
 public class EnglishFragment extends Fragment implements ClassifyContract.View {
     private View layout;
@@ -97,6 +95,7 @@ public class EnglishFragment extends Fragment implements ClassifyContract.View {
     @Override
     public void onLoginSuccess(List<ClassifyBean> classifyBeans) {
         englishInfoList = classifyBeans;
+        Toasty.warning(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         mRecyclerView.setAdapter(englishAdapter);
@@ -104,6 +103,6 @@ public class EnglishFragment extends Fragment implements ClassifyContract.View {
 
     @Override
     public void onLoginFail(String errorTip) {
-
+        Toasty.warning(getActivity(),errorTip).show();
     }
 }

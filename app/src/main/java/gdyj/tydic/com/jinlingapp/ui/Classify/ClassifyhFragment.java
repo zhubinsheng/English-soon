@@ -1,6 +1,5 @@
 package gdyj.tydic.com.jinlingapp.ui.Classify;
 
-import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,21 +12,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemSwipeListener;
-import com.mingle.widget.LoadingView;
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.ExpandableItemAdapter;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.adapter.EnglishAdapter;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
+import gdyj.tydic.com.jinlingapp.bean.MySection;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
@@ -41,15 +39,20 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private ImageView back;
     private TextView title;
     private RecyclerView mRecyclerView;
-    private EnglishAdapter englishAdapter;
-    private List<ClassifyBean> englishInfoList =new ArrayList<>();
+    private ExpandableItemAdapter expandableItemAdapter;
+
+    private List<MySection> mySectionList =new ArrayList<>();
+    private ArrayList<MultiItemEntity> list;
+
     private Box<ClassifyBean> notesBox;
     private Query<ClassifyBean> notesQuery;
     private BoxStore boxStore;
 
 
-    @BindView(R.id.loadView)
-    LoadingView loadingView;
+    //@BindView(R.id.loadView)
+    //LoadingView loadingView;
+    //@BindView(R.id.imageView2)
+    //ImageView imageView2;
 
     private ClassifyPresenter classifyPresenter;
     @Override
@@ -84,6 +87,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     @Override
     public void onStart() {
         super.onStart();
+        //imageView2.getBackground().setAlpha(100);//0~255透明度值
         Toasty.warning(getActivity(), "onStart", Toast.LENGTH_SHORT, true).show();
         //initData();
     }
@@ -145,7 +149,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         resultBean1.setMeaning("yes");
         englishInfoList.add(resultBean);
         englishInfoList.add(resultBean1);*/
-        englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
+        /*englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         englishAdapter.openLoadAnimation();
 
         //开启动画（默认为渐显效果）
@@ -185,11 +189,11 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
         // 开启滑动删除
         englishAdapter.enableSwipeItem();
-        englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
+        englishAdapter.setOnItemSwipeListener(onItemSwipeListener);*/
 
 
 
-        mRecyclerView.setAdapter(englishAdapter);
+        mRecyclerView.setAdapter(expandableItemAdapter);
     }
 
     protected void setBackBtn() {
@@ -211,17 +215,45 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     public void onValidCodeSend() {
 
     }
-
+//jvoid gdyj.tydic.com.jinlingapp.bean.ClassifyBean.setMeaning(java.lang.String)' on a null object reference
     @Override
-    public void onLoginSuccess(List<ClassifyBean> classifyBean) {
-        englishInfoList = classifyBean;
-        loadingView.setVisibility(View.GONE);
+    public void onLoginSuccess(List<ClassifyBean> classifyBeans) {
+        list = generateData(classifyBeans);
+
+
+        MySection mySection = new MySection(true,"测试组1");
+
+
+        mySection.setBannerInfo(classifyBeans);
+        mySectionList.add(mySection);
         //englishAdapter.notifyDataSetChanged();
-        englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
-        mRecyclerView.setAdapter(englishAdapter);
-        //ResultBean resultBean=new ResultBean("1","2","3");
-        notesBox.put(classifyBean);
+        expandableItemAdapter = new ExpandableItemAdapter(list);
+        mRecyclerView.setAdapter(expandableItemAdapter);
+        //loadingView.setVisibility(View.GONE);
+        //notesBox.put(classifyBean);
         // List<ResultBean> resultBeans = notesQuery.find();
+    }
+
+    private ArrayList<MultiItemEntity> generateData(List<ClassifyBean> classifyBeans) {
+        int lv0Count = 9;
+
+        int personCount = classifyBeans.size();
+
+        Random random = new Random();
+
+        ArrayList<MultiItemEntity> res = new ArrayList<>();
+        for (int i = 0; i < lv0Count; i++) {
+            ClassifyLevel0Item lv0 = new ClassifyLevel0Item("This is " + i + "th item in Level 0", "subtitle of " + i);
+
+
+                for (int k = 0; k < personCount; k++) {
+                    lv0.addSubItem(classifyBeans.get(k));
+                }
+
+            res.add(lv0);
+        }
+
+        return res;
     }
 
     @Override

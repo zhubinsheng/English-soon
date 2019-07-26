@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp.adapter;
+package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
 import android.support.annotation.Nullable;
 import android.widget.TextView;
@@ -19,7 +19,8 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
 
     @Override
     protected void convert(BaseViewHolder helper,  ClassifyBean item) {
-        ((TextView) helper.getView(R.id.text1)).setText(item.getClassify());
+        ((TextView) helper.getView(R.id.text1)).setText(item.getMeaning());
+        ((TextView) helper.getView(R.id.text2)).setText(item.getWord());
         //((TextView) helper.getView(R.id.text2)).setText(item.getWord());
     }
 }

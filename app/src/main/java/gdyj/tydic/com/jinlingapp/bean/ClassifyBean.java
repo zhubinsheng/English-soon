@@ -1,5 +1,7 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
@@ -10,7 +12,7 @@ import io.objectbox.annotation.Unique;
  * @author binshengzhu
  */
 @Entity
-public class ClassifyBean {
+public class ClassifyBean implements MultiItemEntity {
     public ClassifyBean(String word, String meaning, String classify) {
         this.word = word;
         this.meaning = meaning;
@@ -55,4 +57,9 @@ public class ClassifyBean {
         public void setClassify(String classify) {
             this.classify = classify;
         }
+
+    @Override
+    public int getItemType() {
+        return 2;
     }
+}
