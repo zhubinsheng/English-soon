@@ -125,7 +125,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private void initView() {
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        back = (ImageView) layout.findViewById(R.id.img_back);
+        //back = (ImageView) layout.findViewById(R.id.img_back);
         title = (TextView) layout.findViewById(R.id.title);
         setBackBtn();
         setTitle("英 文 四 级");
@@ -152,44 +152,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         /*englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         englishAdapter.openLoadAnimation();
 
-        //开启动画（默认为渐显效果）
-        englishAdapter.openLoadAnimation();
-        //条目长按事件
-        englishAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                Toast.makeText(getActivity(), "长按了第" + (position + 1) + "条条目", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
-            @Override
-            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
-                Toast.makeText(getActivity(), "onItemSwipeStart", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
-                Toast.makeText(getActivity(), "clearView", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
-                Toast.makeText(getActivity(), "onItemSwiped", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
-                Toast.makeText(getActivity(), "onItemSwipeMoving", Toast.LENGTH_SHORT).show();
-            }
-        };
-
-
-
-
-
-        // 开启滑动删除
-        englishAdapter.enableSwipeItem();
-        englishAdapter.setOnItemSwipeListener(onItemSwipeListener);*/
+        */
 
 
 

@@ -40,23 +40,11 @@
         android:layout_centerInParent="true"
         app:loadingText="加载中..."
         android:visibility="visible"/>-->
-
-    <FrameLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-        <!--<ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            app:srcCompat="@drawable/chongdietouming"
-             />-->
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
 
 
 

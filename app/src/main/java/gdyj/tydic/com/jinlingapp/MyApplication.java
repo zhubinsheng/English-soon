@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.mob.MobSDK;
+import com.zhy.changeskin.SkinManager;
 
 import gdyj.tydic.com.jinlingapp.bean.MyObjectBox;
 import io.objectbox.BoxStore;
@@ -38,6 +39,8 @@ public class MyApplication extends Application {
 
         MultiDex.install(this);
         MobSDK.init(this);
+        SkinManager.getInstance().init(this);
+        SkinConfig.enableGlobalSkinApply()
         initObjectBox();
         //Stetho.initializeWithDefaults(this);
 

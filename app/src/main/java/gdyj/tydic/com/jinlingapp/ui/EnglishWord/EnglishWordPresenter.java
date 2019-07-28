@@ -1,10 +1,7 @@
 package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
 import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
-import gdyj.tydic.com.jinlingapp.bean.BaseResult;
-import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
-import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyApi;
-import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyContract;
+import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -14,12 +11,12 @@ import io.reactivex.schedulers.Schedulers;
  * Created by
  * @author binshengzhu
  */
-public class EnglishWordPresenter implements ClassifyContract.Presenter {
+public class EnglishWordPresenter implements EnglishContract.Presenter {
 
-    private ClassifyContract.View mView;
+    private EnglishContract.View mView;
     private final EnglishWordApi englishWordApi;
 
-    public EnglishWordPresenter(ClassifyContract.View view){
+    public EnglishWordPresenter(EnglishContract.View view){
         this.mView = view;
         englishWordApi = MyRetrofitManager.create(EnglishWordApi.class);
     }
@@ -31,12 +28,12 @@ public class EnglishWordPresenter implements ClassifyContract.Presenter {
 
     @Override
     public void getClassify() {
-        Observable<BaseResult<ClassifyBean>> observable = englishWordApi.GetEnglishWord();
+        Observable<EnglishCodeVo> observable = englishWordApi.GetEnglishWord();
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseResult<ClassifyBean>>() {
+                .subscribe(new Consumer<EnglishCodeVo>() {
                     @Override
-                    public void accept(BaseResult<ClassifyBean> classifyBeanBaseResult) throws Exception {
+                    public void accept(EnglishCodeVo classifyBeanBaseResult) throws Exception {
                         if(mView!=null&&classifyBeanBaseResult.getResult()!=null){
                             mView.onLoginSuccess(classifyBeanBaseResult.getResult());
                         }else {

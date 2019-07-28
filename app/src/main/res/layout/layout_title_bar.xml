@@ -3,11 +3,9 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-
-                android:background="@color/spinner_bg"
     >
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/img_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,17 +13,17 @@
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/back"/>
+        android:src="@drawable/back"/>-->
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/img_back"
         android:gravity="center_vertical"
         android:text="title"
-        android:textColor="@color/white_text_color"
+        android:tag="skin:item_text_color:textColor"
+        android:textColor="@color/text_color_white"
         android:textSize="16sp"
         />
 

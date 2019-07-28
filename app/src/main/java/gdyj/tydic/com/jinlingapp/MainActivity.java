@@ -11,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
+import com.zhy.changeskin.SkinManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //SkinManager.getInstance().register(this);
+
         mTabLayout = (TabLayout) findViewById(R.id.testFragmentTablayout);
         mViewPager = (MyCustomViewPager) findViewById(R.id.testFragmentViewPager);
         // 创建Fragment集合
@@ -60,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        //SkinManager.getInstance().unregister(this);
+    }
     /**
      * android 6.0 以上需要动态申请权限
      */

@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.zhy.changeskin.SkinManager;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -50,6 +52,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLoginPresenter = new PhoneLoginPresenter(this);
+        SkinManager.getInstance().register(getActivity());
     }
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -77,6 +80,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
         super.onDestroyView();
         unbinder.unbind();
         mLoginPresenter.onDetach();
+        SkinManager.getInstance().unregister(getActivity());
     }
 
     private void initAdapter() {
@@ -128,6 +132,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 sendCode(getContext());
                 break;
             case R.id.button2:
+                SkinManager.getInstance().changeSkin("point");
                 break;
 
 

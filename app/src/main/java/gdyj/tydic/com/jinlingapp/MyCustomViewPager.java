@@ -42,14 +42,12 @@ public class MyCustomViewPager extends ViewPager {
         /* return false;//super.onTouchEvent(arg0); */
         //switch(arg0.getAction()){
         //}
-
-
-        return !noScroll && super.onTouchEvent(arg0);
+        return noScroll && super.onTouchEvent(arg0);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent arg0) {
-        return !noScroll && super.onInterceptTouchEvent(arg0);
+        return noScroll && super.onInterceptTouchEvent(arg0);
     }
 
     @Override

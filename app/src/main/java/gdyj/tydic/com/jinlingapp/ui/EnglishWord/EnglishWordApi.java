@@ -1,7 +1,6 @@
 package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
-import gdyj.tydic.com.jinlingapp.bean.BaseResult;
-import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
+import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 import io.reactivex.Observable;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -13,6 +12,6 @@ import retrofit2.http.POST;
 public interface EnglishWordApi {
     @Headers({"Content-Type: application/json","Accept: application/json"})
     @POST("api/word")
-    Observable<BaseResult<ClassifyBean>> GetEnglishWord();
+    Observable<EnglishCodeVo> GetEnglishWord();
 
 }

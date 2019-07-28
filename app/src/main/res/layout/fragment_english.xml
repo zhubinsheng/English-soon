@@ -33,9 +33,23 @@
         app:isb_track_progress_size="4dp"
         app:isb_only_thumb_draggable="false"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            app:srcCompat="@drawable/xingkongbeijing"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </FrameLayout>
+
 
 </LinearLayout>
