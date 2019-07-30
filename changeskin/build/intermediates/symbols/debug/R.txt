@@ -1,0 +1,2 @@
+int id skin_tag_id 0x7f0c0001
+int string app_name 0x7f150001

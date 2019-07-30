@@ -19,10 +19,10 @@
     <color name="tab_text_pressed_color">#e73820</color>
     <color name="grid_items_line">#e7e7e7</color>
 
-
-
+    <color name="white">#ffffff</color>
+    <color name="textColor">#464646</color>
     <color name="color_blue">#008577</color>
     <color name="color_green">#00574B</color>
     <color name="color_gray">#D81B60</color>
-
+    <color name="calendar_head_background">#00dcd2</color>
 </resources>

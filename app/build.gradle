@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "gdyj.tydic.com.jinlingapp"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -84,8 +84,7 @@ dependencies {
     //eventbus
     implementation 'org.greenrobot:eventbus:3.1.1'
     //无侵入的换肤
-    //implementation'com.zhy:changeskin:4.0.3'
-    //implementation files('libs\\classes.jar')
+    implementation project(path: ':changeskin')
 
-    implementation group: 'com.solid.skin', name: 'skinlibrary', version: '2.0.0'
+
 }

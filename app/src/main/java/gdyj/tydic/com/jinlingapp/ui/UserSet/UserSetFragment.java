@@ -132,9 +132,8 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 sendCode(getContext());
                 break;
             case R.id.button2:
-                SkinManager.getInstance().changeSkin("point");
-                break;
 
+                break;
 
                 default:break;
         }
