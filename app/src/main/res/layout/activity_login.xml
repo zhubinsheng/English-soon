@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        app:tb_titleText="登录"
+        app:tb_titleTextColor ="@color/successColor"
+        android:background="@color/xui_config_color_titlebar" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="账号登录" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:textColor="#ADD8E6"
+        android:text="开启新时代英语" />
+
+    <EditText
+        android:id="@+id/phone"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="手机号"
+        android:maxLength="11"
+        android:inputType="number"
+        android:maxLines="1" />
+
+    <com.xwray.passwordview.PasswordView
+        android:id="@+id/mima"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:digits="@string/rule_text"
+        android:inputType="textPassword"
+        android:hint="@string/connection_code"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:id="@+id/jizhumima"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="20dp"
+            android:textColor="@color/color_blue"
+            android:text="记住密码" />
+
+        <TextView
+            android:id="@+id/wangjimima"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:textSize="20dp"
+            android:textColor="@color/color_blue"
+            android:text="忘记密码" />
+
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ssdk_oks_classic_qq" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ssdk_oks_classic_wechat" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>-->
+
+    <TextView
+        android:id="@+id/denglu"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="@color/successColor"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:text="登录" />
+
+</LinearLayout>

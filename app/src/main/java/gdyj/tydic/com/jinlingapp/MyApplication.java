@@ -6,7 +6,9 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.mob.MobSDK;
+import com.xuexiang.xui.XUI;
 import com.zhy.changeskin.SkinManager;
+
 import gdyj.tydic.com.jinlingapp.bean.MyObjectBox;
 import io.objectbox.BoxStore;
 
@@ -41,6 +43,9 @@ public class MyApplication extends Application {
         SkinManager.getInstance().init(this);
         initObjectBox();
         //Stetho.initializeWithDefaults(this);
+        XUI.init(this); //初始化UI框架
+        XUI.debug(true);  //开启UI框架调试日志
+
 
     }
 

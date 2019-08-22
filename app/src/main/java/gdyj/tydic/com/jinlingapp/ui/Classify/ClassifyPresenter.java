@@ -1,5 +1,7 @@
 package gdyj.tydic.com.jinlingapp.ui.Classify;
 
+import android.annotation.SuppressLint;
+
 import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
@@ -27,6 +29,7 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
         this.mView = null;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void getClassify() {
         Observable<BaseResult<ClassifyBean>> observable = classifyApi.GetClassify();

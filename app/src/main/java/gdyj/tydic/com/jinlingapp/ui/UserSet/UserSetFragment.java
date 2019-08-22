@@ -129,7 +129,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 sysLoginModel1.setUsername("admin19");
                 sysLoginModel1.setPassword("123456");
                 mLoginPresenter.PhoneRegister(sysLoginModel1);*/
-                sendCode(getContext());
+
                 break;
             case R.id.button2:
 
@@ -165,33 +165,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
     }
 
-    public void sendCode(Context context) {
-        RegisterPage page = new RegisterPage();
-        //如果使用我们的ui，没有申请模板编号的情况下需传null
-        page.setTempCode(null);
-        page.setRegisterCallback(new EventHandler() {
-            public void afterEvent(int event, int result, Object data) {
-                if (result == SMSSDK.RESULT_COMPLETE) {
-                    // 处理成功的结果
-                    HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
-                    String country = (String) phoneMap.get("country"); // 国家代码，如“86”
-                    String phone = (String) phoneMap.get("phone"); // 手机号码，如“13800138000”
-                    // TODO 利用国家代码和手机号码进行后续的操作
-                    Toasty.warning(getContext(),phone);
-                    SysLoginModel sysLoginModel = new SysLoginModel();
-                    sysLoginModel.setCaptcha("123");
-                    sysLoginModel.setUsername("admin19");
-                    sysLoginModel.setPassword("123456");
-                    mLoginPresenter.PhoneRegister(sysLoginModel);
 
-                } else{
-                    // TODO 处理错误的结果
-                    Toasty.warning(getContext(),"注册失败").show();
-                }
-            }
-        });
-        page.show(context);
-    }
 
     private void speak() {
         String text = "onSynthesizeFinish";

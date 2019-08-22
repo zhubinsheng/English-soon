@@ -1,5 +1,6 @@
 package gdyj.tydic.com.jinlingapp.ui.UserSet;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -55,6 +56,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
 
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void PhoneLogin(SysLoginModel sysLoginModel) {
         Gson gson = new Gson();
@@ -68,6 +70,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     public void accept(LoginResilt loginResult) throws Exception {
                         if(loginResult!=null && loginResult.getResult()!=null){
                             String id = loginResult.getResult().getUserInfo().getId();
+
 
                                 //LoginUtil.getInstance().setLoginStatus(true);
                                 //LoginUtil.getInstance().setUserId(String.valueOf(id));
