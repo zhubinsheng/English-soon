@@ -43,13 +43,13 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
             case TYPE_LEVEL_0:
                 switch (holder.getLayoutPosition() % 3) {
                     case 0:
-                        holder.setImageResource(R.id.imageView5, R.mipmap.ic_launcher_round);
+                        holder.setImageResource(R.id.imageView5, R.drawable.binggan);
                         break;
                     case 1:
-                        holder.setImageResource(R.id.imageView5, R.mipmap.ic_launcher_round);
+                        holder.setImageResource(R.id.imageView5, R.drawable.bigenguo);
                         break;
                     case 2:
-                        holder.setImageResource(R.id.imageView5, R.mipmap.ic_launcher_round);
+                        holder.setImageResource(R.id.imageView5, R.drawable.niuyouguo);
                         break;
                     default:
                         break;
@@ -60,7 +60,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                     @Override
                     public void onClick(View v) {
                         int pos = holder.getAdapterPosition();
-                        Log.d(TAG, "Level 1 item pos: " + pos);
+
                         if (lv0.isExpanded()) {
                             collapse(pos);
                         } else {

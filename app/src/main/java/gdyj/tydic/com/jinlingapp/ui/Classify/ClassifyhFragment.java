@@ -182,11 +182,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     @Override
     public void onLoginSuccess(List<ClassifyBean> classifyBeans) {
         list = generateData(classifyBeans);
-
-
         MySection mySection = new MySection(true,"测试组1");
-
-
         mySection.setBannerInfo(classifyBeans);
         mySectionList.add(mySection);
         //englishAdapter.notifyDataSetChanged();
@@ -206,9 +202,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
         ArrayList<MultiItemEntity> res = new ArrayList<>();
         for (int i = 0; i < lv0Count; i++) {
-            ClassifyLevel0Item lv0 = new ClassifyLevel0Item("This is " + i + "th item in Level 0", "subtitle of " + i);
-
-
+            ClassifyLevel0Item lv0 = new ClassifyLevel0Item("( " + i + ")", "subtitle of " + i);
                 for (int k = 0; k < personCount; k++) {
                     lv0.addSubItem(classifyBeans.get(k));
                 }

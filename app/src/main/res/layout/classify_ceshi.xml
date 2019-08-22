@@ -26,7 +26,7 @@
             android:paddingLeft="12px"
             android:paddingTop="8px"
             android:paddingBottom="8px"
-            android:text="sans-serif-condensed"
+            android:text="小学"
             android:textColor="#00EEEE"
             android:textSize="18sp"
             android:textStyle="bold" />

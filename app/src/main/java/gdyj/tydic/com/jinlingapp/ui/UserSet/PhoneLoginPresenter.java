@@ -33,6 +33,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
         mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class);
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void getValideCode(String phoneNumber) {
         Observable<BaseInfo> observable = mPhoneLoginApi.getValidCode(phoneNumber);
@@ -70,8 +71,6 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     public void accept(LoginResilt loginResult) throws Exception {
                         if(loginResult!=null && loginResult.getResult()!=null){
                             String id = loginResult.getResult().getUserInfo().getId();
-
-
                                 //LoginUtil.getInstance().setLoginStatus(true);
                                 //LoginUtil.getInstance().setUserId(String.valueOf(id));
                                 MyApplication.getInstance().setHasjwt(true);

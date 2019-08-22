@@ -146,7 +146,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
     @Override
     public void onLoginSuccess() {
-        Toasty.success(getContext(),"登录成功").show();
+
 
     }
 

@@ -2,6 +2,7 @@ package gdyj.tydic.com.jinlingapp;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -10,7 +11,9 @@ import android.widget.TextView;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
@@ -36,19 +39,27 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
     TextView next;
 
     private PhoneLoginPresenter mLoginPresenter;
+    private Unbinder unbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mLoginPresenter = new PhoneLoginPresenter(this);
+        unbinder = ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
     }
 
     @OnClick({R.id.wangjimima,R.id.denglu})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.denglu:
-                if(ValideUtil.isMobilePhone(phone.getText().toString())||phone.getText().toString().length()!=11){
+                if(/*ValideUtil.isMobilePhone(String.valueOf(phone.getText()))||*/phone.getText().length()!=11){
                     Toasty.warning(this,"请输入正确的手机号码").show();
                     return;
                 }
@@ -79,7 +90,10 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
 
     @Override
     public void onLoginSuccess() {
-
+        Toasty.success(this,"登录成功").show();
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -111,12 +125,14 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
                     String phone = (String) phoneMap.get("phone"); // 手机号码，如“13800138000”
                     // TODO 利用国家代码和手机号码进行后续的操作
 
-                    SysLoginModel sysLoginModel = new SysLoginModel();
+                    /*SysLoginModel sysLoginModel = new SysLoginModel();
                     sysLoginModel.setCaptcha("123");
                     sysLoginModel.setUsername("admin19");
                     sysLoginModel.setPassword("123456");
-                    mLoginPresenter.PhoneRegister(sysLoginModel);
-
+                    mLoginPresenter.PhoneRegister(sysLoginModel);*/
+                    Intent intent = new Intent(LoginActivity.this, tianxieziliaoAcitivity.class);
+                    startActivity(intent);
+                    finish();
                 } else{
                     // TODO 处理错误的结果
                     Toasty.warning(LoginActivity.this,"注册失败").show();
