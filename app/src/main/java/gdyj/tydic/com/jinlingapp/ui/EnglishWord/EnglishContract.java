@@ -10,10 +10,11 @@ public interface EnglishContract {
     interface View{
         void onValidCodeSend();
         void onLoginSuccess(EnglishCodeVo.ResultBean resultBean);
+        void onGetMoreSuccess(EnglishCodeVo.ResultBean resultBean);
         void onLoginFail(String errorTip);
     }
 
     interface Presenter{
-        void getClassify();
+        void getClassify(String classify,int pageSize,int pageNo);
     }
 }

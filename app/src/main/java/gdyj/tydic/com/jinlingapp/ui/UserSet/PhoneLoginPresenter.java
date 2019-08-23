@@ -70,7 +70,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     @Override
                     public void accept(LoginResilt loginResult) throws Exception {
                         if(loginResult!=null && loginResult.getResult()!=null){
-                            String id = loginResult.getResult().getUserInfo().getId();
+                                String id = loginResult.getResult().getUserInfo().getId();
                                 //LoginUtil.getInstance().setLoginStatus(true);
                                 //LoginUtil.getInstance().setUserId(String.valueOf(id));
                                 MyApplication.getInstance().setHasjwt(true);

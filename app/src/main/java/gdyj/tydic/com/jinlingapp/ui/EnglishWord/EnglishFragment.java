@@ -15,18 +15,28 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
+import com.warkiz.widget.IndicatorSeekBar;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
-
+import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
 
 
 /**
  * @author Administrator
  */
 public class EnglishFragment extends Fragment implements EnglishContract.View {
+    private Unbinder unbinder;
     private View layout;
     private ImageView back;
     private TextView title;
@@ -34,11 +44,22 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     private EnglishAdapter englishAdapter;
     private List<EnglishCodeVo.ResultBean.RecordsBean> englishInfoList;
     private EnglishWordPresenter englishWordPresenter;
+
+    private String classify;
+    private static int pageSize = 15;
+    private static long delayMillis = 1000;
+
+    @BindView(R.id.seekbar)
+    IndicatorSeekBar seekBar;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_english, container, false);
         englishWordPresenter = new EnglishWordPresenter(this);
+        EventBus.getDefault().register(this);
+        unbinder = ButterKnife.bind(this,layout);
+        seekBar.setEnabled(false);
         return layout;
     }
     @Override
@@ -46,16 +67,20 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         super.onActivityCreated(savedInstanceState);
         initView();
         initData();
+
         //initAdapter();
 }
 
     private void initData() {
-        englishWordPresenter.getClassify();
+        //englishWordPresenter.getClassify(classify);
+
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+        unbinder.unbind();
         englishWordPresenter.onDetach();
     }
 
@@ -66,6 +91,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         title = (TextView) layout.findViewById(R.id.title);
         setBackBtn();
         setTitle("英 文 四 级");
+
     }
 
     private void setTitle(String msg) {
@@ -144,11 +170,58 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         englishAdapter.enableSwipeItem();
         englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
 
+        // 滑动最后一个Item的时候回调onLoadMoreRequested方法
+        englishAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override public void onLoadMoreRequested() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (resultBean.getCurrent() >= resultBean.getPages()) {
+                            //数据全部加载完毕
+                            englishAdapter.loadMoreEnd();
+                        } else {
+                            englishWordPresenter.getClassify(classify,pageSize,resultBean.getCurrent()+1);
+
+                           /* if (isErr) {
+                                //成功获取更多数据
+                                englishAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                                mCurrentCounter = mQuickAdapter.getData().size();
+                                mQuickAdapter.loadMoreComplete();
+                            } else {
+                                //获取更多数据失败
+                                isErr = true;
+                                Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
+                                mQuickAdapter.loadMoreFail();
+
+                            }*/
+                        }
+                    }
+
+                }, delayMillis);
+            }
+        }, mRecyclerView);
+
         mRecyclerView.setAdapter(englishAdapter);
+    }
+
+    @Override
+    public void onGetMoreSuccess(EnglishCodeVo.ResultBean resultBean) {
+        englishAdapter.addData(resultBean.getRecords());
+        englishAdapter.loadMoreComplete();
     }
 
     @Override
     public void onLoginFail(String errorTip) {
         Toasty.warning(getActivity(),errorTip).show();
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg2(ClassifyMessageEvent message) {
+        if (message.getRecode().equals("classify")){
+            classify = message.getClassify();
+            englishWordPresenter.getClassify(classify,pageSize,1);
+        }
     }
 }

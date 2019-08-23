@@ -1,16 +1,17 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.ui.Classify;
 
-import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
+import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
-import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyLevel0Item;
 
 
 /**
@@ -76,23 +77,29 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
 
             case TYPE_PERSON:
                 final ClassifyBean classifyBean = (ClassifyBean) item;
-                holder.setText(R.id.text1, classifyBean.getMeaning());
-                holder.setText(R.id.textView6, classifyBean.getWord());
-                /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+                holder.setText(R.id.text1, classifyBean.getClassify());
+
+                switch (holder.getLayoutPosition() % 3) {
+                    case 0:
+                        holder.setImageResource(R.id.imageView5, R.drawable.binggan);
+                        break;
+                    case 1:
+                        holder.setImageResource(R.id.imageView5, R.drawable.bigenguo);
+                        break;
+                    case 2:
+                        holder.setImageResource(R.id.imageView5, R.drawable.niuyouguo);
+                        break;
+                    default:
+                        break;
+                }
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         int pos = holder.getAdapterPosition();
-                        // 先获取到当前 item 的父 positon，再移除自己
-                        int positionAtAll = getParentPositionInAll(pos);
-                        remove(pos);
-                        if (positionAtAll != -1) {
-                            IExpandable multiItemEntity = (IExpandable) getData().get(positionAtAll);
-                            if (!hasSubItems(multiItemEntity)) {
-                                remove(positionAtAll);
-                            }
-                        }
+                        EventBus.getDefault().post(ClassifyMessageEvent.getInstance("classify",classifyBean.getClassify()));
                     }
-                });*/
+                });
                 break;
             default:
                 break;

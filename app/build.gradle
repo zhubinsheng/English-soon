@@ -95,4 +95,6 @@ dependencies {
     implementation project(path: ':changeskin')
 
     implementation 'com.xwray:passwordview:1.0'
+
+    implementation 'me.jessyan:autosize:1.1.2'
 }

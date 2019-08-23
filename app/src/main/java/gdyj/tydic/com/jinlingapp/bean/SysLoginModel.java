@@ -1,6 +1,9 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
 
+/**
+ * @author binshengzhu
+ */
 public class SysLoginModel {
 
     private String username;

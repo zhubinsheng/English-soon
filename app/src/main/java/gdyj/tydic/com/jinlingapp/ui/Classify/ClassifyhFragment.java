@@ -21,7 +21,6 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
-import gdyj.tydic.com.jinlingapp.ExpandableItemAdapter;
 import gdyj.tydic.com.jinlingapp.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
@@ -185,6 +184,8 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         MySection mySection = new MySection(true,"测试组1");
         mySection.setBannerInfo(classifyBeans);
         mySectionList.add(mySection);
+
+
         //englishAdapter.notifyDataSetChanged();
         expandableItemAdapter = new ExpandableItemAdapter(list);
         mRecyclerView.setAdapter(expandableItemAdapter);
@@ -194,7 +195,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     }
 
     private ArrayList<MultiItemEntity> generateData(List<ClassifyBean> classifyBeans) {
-        int lv0Count = 9;
+        int lv0Count = 6;
 
         int personCount = classifyBeans.size();
 
@@ -202,7 +203,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
         ArrayList<MultiItemEntity> res = new ArrayList<>();
         for (int i = 0; i < lv0Count; i++) {
-            ClassifyLevel0Item lv0 = new ClassifyLevel0Item("( " + i + ")", "subtitle of " + i);
+            ClassifyLevel0Item lv0 = new ClassifyLevel0Item("(" + i + ")", "subtitle of " + i);
                 for (int k = 0; k < personCount; k++) {
                     lv0.addSubItem(classifyBeans.get(k));
                 }

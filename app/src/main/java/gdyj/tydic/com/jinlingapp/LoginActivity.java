@@ -18,6 +18,7 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.Utils.SharedPreferencesUtils;
 import gdyj.tydic.com.jinlingapp.Utils.ValideUtil;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
 import gdyj.tydic.com.jinlingapp.ui.UserSet.PhoneLoginContract;
@@ -31,12 +32,12 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
     TextView phone;
     @BindView(R.id.mima)
     TextView editText3;
-    @BindView(R.id.jizhumima)
-    CheckBox checkBox2;
     @BindView(R.id.wangjimima)
     TextView textView10;
     @BindView(R.id.denglu)
     TextView next;
+    @BindView(R.id.jizhumima)
+    CheckBox jizhumima;
 
     private PhoneLoginPresenter mLoginPresenter;
     private Unbinder unbinder;
@@ -47,6 +48,17 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
         setContentView(R.layout.activity_login);
         mLoginPresenter = new PhoneLoginPresenter(this);
         unbinder = ButterKnife.bind(this);
+        String mima  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"mima",""));
+        String zhanghao  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"phone",""));
+        if (mima!=null&&zhanghao!=null&& !"".equals(mima) && !"".equals(zhanghao)){
+            jizhumima.setChecked(true);
+            SysLoginModel sysLoginModel = new SysLoginModel();
+            sysLoginModel.setCaptcha("123");
+            sysLoginModel.setUsername(zhanghao);
+            sysLoginModel.setPassword(mima);
+            mLoginPresenter.PhoneLogin(sysLoginModel);
+        }
+
     }
 
     @Override
@@ -59,11 +71,11 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.denglu:
-                if(/*ValideUtil.isMobilePhone(String.valueOf(phone.getText()))||*/phone.getText().length()!=11){
+                if(!ValideUtil.isPhone(phone.getText().toString())){
                     Toasty.warning(this,"请输入正确的手机号码").show();
                     return;
                 }
-                if(editText3.getText()==null){
+                if(editText3.getText()==null|| "".equals(editText3.getText().toString())){
                     Toasty.warning(this,"请输入密码").show();
                     return;
                 }
@@ -91,6 +103,13 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
     @Override
     public void onLoginSuccess() {
         Toasty.success(this,"登录成功").show();
+        if (jizhumima.isChecked()){
+            SharedPreferencesUtils.setParam(this,"phone",phone.getText().toString());
+            SharedPreferencesUtils.setParam(this,"mima",editText3.getText().toString());
+        }else {
+            SharedPreferencesUtils.clear(this,"phone");
+            SharedPreferencesUtils.clear(this,"mima");
+        }
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         finish();

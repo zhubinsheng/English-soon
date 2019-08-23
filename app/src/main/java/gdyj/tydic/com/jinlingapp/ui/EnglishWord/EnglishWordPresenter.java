@@ -1,5 +1,7 @@
 package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
+import android.annotation.SuppressLint;
+
 import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 import io.reactivex.Observable;
@@ -26,16 +28,22 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
         this.mView = null;
     }
 
+    @SuppressLint("CheckResult")
     @Override
-    public void getClassify() {
-        Observable<EnglishCodeVo> observable = englishWordApi.GetEnglishWord();
+    public void getClassify(String classify,int pageSize,int pageNo) {
+        Observable<EnglishCodeVo> observable = englishWordApi.GetEnglishWord(classify, pageSize,pageNo);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<EnglishCodeVo>() {
                     @Override
                     public void accept(EnglishCodeVo classifyBeanBaseResult) throws Exception {
                         if(mView!=null&&classifyBeanBaseResult.getResult()!=null){
-                            mView.onLoginSuccess(classifyBeanBaseResult.getResult());
+                            if (pageNo!=1){
+                                mView.onGetMoreSuccess(classifyBeanBaseResult.getResult());
+                            }else {
+                                mView.onLoginSuccess(classifyBeanBaseResult.getResult());
+                            }
+
                         }else {
                             mView.onLoginFail("获取单词列表为空，请重试");
                         }
