@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import es.dmoral.toasty.Toasty;
-import gdyj.tydic.com.jinlingapp.MyApplication;
+import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 
 /**
  * Created by As on 2017/8/7.

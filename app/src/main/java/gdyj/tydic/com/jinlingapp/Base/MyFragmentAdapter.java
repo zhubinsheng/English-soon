@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.Base;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

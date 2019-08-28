@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp; /**
+package gdyj.tydic.com.jinlingapp.Base; /**
  * 禁止viewpager页面的滑动的效果
  * Created by Administrator on 2017/6/1.
  */

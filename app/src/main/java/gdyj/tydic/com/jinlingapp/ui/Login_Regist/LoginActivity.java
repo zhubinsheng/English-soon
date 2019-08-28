@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.ui.Login_Regist;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,6 +18,9 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.Base.BaseActivity;
+import gdyj.tydic.com.jinlingapp.Base.MainActivity;
+import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.Utils.SharedPreferencesUtils;
 import gdyj.tydic.com.jinlingapp.Utils.ValideUtil;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;

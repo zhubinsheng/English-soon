@@ -2,7 +2,7 @@ package gdyj.tydic.com.jinlingapp.ui.Classify;
 
 import android.annotation.SuppressLint;
 
-import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
+import gdyj.tydic.com.jinlingapp.Base.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import io.reactivex.Observable;

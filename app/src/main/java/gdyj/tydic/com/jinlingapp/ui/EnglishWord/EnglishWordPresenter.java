@@ -2,7 +2,7 @@ package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
 import android.annotation.SuppressLint;
 
-import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
+import gdyj.tydic.com.jinlingapp.Base.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

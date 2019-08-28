@@ -1,11 +1,13 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.ui.Login_Regist;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import butterknife.OnClick;
-import gdyj.tydic.com.jinlingapp.ui.UserSet.PhoneLoginPresenter;
+import gdyj.tydic.com.jinlingapp.Base.BaseActivity;
+import gdyj.tydic.com.jinlingapp.Base.MainActivity;
+import gdyj.tydic.com.jinlingapp.R;
 
 /**
  * @author Administrator

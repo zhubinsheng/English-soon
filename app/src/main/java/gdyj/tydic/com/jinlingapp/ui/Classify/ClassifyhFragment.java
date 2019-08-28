@@ -21,7 +21,7 @@ import java.util.Random;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
-import gdyj.tydic.com.jinlingapp.MyApplication;
+import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.MySection;

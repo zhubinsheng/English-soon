@@ -1,9 +1,11 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.Utils;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import gdyj.tydic.com.jinlingapp.R;
 
 /**
  * @author zhang
@@ -15,7 +17,7 @@ public class LoadingView extends Dialog {
 
     public LoadingView(Context context) {
 
-        super(context,R.style.LoadingDialog);
+        super(context, R.style.LoadingDialog);
     }
     public LoadingView(Context context, CharSequence tip) {
 

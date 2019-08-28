@@ -1,7 +1,8 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.Base;
 
 import android.support.v7.app.AppCompatActivity;
 
+import gdyj.tydic.com.jinlingapp.Utils.LoadingView;
 
 
 /**

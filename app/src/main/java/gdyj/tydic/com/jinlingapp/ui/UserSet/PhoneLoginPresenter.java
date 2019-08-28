@@ -5,8 +5,8 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import gdyj.tydic.com.jinlingapp.MyApplication;
-import gdyj.tydic.com.jinlingapp.MyRetrofitManager;
+import gdyj.tydic.com.jinlingapp.Base.MyApplication;
+import gdyj.tydic.com.jinlingapp.Base.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
 import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.LoginResilt;

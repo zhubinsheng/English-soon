@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.Base;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -11,12 +11,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.zhy.changeskin.SkinManager;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
 import gdyj.tydic.com.jinlingapp.ui.EnglishWord.EnglishFragment;

@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import gdyj.tydic.com.jinlingapp.MainActivity;
+import gdyj.tydic.com.jinlingapp.Base.MainActivity;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.adapter.HeaderAndFooterAdapter;
 

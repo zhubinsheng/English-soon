@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <gdyj.tydic.com.jinlingapp.MyCustomViewPager
+    <gdyj.tydic.com.jinlingapp.Base.MyCustomViewPager
         android:id="@+id/testFragmentViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

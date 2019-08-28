@@ -1,4 +1,4 @@
-package gdyj.tydic.com.jinlingapp;
+package gdyj.tydic.com.jinlingapp.Base;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
