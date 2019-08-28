@@ -3,9 +3,9 @@ package gdyj.tydic.com.jinlingapp.ui.Classify;
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
+import gdyj.tydic.com.jinlingapp.bean.Library;
 
-public class ClassifyLevel0Item extends AbstractExpandableItem<ClassifyBean> implements MultiItemEntity{
+public class ClassifyLevel0Item extends AbstractExpandableItem<Library> implements MultiItemEntity{
 
     public String title;
     public String subTitle;

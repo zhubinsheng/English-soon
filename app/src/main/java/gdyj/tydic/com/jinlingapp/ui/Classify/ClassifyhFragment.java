@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import butterknife.ButterKnife;
@@ -24,6 +25,7 @@ import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
+import gdyj.tydic.com.jinlingapp.bean.Library;
 import gdyj.tydic.com.jinlingapp.bean.MySection;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -110,7 +112,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         super.onStop();
     }
     private void initData() {
-        classifyPresenter.getClassify();
+        classifyPresenter.getLibrary();
         /*String token = null;
         if (MyApplication.getInstance().getHasjwt()){
             token = MyApplication.getInstance().getJwt();
@@ -180,7 +182,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 //jvoid gdyj.tydic.com.jinlingapp.bean.ClassifyBean.setMeaning(java.lang.String)' on a null object reference
     @Override
     public void onLoginSuccess(List<ClassifyBean> classifyBeans) {
-        list = generateData(classifyBeans);
+        /*list = generateData(classifyBeans);
         MySection mySection = new MySection(true,"测试组1");
         mySection.setBannerInfo(classifyBeans);
         mySectionList.add(mySection);
@@ -188,28 +190,40 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
         //englishAdapter.notifyDataSetChanged();
         expandableItemAdapter = new ExpandableItemAdapter(list);
-        mRecyclerView.setAdapter(expandableItemAdapter);
+        mRecyclerView.setAdapter(expandableItemAdapter);*/
         //loadingView.setVisibility(View.GONE);
         //notesBox.put(classifyBean);
         // List<ResultBean> resultBeans = notesQuery.find();
     }
 
-    private ArrayList<MultiItemEntity> generateData(List<ClassifyBean> classifyBeans) {
-        int lv0Count = 6;
-
+    private ArrayList<MultiItemEntity> generateData(Map<String, List<Library>> classifyBeans) {
+        int lv0Count = classifyBeans.size();
         int personCount = classifyBeans.size();
 
         Random random = new Random();
-
         ArrayList<MultiItemEntity> res = new ArrayList<>();
-        for (int i = 0; i < lv0Count; i++) {
-            ClassifyLevel0Item lv0 = new ClassifyLevel0Item("(" + i + ")", "subtitle of " + i);
+
+
+        //遍历分组
+        for (Map.Entry<String, List<Library>> entryUser : classifyBeans.entrySet()) {
+            String key = entryUser.getKey();
+            List<Library> entryUserList = entryUser.getValue();
+
+            ClassifyLevel0Item lv0 = new ClassifyLevel0Item(key, "subtitle null");
+            for (int k = 0; k < entryUserList.size(); k++) {
+                lv0.addSubItem(entryUserList.get(k));
+            }
+            res.add(lv0);
+
+        }
+       /* for (int i = 0; i < lv0Count; i++) {
+            ClassifyLevel0Item lv0 = new ClassifyLevel0Item(classifyBeans.get, "subtitle of " + i);
                 for (int k = 0; k < personCount; k++) {
                     lv0.addSubItem(classifyBeans.get(k));
                 }
 
             res.add(lv0);
-        }
+        }*/
 
         return res;
     }
@@ -217,5 +231,12 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     @Override
     public void onLoginFail(String errorTip) {
         Toasty.warning(getActivity(), errorTip, Toast.LENGTH_LONG, true).show();
+    }
+
+    @Override
+    public void onGetLibrarySuccess(Map<String, List<Library>> result) {
+        list = generateData(result);
+        expandableItemAdapter = new ExpandableItemAdapter(list);
+        mRecyclerView.setAdapter(expandableItemAdapter);
     }
 }

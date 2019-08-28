@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * @author binshengzhu
  */
 public class MyRetrofitManager {
-    private static final String BASE_URL = "http://47.94.252.83:8082/jeecg-boot/";
+    private static final String BASE_URL = "http://47.94.252.83:8082/jeecg-boot-module-system-2.0.1/";
     //private static final String BASE_URL = "http://192.168.43.43:8080/jeecg-boot/";
     private static final long CONNECT_TIME_OUT = 60L;
     private static final long READ_TIME_OUT = 10L;

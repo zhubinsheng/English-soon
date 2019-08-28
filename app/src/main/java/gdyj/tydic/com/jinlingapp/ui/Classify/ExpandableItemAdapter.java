@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
+import gdyj.tydic.com.jinlingapp.bean.Library;
 
 
 /**
@@ -56,7 +56,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                         break;
                 }
                 final ClassifyLevel0Item lv0 = (ClassifyLevel0Item) item;
-                holder.setText(R.id.textView6, lv0.title);
+                holder.setText(R.id.text1, lv0.title);
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -76,8 +76,8 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                 break;
 
             case TYPE_PERSON:
-                final ClassifyBean classifyBean = (ClassifyBean) item;
-                holder.setText(R.id.text1, classifyBean.getClassify());
+                final Library library = (Library) item;
+                holder.setText(R.id.text1, library.getClassify());
 
                 switch (holder.getLayoutPosition() % 3) {
                     case 0:
@@ -97,7 +97,7 @@ public class ExpandableItemAdapter extends BaseMultiItemQuickAdapter<MultiItemEn
                     @Override
                     public void onClick(View view) {
                         int pos = holder.getAdapterPosition();
-                        EventBus.getDefault().post(ClassifyMessageEvent.getInstance("classify",classifyBean.getClassify()));
+                        EventBus.getDefault().post(ClassifyMessageEvent.getInstance("classify",library.getClassify()));
                     }
                 });
                 break;

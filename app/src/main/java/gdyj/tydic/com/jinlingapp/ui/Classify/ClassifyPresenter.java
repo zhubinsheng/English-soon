@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import gdyj.tydic.com.jinlingapp.Base.MyRetrofitManager;
 import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
+import gdyj.tydic.com.jinlingapp.bean.LibraryResult;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -49,6 +50,31 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
                                 mView.onLoginFail("网络出问题啦，请稍后再试");
+                        }
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void getLibrary() {
+        Observable<LibraryResult> observable = classifyApi.GetLibrary();
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<LibraryResult>() {
+                    @Override
+                    public void accept(LibraryResult classifyBeanBaseResult) throws Exception {
+                        if(mView!=null&&classifyBeanBaseResult.getResult()!=null){
+                           mView.onGetLibrarySuccess(classifyBeanBaseResult.getResult());
+                        }else {
+                            mView.onLoginFail("获取列表为空，请重试");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(mView!=null){
+                            mView.onLoginFail("网络出问题啦，请稍后再试");
                         }
                     }
                 });
