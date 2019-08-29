@@ -4,10 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
     <include layout="@layout/toolbar_layout" />
-
-    <com.warkiz.widget.IndicatorSeekBar
+    <!--<com.warkiz.widget.IndicatorSeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:isb_max="100"
@@ -31,21 +29,16 @@
         app:isb_track_background_size="2dp"
         app:isb_track_progress_color="@color/color_blue"
         app:isb_track_progress_size="4dp"
-        app:isb_only_thumb_draggable="false"/>
-
-    <!--<com.mingle.widget.LoadingView
+        app:isb_only_thumb_draggable="false"/>-->
+    <com.mingle.widget.LoadingView
         android:id="@+id/loadView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerInParent="true"
         app:loadingText="加载中..."
-        android:visibility="visible"/>-->
+        android:visibility="visible"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-
-
-
 </LinearLayout>

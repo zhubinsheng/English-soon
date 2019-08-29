@@ -4,6 +4,7 @@ import android.animation.AnimatorInflater;
 import android.animation.StateListAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,9 +28,11 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.Base.MainActivity;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
+import gdyj.tydic.com.jinlingapp.ui.Login_Regist.LoginActivity;
 
 /**
  * @author zbs
@@ -60,11 +63,11 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.user_set, container, false);
         unbinder = ButterKnife.bind(this,layout);
-        StateListAnimator animator = AnimatorInflater.loadStateListAnimator(getActivity(), R.drawable.anim_state_list_m01);
+        //StateListAnimator animator = AnimatorInflater.loadStateListAnimator(getActivity(), R.drawable.anim_state_list_m01);
         //Drawable mDrawable = LayoutToDrawable(R.drawable.foreground_selector);
         //StateListAnimator stateListAnimator = AnimatorInflater.loadStateListAnimator(getActivity(), R.drawable.foreground_selector);
-        login.setStateListAnimator(animator);
-        login.setForeground(getResources().getDrawable(R.drawable.foreground_selector));
+        //login.setStateListAnimator(animator);
+        //login.setForeground(getResources().getDrawable(R.drawable.foreground_selector));
         //login.setBackgroundResource(R.drawable.foreground_selector);
         return layout;
     }
@@ -114,12 +117,13 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 //speak();
                 //  String phone = mEdtPhone.getText().toString();
 
-
-                SysLoginModel sysLoginModel = new SysLoginModel();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+               /* SysLoginModel sysLoginModel = new SysLoginModel();
                 sysLoginModel.setCaptcha("123");
                 sysLoginModel.setUsername("admin19");
                 sysLoginModel.setPassword("123456");
-                mLoginPresenter.PhoneLogin(sysLoginModel);
+                mLoginPresenter.PhoneLogin(sysLoginModel);*/
 
                 break;
             case R.id.button1:

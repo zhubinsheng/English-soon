@@ -13,12 +13,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.mingle.widget.LoadingView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
@@ -50,8 +52,8 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private BoxStore boxStore;
 
 
-    //@BindView(R.id.loadView)
-    //LoadingView loadingView;
+    @BindView(R.id.loadView)
+    LoadingView loadingView;
     //@BindView(R.id.imageView2)
     //ImageView imageView2;
 
@@ -89,7 +91,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     public void onStart() {
         super.onStart();
         //imageView2.getBackground().setAlpha(100);//0~255透明度值
-        Toasty.warning(getActivity(), "onStart", Toast.LENGTH_SHORT, true).show();
+        //Toasty.warning(getActivity(), "onStart", Toast.LENGTH_SHORT, true).show();
         //initData();
     }
 
@@ -102,7 +104,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
     @Override
     public void onPause() {
-        Toasty.warning(getActivity(), "onPause", Toast.LENGTH_LONG, true).show();
+        //Toasty.warning(getActivity(), "onPause", Toast.LENGTH_LONG, true).show();
         super.onPause();
     }
 
@@ -129,7 +131,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         //back = (ImageView) layout.findViewById(R.id.img_back);
         title = (TextView) layout.findViewById(R.id.title);
         setBackBtn();
-        setTitle("英 文 四 级");
+        setTitle("Library");
     }
 
     private void setTitle(String msg) {
@@ -235,6 +237,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
 
     @Override
     public void onGetLibrarySuccess(Map<String, List<Library>> result) {
+        loadingView.setVisibility(View.GONE);
         list = generateData(result);
         expandableItemAdapter = new ExpandableItemAdapter(list);
         mRecyclerView.setAdapter(expandableItemAdapter);

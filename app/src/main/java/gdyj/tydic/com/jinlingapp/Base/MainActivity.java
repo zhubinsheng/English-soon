@@ -44,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         // 将Fragment添加到集合
         fragments.add(new ClassifyhFragment());
         fragments.add(new EnglishFragment());
-        fragments.add(new UserSetFragment());
         fragments.add(new MainFragment());
+        fragments.add(new UserSetFragment());
+
         // 初始化适配器
         MyFragmentAdapter adapter = new MyFragmentAdapter(getSupportFragmentManager());
         adapter.setFragments(fragments);
