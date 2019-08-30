@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/beijing"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <include layout="@layout/toolbar_layout" />
 
     <LinearLayout
@@ -39,7 +41,9 @@
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_weight="1"
                         android:gravity="center_vertical|left"
-                        android:text="用户名"
+                        android:text="点击登录"
+                        android:textColor="@color/white"
+                        android:onClick="onClick"
                         android:textSize="28dp" />
 
                     <TextView
@@ -49,6 +53,7 @@
                         android:layout_marginStart="@dimen/dp_10"
                         android:layout_marginTop="@dimen/dp_10"
                         android:layout_weight="1"
+                        android:textColor="@color/white"
                         android:gravity="center_vertical|left"
                         android:text="ID:665599"
                         android:textSize="16dp" />
@@ -75,6 +80,7 @@
                             android:gravity="center_vertical|left"
                             android:paddingLeft="@dimen/dp_4"
                             android:text="打卡 0 天"
+                            android:textColor="@color/white"
                             android:textSize="18dp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -100,6 +106,7 @@
             android:gravity="center_vertical|left"
             android:textSize="28dp"
             android:layout_weight="1"
+            android:textColor="@color/white"
             android:text="通知" />
 
         <ImageView
@@ -155,6 +162,7 @@
             android:layout_marginLeft="@dimen/dp_40"
             android:gravity="center|left"
             android:textSize="24dp"
+            android:textColor="@color/white"
             android:text="选择词库" />
 
         <ImageView
@@ -176,6 +184,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_40"
             android:gravity="center|left"
+            android:textColor="@color/white"
             android:textSize="24dp"
             android:text="学生购物" />
 
@@ -199,6 +208,7 @@
             android:layout_marginLeft="@dimen/dp_40"
             android:gravity="center|left"
             android:textSize="24dp"
+            android:textColor="@color/white"
             android:text="应用教程" />
 
         <ImageView
@@ -220,6 +230,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_40"
             android:gravity="center|left"
+            android:textColor="@color/white"
             android:textSize="24dp"
             android:text="个性设置" />
 
@@ -241,6 +252,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_40"
+            android:textColor="@color/white"
             android:gravity="center|left"
             android:textSize="24dp"
             android:text="班级状态" />
@@ -263,6 +275,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_40"
+            android:textColor="@color/white"
             android:gravity="center|left"
             android:textSize="24dp"
             android:text="个性装扮" />

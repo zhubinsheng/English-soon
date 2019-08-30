@@ -25,4 +25,8 @@
     <color name="color_green">#00574B</color>
     <color name="color_gray">#D81B60</color>
     <color name="calendar_head_background">#00dcd2</color>
+
+    <color name="skin_item_text_color">#ffffff</color>
+
+    <color name="skin_item_text_color_red">@color/rect</color>
 </resources>

@@ -3,6 +3,10 @@ package gdyj.tydic.com.jinlingapp.Base;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
@@ -10,13 +14,24 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
 
+import com.zhy.changeskin.SkinManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.R;
+import gdyj.tydic.com.jinlingapp.Utils.BlurUtil;
+import gdyj.tydic.com.jinlingapp.Utils.SharedPreferencesUtils;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
+import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
 import gdyj.tydic.com.jinlingapp.ui.EnglishWord.EnglishFragment;
 import gdyj.tydic.com.jinlingapp.ui.MainFragment;
@@ -29,16 +44,27 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CODE_ADDRESS = 100;
     TabLayout mTabLayout;
     MyCustomViewPager mViewPager;
-
+    LinearLayout mainskin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //SkinManager.getInstance().register(this);
-
+        EventBus.getDefault().register(this);
+        SkinManager.getInstance().register(this);
+        String resultUristring  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"resultUris",""));
         mTabLayout = (TabLayout) findViewById(R.id.testFragmentTablayout);
         mViewPager = (MyCustomViewPager) findViewById(R.id.testFragmentViewPager);
+        mainskin = (LinearLayout) findViewById(R.id.mainskin);
+        if (!resultUristring.isEmpty()){
+            Uri resultUris = Uri.parse(resultUristring);
+            Bitmap bit = null;
+            try {
+                bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(resultUris));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            setBlurBackground(bit,10);
+        }
         // 创建Fragment集合
         List<Fragment> fragments = new ArrayList<>();
         // 将Fragment添加到集合
@@ -69,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        //SkinManager.getInstance().unregister(this);
+        EventBus.getDefault().unregister(this);
+        SkinManager.getInstance().unregister(this);
     }
     /**
      * android 6.0 以上需要动态申请权限
@@ -119,6 +146,31 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg2(ClassifyMessageEvent message) {
+        if (message.getRecode().equals("resultUris")){
+            Bitmap bit = null;
+            try {
+                bit = BitmapFactory.decodeStream(getContentResolver().openInputStream(Uri.parse(message.getClassify())));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            setBlurBackground(bit,10);
+        }
+    }
+
+    /**
+     * 设置毛玻璃背景
+     * 背景图片 Bitmap
+     */
+    private void setBlurBackground(Bitmap bmp , int i)
+    {
+        //0-25，表示模糊值 Radius out of range (0 < r <= 25).
+        final Bitmap blurBmp = BlurUtil.fastblur(this, bmp, i);
+        BitmapDrawable drawable = new BitmapDrawable(blurBmp);
+        mainskin.setBackgroundDrawable(drawable);
     }
 }
 

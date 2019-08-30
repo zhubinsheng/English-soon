@@ -36,5 +36,10 @@
         </activity>
         <activity android:name=".ui.Login_Regist.LoginActivity"></activity>
         <activity android:name=".ui.Login_Regist.tianxieziliaoAcitivity"></activity>
+        <activity android:name=".ui.skin.SkinActivity"></activity>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 </manifest>
