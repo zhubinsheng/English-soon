@@ -11,6 +11,7 @@ import gdyj.tydic.com.jinlingapp.bean.BaseInfo;
 import gdyj.tydic.com.jinlingapp.bean.BaseResult;
 import gdyj.tydic.com.jinlingapp.bean.LoginResilt;
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
+import gdyj.tydic.com.jinlingapp.bean.SysRegisterInfoModel;
 import gdyj.tydic.com.jinlingapp.bean.SysUser;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,6 +31,11 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
 
     public PhoneLoginPresenter(PhoneLoginContract.View view){
         this.mView = view;
+        mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class);
+    }
+
+    public PhoneLoginPresenter(){
+        this.mView = null;
         mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class);
     }
 
@@ -75,6 +81,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                                 //LoginUtil.getInstance().setUserId(String.valueOf(id));
                                 MyApplication.getInstance().setHasjwt(true);
                                 MyApplication.getInstance().setJwt(loginResult.getResult().getToken());
+                                MyApplication.getInstance().setUploadt(loginResult.getResult().getUpToken());
                                 if(mView!=null){
                                     mView.onLoginSuccess();
                                 }
@@ -120,6 +127,32 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
                                 mView.onRegisterFail("注册失败，网络问题");
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void registerInfo(SysRegisterInfoModel sysLoginModel) {
+        Gson gson = new Gson();
+        String requestBody = gson.toJson(sysLoginModel);
+        RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),requestBody);
+        Observable<BaseResult<SysUser>> observable = mPhoneLoginApi.registerInfo(body);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResult<SysUser>>() {
+                    @Override
+                    public void accept(BaseResult<SysUser> loginResult) throws Exception {
+                        Log.e(TAG,"4getApplication is "+loginResult);
+                        if(mView!=null){
+                            mView.onRegisterSuccess();
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(mView!=null){
+                            mView.onRegisterFail("注册失败，网络问题");
                         }
                     }
                 });

@@ -31,10 +31,13 @@ import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.Utils.BlurUtil;
 import gdyj.tydic.com.jinlingapp.Utils.SharedPreferencesUtils;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
+import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
+import gdyj.tydic.com.jinlingapp.bean.SysRegisterInfoModel;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
 import gdyj.tydic.com.jinlingapp.ui.EnglishWord.EnglishFragment;
 import gdyj.tydic.com.jinlingapp.ui.MainFragment;
+import gdyj.tydic.com.jinlingapp.ui.UserSet.PhoneLoginPresenter;
 import gdyj.tydic.com.jinlingapp.ui.UserSet.UserSetFragment;
 
 /**
@@ -42,6 +45,7 @@ import gdyj.tydic.com.jinlingapp.ui.UserSet.UserSetFragment;
  */
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_CODE_ADDRESS = 100;
+    private PhoneLoginPresenter mLoginPresenter;
     TabLayout mTabLayout;
     MyCustomViewPager mViewPager;
     LinearLayout mainskin;
@@ -49,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mLoginPresenter = new PhoneLoginPresenter();
+        String mima  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"mima",""));
+        String zhanghao  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"phone",""));
+        if (!mima.isEmpty()&&!zhanghao.isEmpty()){
+            SysLoginModel sysLoginModel = new SysLoginModel();
+            sysLoginModel.setCaptcha("123");
+            sysLoginModel.setUsername(zhanghao);
+            sysLoginModel.setPassword(mima);
+            mLoginPresenter.PhoneLogin(sysLoginModel);
+        }
+
         EventBus.getDefault().register(this);
         SkinManager.getInstance().register(this);
         String resultUristring  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"resultUris",""));
@@ -158,6 +173,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             setBlurBackground(bit,10);
+        }else if (message.getRecode().equals("res")){
+            SysRegisterInfoModel sysLoginModel = new SysRegisterInfoModel();
+            sysLoginModel.setAvatar(message.getClassify());
+            mLoginPresenter.registerInfo(sysLoginModel);
         }
     }
 

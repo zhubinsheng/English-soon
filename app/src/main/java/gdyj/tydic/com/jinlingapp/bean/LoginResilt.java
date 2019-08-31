@@ -1,5 +1,7 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
+import java.util.List;
+
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Transient;
@@ -9,19 +11,21 @@ import io.objectbox.annotation.Transient;
  */
 @Entity
 public class LoginResilt {
+
+    @Id
+    long boxId;
+
     /**
      * success : true
      * message : 登录成功
      * code : 200
-     * result : {"userInfo":{"id":"8c94bea8bd03cc2489bf8309d3740042","username":"string","realname":null,"password":"984262da947acd0c","salt":"U9H7kOhP","avatar":null,"birthday":null,"sex":null,"email":null,"phone":null,"status":1,"delFlag":"0","createBy":"xingzai","createTime":"2019-07-07 09:43:09","updateBy":null,"updateTime":null},"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjI1OTU0NDEsInVzZXJuYW1lIjoic3RyaW5nIn0.mXX_5zADzryQ4WjWyY530hcf1eSjNppV5zO89TNqkZQ"}
-     * timestamp : 1562593641850
+     * result : {"userInfo":{"id":"e4fd3d71e117b3f5158add55b95d93d9","username":"10086","realname":null,"password":"9575827b7c4d2d5b","salt":"EE0py6zc","avatar":null,"birthday":null,"sex":null,"email":null,"phone":null,"classs":null,"status":1,"delFlag":"0","createBy":"xingzai","createTime":"2019-08-29 13:50:18","updateBy":null,"updateTime":null,"class_id":null},"upToken":"mG1JR-ivqabWIl6-t-69ZpGz-Cg57hFttKijlyBG:ZlIR2x5RhLLODE1R75V3r9cG1go=:eyJzY29wZSI6ImVuZ2xpc2giLCJkZWFkbGluZSI6MTU2NzIyNDg1Mn0=","learning":[],"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjcyMjMwNTIsInVzZXJuYW1lIjoiMTAwODYifQ.ZnRMLxKK3k37HvYtJDMURZ-6fNu6_R_Fb7zVQac4JIs"}
+     * timestamp : 1567221252326
      */
-    @Id
-    long boxId;
 
     private boolean success;
     private String message;
-    private Integer code;
+    private int code;
     @Transient
     private ResultBean result;
     private long timestamp;
@@ -68,12 +72,16 @@ public class LoginResilt {
 
     public static class ResultBean {
         /**
-         * userInfo : {"id":"8c94bea8bd03cc2489bf8309d3740042","username":"string","realname":null,"password":"984262da947acd0c","salt":"U9H7kOhP","avatar":null,"birthday":null,"sex":null,"email":null,"phone":null,"status":1,"delFlag":"0","createBy":"xingzai","createTime":"2019-07-07 09:43:09","updateBy":null,"updateTime":null}
-         * token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjI1OTU0NDEsInVzZXJuYW1lIjoic3RyaW5nIn0.mXX_5zADzryQ4WjWyY530hcf1eSjNppV5zO89TNqkZQ
+         * userInfo : {"id":"e4fd3d71e117b3f5158add55b95d93d9","username":"10086","realname":null,"password":"9575827b7c4d2d5b","salt":"EE0py6zc","avatar":null,"birthday":null,"sex":null,"email":null,"phone":null,"classs":null,"status":1,"delFlag":"0","createBy":"xingzai","createTime":"2019-08-29 13:50:18","updateBy":null,"updateTime":null,"class_id":null}
+         * upToken : mG1JR-ivqabWIl6-t-69ZpGz-Cg57hFttKijlyBG:ZlIR2x5RhLLODE1R75V3r9cG1go=:eyJzY29wZSI6ImVuZ2xpc2giLCJkZWFkbGluZSI6MTU2NzIyNDg1Mn0=
+         * learning : []
+         * token : eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjcyMjMwNTIsInVzZXJuYW1lIjoiMTAwODYifQ.ZnRMLxKK3k37HvYtJDMURZ-6fNu6_R_Fb7zVQac4JIs
          */
 
         private UserInfoBean userInfo;
+        private String upToken;
         private String token;
+        private List<LearningSit> learning;
 
         public UserInfoBean getUserInfo() {
             return userInfo;
@@ -81,6 +89,14 @@ public class LoginResilt {
 
         public void setUserInfo(UserInfoBean userInfo) {
             this.userInfo = userInfo;
+        }
+
+        public String getUpToken() {
+            return upToken;
+        }
+
+        public void setUpToken(String upToken) {
+            this.upToken = upToken;
         }
 
         public String getToken() {
@@ -91,24 +107,34 @@ public class LoginResilt {
             this.token = token;
         }
 
+        public List<LearningSit> getLearning() {
+            return learning;
+        }
+
+        public void setLearning(List<LearningSit> learning) {
+            this.learning = learning;
+        }
+
         public static class UserInfoBean {
             /**
-             * id : 8c94bea8bd03cc2489bf8309d3740042
-             * username : string
+             * id : e4fd3d71e117b3f5158add55b95d93d9
+             * username : 10086
              * realname : null
-             * password : 984262da947acd0c
-             * salt : U9H7kOhP
+             * password : 9575827b7c4d2d5b
+             * salt : EE0py6zc
              * avatar : null
              * birthday : null
              * sex : null
              * email : null
              * phone : null
+             * classs : null
              * status : 1
              * delFlag : 0
              * createBy : xingzai
-             * createTime : 2019-07-07 09:43:09
+             * createTime : 2019-08-29 13:50:18
              * updateBy : null
              * updateTime : null
+             * class_id : null
              */
 
             private String id;
@@ -121,12 +147,14 @@ public class LoginResilt {
             private Object sex;
             private Object email;
             private Object phone;
+            private Object classs;
             private int status;
             private String delFlag;
             private String createBy;
             private String createTime;
             private Object updateBy;
             private Object updateTime;
+            private Object class_id;
 
             public String getId() {
                 return id;
@@ -208,6 +236,14 @@ public class LoginResilt {
                 this.phone = phone;
             }
 
+            public Object getClasss() {
+                return classs;
+            }
+
+            public void setClasss(Object classs) {
+                this.classs = classs;
+            }
+
             public int getStatus() {
                 return status;
             }
@@ -254,6 +290,14 @@ public class LoginResilt {
 
             public void setUpdateTime(Object updateTime) {
                 this.updateTime = updateTime;
+            }
+
+            public Object getClass_id() {
+                return class_id;
+            }
+
+            public void setClass_id(Object class_id) {
+                this.class_id = class_id;
             }
         }
     }

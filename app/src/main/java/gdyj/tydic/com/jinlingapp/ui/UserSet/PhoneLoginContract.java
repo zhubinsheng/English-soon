@@ -1,6 +1,7 @@
 package gdyj.tydic.com.jinlingapp.ui.UserSet;
 
 import gdyj.tydic.com.jinlingapp.bean.SysLoginModel;
+import gdyj.tydic.com.jinlingapp.bean.SysRegisterInfoModel;
 
 /**
  * Created by zhao
@@ -18,5 +19,6 @@ public interface PhoneLoginContract {
         void getValideCode(String phoneNumber);
         void PhoneLogin(SysLoginModel sysLoginModel);
         void PhoneRegister(SysLoginModel sysLoginModel);
+        void registerInfo(SysRegisterInfoModel sysLoginModel);
     }
 }

@@ -25,6 +25,7 @@ public class MyApplication extends Application {
     @SuppressLint("StaticFieldLeak")
     private static MyApplication instance;
     private String jwt;
+    private String uploadt;
     private Boolean hasjwt = false;
     private BoxStore boxStore;
 
@@ -79,6 +80,14 @@ public class MyApplication extends Application {
 
     public BoxStore getBoxStore() {
         return boxStore;
+    }
+
+    public String getUploadt() {
+        return uploadt;
+    }
+
+    public void setUploadt(String uploadt) {
+        this.uploadt = uploadt;
     }
 }
 

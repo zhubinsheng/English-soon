@@ -35,4 +35,7 @@ public interface LoginApi {
     @POST("api/register")
     Observable<BaseResult<SysUser>> PhoneRegister(@Body RequestBody  requestBody);
 
+    @Headers({"Content-Type: application/json","Accept: application/json"})
+    @POST("api/registerInfo")
+    Observable<BaseResult<SysUser>> registerInfo(@Body RequestBody  requestBody);
 }

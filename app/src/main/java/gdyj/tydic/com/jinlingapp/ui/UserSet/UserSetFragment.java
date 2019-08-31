@@ -28,6 +28,7 @@ import com.zhy.changeskin.SkinManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +36,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.Utils.BlurUtil;
+import gdyj.tydic.com.jinlingapp.Utils.UploadPic;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.ui.Login_Regist.LoginActivity;
 import gdyj.tydic.com.jinlingapp.ui.skin.SkinActivity;
@@ -155,16 +158,22 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
                 break;
             case R.id.profile_image:
-
+                if (MyApplication.getInstance().getHasjwt()){
+                    Intent intent3 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    // 以startActivityForResult的方式启动一个activity用来获取返回的结果
+                    startActivityForResult(intent3, REQUEST_SELECT_PICTURE);
+                }else {
+                    Toasty.normal(getActivity(),"请先登录").show();
+                    Intent inten5 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(inten5);
+                }
                 //Intent intent2 = new Intent();
                 //intent2.setType("image/*");
                 //intent2.setAction(Intent.ACTION_GET_CONTENT);
                 //intent2.addCategory(Intent.CATEGORY_OPENABLE);
                 //getActivity().startActivityForResult(Intent.createChooser(intent2, "选择图片"), REQUEST_SELECT_PICTURE);
 
-                Intent intent3 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                // 以startActivityForResult的方式启动一个activity用来获取返回的结果
-                startActivityForResult(intent3, REQUEST_SELECT_PICTURE);
+
 
 
                 break;
@@ -254,7 +263,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
         //初始化UCrop配置
         UCrop.Options options = new UCrop.Options();
         //设置裁剪网格线的宽度(我这网格设置不显示，所以没效果)
-        options.setCropGridStrokeWidth(20);
+        //options.setCropGridStrokeWidth(20);
         //设置裁剪图片可操作的手势
         options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
         //是否隐藏底部容器，默认显示
@@ -282,10 +291,10 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             final Uri resultUri = UCrop.getOutput(data);
             circleImageView.setImageURI(resultUri);
-
+            new File(String.valueOf(resultUri));
             try {
                 Bitmap bit = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(resultUri));
-                setBlurBackground(bit);
+                //setBlurBackground(bit);
 
                 //BitmapDrawable drawable = new BitmapDrawable(bit);
                 //beijing.setBackgroundDrawable(drawable);
@@ -299,7 +308,11 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
             BitmapDrawable drawable = new BitmapDrawable(bitmap);
             beijing.setBackgroundDrawable(drawable);*/
 
-            //UploadPic.uploadPic(resultUri);
+            try {
+                UploadPic.uploadPic(resultUri);
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         } else if (resultCode == UCrop.RESULT_ERROR) {
             final Throwable cropError = UCrop.getError(data);
         }else if (requestCode == REQUEST_SELECT_PICTURE){
