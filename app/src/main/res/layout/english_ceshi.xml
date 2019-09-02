@@ -69,6 +69,13 @@
                     android:text="添加到个人词库"
                     android:textSize="@dimen/dp_10"
                     android:textColor="#32CD32"/>
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_eraskanji" />
             </LinearLayout>
 
         </LinearLayout>

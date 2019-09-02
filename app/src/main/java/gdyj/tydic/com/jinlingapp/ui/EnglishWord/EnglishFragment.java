@@ -21,15 +21,22 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
+import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
+import gdyj.tydic.com.jinlingapp.bean.WordList;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
+import io.objectbox.query.Query;
 
 
 /**
@@ -42,12 +49,14 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     private TextView title;
     private RecyclerView mRecyclerView;
     private EnglishAdapter englishAdapter;
-    private List<EnglishCodeVo.ResultBean.RecordsBean> englishInfoList;
+    private List<ClassifyBean> englishInfoList;
     private EnglishWordPresenter englishWordPresenter;
-
     private String classify;
     private static int pageSize = 15;
     private static long delayMillis = 1000;
+    private Box<WordList> notesBox;
+    private Query<WordList> notesQuery;
+    private BoxStore boxStore;
 
     @BindView(R.id.seekbar)
     IndicatorSeekBar seekBar;
@@ -60,6 +69,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this,layout);
         seekBar.setEnabled(false);
+        boxStore= MyApplication.getInstance().getBoxStore();
+        notesBox = boxStore.boxFor(WordList.class);
         return layout;
     }
     @Override
@@ -67,15 +78,11 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         super.onActivityCreated(savedInstanceState);
         initView();
         initData();
-
         //initAdapter();
 }
-
     private void initData() {
         //englishWordPresenter.getClassify(classify);
-
     }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -83,7 +90,6 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         unbinder.unbind();
         englishWordPresenter.onDetach();
     }
-
     private void initView() {
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -91,21 +97,17 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         title = (TextView) layout.findViewById(R.id.title);
         setBackBtn();
         setTitle("英 文 四 级");
-
     }
-
     private void setTitle(String msg) {
         if (title != null) {
             title.setText(msg);
         }
     }
-
     private void initAdapter() {
         //englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         //englishAdapter.openLoadAnimation();
         //mRecyclerView.setAdapter(englishAdapter);
     }
-
     protected void setBackBtn() {
         if (back != null) {
             back.setVisibility(View.VISIBLE);
@@ -125,8 +127,6 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     public void onValidCodeSend() {
 
     }
-
-
     @Override
     public void onLoginSuccess(EnglishCodeVo.ResultBean resultBean) {
         englishInfoList = resultBean.getRecords();
@@ -144,6 +144,24 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(getActivity(), "长按了第" + englishInfoList.get(position).getWord(), Toast.LENGTH_SHORT).show();
+
+
+               /* notesQuery = notesBox.query()*//*.order(ClassifyBean)*//*.build();
+                //notesBox.put(classifyBean);
+
+                QueryBuilder<WordList> builder = notesBox.query();
+        *//*builder.equal(User_.firstName,"Joe)
+                .greater(User_.yearOfBirth,1970)
+                .startsWith(User_.lastName,"0");*//*
+                List<WordList> youngJoes = builder.build().find();
+                List<WordList> resultBeans = notesQuery.find();*/
+
+
+                List<ClassifyBean>  classifyBeanList = new ArrayList<>();
+                classifyBeanList.add(englishInfoList.get(position));
+                long Id=notesBox.put(new WordList(0,classifyBeanList));
+
+
                 return false;
             }
         });

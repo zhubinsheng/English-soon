@@ -10,18 +10,18 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 
 
-public class EnglishAdapter extends BaseItemDraggableAdapter <EnglishCodeVo.ResultBean.RecordsBean, BaseViewHolder> {
+public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, BaseViewHolder> {
     private boolean isShow;
 
-    public EnglishAdapter(int layoutResId, @Nullable List<EnglishCodeVo.ResultBean.RecordsBean> data) {
+    public EnglishAdapter(int layoutResId, @Nullable List<ClassifyBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper,  EnglishCodeVo.ResultBean.RecordsBean item) {
+    protected void convert(BaseViewHolder helper,  ClassifyBean item) {
         ((TextView) helper.getView(R.id.text1)).setText(item.getMeaning());
         ((TextView) helper.getView(R.id.text2)).setText(item.getWord());
         if(isShow) {

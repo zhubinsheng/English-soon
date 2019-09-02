@@ -36,7 +36,7 @@ import gdyj.tydic.com.jinlingapp.bean.SysRegisterInfoModel;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyhFragment;
 import gdyj.tydic.com.jinlingapp.ui.EnglishWord.EnglishFragment;
-import gdyj.tydic.com.jinlingapp.ui.MainFragment;
+import gdyj.tydic.com.jinlingapp.ui.Fuxi.FuxiFragment;
 import gdyj.tydic.com.jinlingapp.ui.UserSet.PhoneLoginPresenter;
 import gdyj.tydic.com.jinlingapp.ui.UserSet.UserSetFragment;
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         // 将Fragment添加到集合
         fragments.add(new ClassifyhFragment());
         fragments.add(new EnglishFragment());
-        fragments.add(new MainFragment());
+        fragments.add(new FuxiFragment());
         fragments.add(new UserSetFragment());
 
         // 初始化适配器

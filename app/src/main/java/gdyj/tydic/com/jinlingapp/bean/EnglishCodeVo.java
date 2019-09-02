@@ -75,7 +75,7 @@ public class EnglishCodeVo {
         private int current;
         private boolean searchCount;
         private int pages;
-        private List<RecordsBean> records;
+        private List<ClassifyBean> records;
 
         public int getTotal() {
             return total;
@@ -117,13 +117,14 @@ public class EnglishCodeVo {
             this.pages = pages;
         }
 
-        public List<RecordsBean> getRecords() {
+        public List<ClassifyBean> getRecords() {
             return records;
         }
 
-        public void setRecords(List<RecordsBean> records) {
+        public void setRecords(List<ClassifyBean> records) {
             this.records = records;
         }
+
 
         public static class RecordsBean {
             /**

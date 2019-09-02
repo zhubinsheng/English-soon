@@ -3,7 +3,6 @@ package gdyj.tydic.com.jinlingapp.bean;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import io.objectbox.annotation.Entity;
-import io.objectbox.annotation.Id;
 import io.objectbox.annotation.Index;
 import io.objectbox.annotation.NameInDb;
 import io.objectbox.annotation.Unique;
@@ -24,8 +23,7 @@ public class ClassifyBean implements MultiItemEntity {
          * meaning : null
          * classify : 人教版7年级下
          */
-        @Id
-        long boxId;
+
 
         private String word;
         private String meaning;
