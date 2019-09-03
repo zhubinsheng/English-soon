@@ -21,7 +21,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -144,24 +143,17 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(getActivity(), "长按了第" + englishInfoList.get(position).getWord(), Toast.LENGTH_SHORT).show();
-
-
                /* notesQuery = notesBox.query()*//*.order(ClassifyBean)*//*.build();
                 //notesBox.put(classifyBean);
-
                 QueryBuilder<WordList> builder = notesBox.query();
         *//*builder.equal(User_.firstName,"Joe)
                 .greater(User_.yearOfBirth,1970)
                 .startsWith(User_.lastName,"0");*//*
                 List<WordList> youngJoes = builder.build().find();
                 List<WordList> resultBeans = notesQuery.find();*/
-
-
-                List<ClassifyBean>  classifyBeanList = new ArrayList<>();
-                classifyBeanList.add(englishInfoList.get(position));
-                long Id=notesBox.put(new WordList(0,classifyBeanList));
-
-
+                WordList  wordList = new WordList();
+                wordList.classifyBeanList.add(englishInfoList.get(position));
+                long Id=notesBox.put(wordList);
                 return false;
             }
         });

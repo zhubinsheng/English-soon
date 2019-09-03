@@ -1,28 +1,22 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
-import java.util.List;
-
+import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Id;
+import io.objectbox.relation.ToMany;
 
 /**
  * @author binshengzhu
  */
+
 public class WordList {
-    public WordList(long boxId, List<ClassifyBean> classifyBeanList) {
-        this.boxId = boxId;
-        this.classifyBeanList = classifyBeanList;
-    }
 
     @Id
-    long boxId;
+    public long boxId;
 
-    private List<ClassifyBean>  classifyBeanList;
 
-    public List<ClassifyBean> getClassifyBeanList() {
-        return classifyBeanList;
-    }
 
-    public void setClassifyBeanList(List<ClassifyBean> classifyBeanList) {
-        this.classifyBeanList = classifyBeanList;
-    }
+    @Backlink
+    public ToMany<ClassifyBean> classifyBeanList;
+
+
 }

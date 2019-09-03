@@ -4,6 +4,7 @@ buildscript {
     
     repositories {
         google()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         jcenter()
     }
     ext.objectboxVersion = '2.2.0'
@@ -23,8 +24,8 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
 
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         mavenCentral()
         maven {
             url "https://jitpack.io"
@@ -38,6 +39,7 @@ allprojects {
         flatDir {
             dirs 'libs'
         }
+        jcenter()
     }
 }
 
