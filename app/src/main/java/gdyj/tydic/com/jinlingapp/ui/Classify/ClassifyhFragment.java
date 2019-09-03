@@ -47,7 +47,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
     private List<MySection> mySectionList =new ArrayList<>();
     private ArrayList<MultiItemEntity> list;
 
-    private Box<ClassifyBean> notesBox;
+    //private Box<ClassifyBean> notesBox;
     private Query<ClassifyBean> notesQuery;
     private BoxStore boxStore;
 
@@ -69,7 +69,7 @@ public class ClassifyhFragment extends Fragment implements ClassifyContract.View
         layout = inflater.inflate(R.layout.fragment_classify, container, false);
         unbinder = ButterKnife.bind(this,layout);
         boxStore=MyApplication.getInstance().getBoxStore();
-        notesBox = boxStore.boxFor(ClassifyBean.class);
+        //notesBox = boxStore.boxFor(ClassifyBean.class);
         //notesQuery = notesBox.query().order(ClassifyBean.).build();
         return layout;
     }

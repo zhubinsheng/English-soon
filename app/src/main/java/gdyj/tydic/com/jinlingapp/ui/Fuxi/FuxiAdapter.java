@@ -1,20 +1,20 @@
-package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
+package gdyj.tydic.com.jinlingapp.ui.Fuxi;
 
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
-import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
+import gdyj.tydic.com.jinlingapp.bean.WordList;
 
 
-public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, BaseViewHolder> {
+public class FuxiAdapter extends BaseQuickAdapter<WordList, BaseViewHolder> {
 
     private boolean isShow;
     private static final int RED = 0xFFFF0000;
@@ -22,14 +22,18 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
     private static final int BLUE = 0xFF0000FF;
     public static final int YELLOW = 0xFFFFFF00;
 
-    public EnglishAdapter(int layoutResId, @Nullable List<ClassifyBean> data) {
+    public FuxiAdapter(int layoutResId, @Nullable List<WordList> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper,  ClassifyBean item) {
-        ((TextView) helper.getView(R.id.text1)).setText(item.getMeaning());
-        ((TextView) helper.getView(R.id.text2)).setText(item.getWord());
+    protected void convert(BaseViewHolder helper,  WordList item) {
+        if (!item.getClassify().isEmpty()){
+            ((TextView) helper.getView(R.id.text2)).setText(item.getClassify());
+        }
+        helper.setText(R.id.text2, "123123");
+        ((TextView) helper.getView(R.id.text1)).setText("123123");
+        //((TextView) helper.getView(R.id.text2)).setText(item.getWord());
 
         switch (helper.getLayoutPosition() % 3) {
             case 0:

@@ -30,11 +30,56 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:3538015766652367787",
+      "lastPropertyId": "4:6613571719820934257",
+      "name": "ClassifyBean",
+      "properties": [
+        {
+          "id": "1:9158486215519589855",
+          "name": "id"
+        },
+        {
+          "id": "2:8960099721939053333",
+          "name": "word"
+        },
+        {
+          "id": "3:4057507298987657200",
+          "name": "meaning"
+        },
+        {
+          "id": "4:6613571719820934257",
+          "name": "classify"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:7161149823028201210",
+      "lastPropertyId": "2:2692931516386912702",
+      "name": "WordList",
+      "properties": [
+        {
+          "id": "1:5967004594302396835",
+          "name": "boxId"
+        },
+        {
+          "id": "2:2692931516386912702",
+          "name": "classify"
+        }
+      ],
+      "relations": [
+        {
+          "id": "2:4847429186163387560",
+          "name": "classifyBeanList"
+        }
+      ]
     }
   ],
-  "lastEntityId": "3:565637343587803425",
+  "lastEntityId": "5:7161149823028201210",
   "lastIndexId": "1:3921880696709893092",
-  "lastRelationId": "1:5255366842091487144",
+  "lastRelationId": "2:4847429186163387560",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,

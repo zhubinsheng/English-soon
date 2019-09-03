@@ -2,9 +2,13 @@ package gdyj.tydic.com.jinlingapp.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import io.objectbox.annotation.Entity;
+import io.objectbox.annotation.Id;
+
 /**
  * @author binshengzhu
  */
+@Entity
 public class ClassifyBean implements MultiItemEntity {
     public ClassifyBean(String word, String meaning, String classify) {
         this.word = word;
@@ -18,7 +22,8 @@ public class ClassifyBean implements MultiItemEntity {
          * classify : 人教版7年级下
          */
 
-
+    @Id
+    public long id;
         private String word;
         private String meaning;
         private String classify;

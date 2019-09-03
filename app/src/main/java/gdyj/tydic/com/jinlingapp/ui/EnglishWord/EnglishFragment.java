@@ -32,10 +32,12 @@ import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 import gdyj.tydic.com.jinlingapp.bean.WordList;
+import gdyj.tydic.com.jinlingapp.bean.WordList_;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
+import io.objectbox.query.QueryBuilder;
 
 
 /**
@@ -143,17 +145,23 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
             @Override
             public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
                 Toast.makeText(getActivity(), "长按了第" + englishInfoList.get(position).getWord(), Toast.LENGTH_SHORT).show();
-               /* notesQuery = notesBox.query()*//*.order(ClassifyBean)*//*.build();
+                //notesQuery = notesBox.query().order(ClassifyBean).build();
                 //notesBox.put(classifyBean);
                 QueryBuilder<WordList> builder = notesBox.query();
-        *//*builder.equal(User_.firstName,"Joe)
-                .greater(User_.yearOfBirth,1970)
-                .startsWith(User_.lastName,"0");*//*
+                builder.equal(WordList_.classify,resultBean.getRecords().get(0).getClassify());
                 List<WordList> youngJoes = builder.build().find();
-                List<WordList> resultBeans = notesQuery.find();*/
+               // List<WordList> resultBeans = notesQuery.find();
                 WordList  wordList = new WordList();
-                wordList.classifyBeanList.add(englishInfoList.get(position));
-                long Id=notesBox.put(wordList);
+                if (youngJoes.size()==0){
+                    wordList.classify = resultBean.getRecords().get(0).getClassify();
+                    wordList.classifyBeanList.add(englishInfoList.get(position));
+                    long Id=notesBox.put(wordList);
+                }else {
+                    youngJoes.get(0).classifyBeanList.add(englishInfoList.get(position));
+                    youngJoes.get(0).classify = resultBean.getRecords().get(0).getClassify();
+                    long Id=notesBox.put(youngJoes.get(0));
+                }
+
                 return false;
             }
         });
