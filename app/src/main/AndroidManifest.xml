@@ -41,6 +41,6 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".ui.Fuxi.Activity_fuxi"></activity>
+        <activity android:name=".ui.Fuxi.ActivityFuxi"></activity>
     </application>
 </manifest>

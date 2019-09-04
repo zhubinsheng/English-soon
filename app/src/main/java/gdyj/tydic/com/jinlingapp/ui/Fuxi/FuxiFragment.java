@@ -59,7 +59,8 @@ public class FuxiFragment extends BaseFragment {
         fuxiAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(getActivity(), Activity_fuxi.class);
+                Intent intent = new Intent(getActivity(), ActivityFuxi.class);
+                intent.putExtra("youngJoes",  youngJoes.get(position));
                 startActivity(intent);
             }
         });

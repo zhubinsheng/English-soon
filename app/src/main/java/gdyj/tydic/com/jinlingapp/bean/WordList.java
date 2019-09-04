@@ -1,5 +1,7 @@
 package gdyj.tydic.com.jinlingapp.bean;
 
+import java.io.Serializable;
+
 import io.objectbox.annotation.Backlink;
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -9,7 +11,7 @@ import io.objectbox.relation.ToMany;
  * @author binshengzhu
  */
 @Entity
-public class WordList {
+public class WordList implements Serializable {
 
     @Id
     public long boxId;
@@ -25,5 +27,11 @@ public class WordList {
     public String classify ;
     public ToMany<ClassifyBean> classifyBeanList;
 
+    public ToMany<ClassifyBean> getClassifyBeanList() {
+        return classifyBeanList;
+    }
 
+    public void setClassifyBeanList(ToMany<ClassifyBean> classifyBeanList) {
+        this.classifyBeanList = classifyBeanList;
+    }
 }

@@ -2,6 +2,8 @@ package gdyj.tydic.com.jinlingapp.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import java.io.Serializable;
+
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
 
@@ -9,7 +11,7 @@ import io.objectbox.annotation.Id;
  * @author binshengzhu
  */
 @Entity
-public class ClassifyBean implements MultiItemEntity {
+public class ClassifyBean implements MultiItemEntity , Serializable {
     public ClassifyBean(String word, String meaning, String classify) {
         this.word = word;
         this.meaning = meaning;

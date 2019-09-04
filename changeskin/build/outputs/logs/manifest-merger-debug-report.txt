@@ -1,43 +1,43 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
+ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
 	package
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:2:11-39
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:2:11-39
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:1-10:12
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:1-10:12
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:1:11-69
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:1:11-69
 application
-ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:4:5-8:19
+ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:4:5-8:19
 	android:label
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:5:18-50
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:5:18-50
 	android:allowBackup
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml:4:18-44
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml:4:18-44
 uses-sdk
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		ADDED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
-		INJECTED from /media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		ADDED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
+		INJECTED from D:\jinlingApp2\English-soon\changeskin\src\main\AndroidManifest.xml
