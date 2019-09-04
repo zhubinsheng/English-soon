@@ -48,7 +48,7 @@ public class EnglishCodeVo {
         return result;
     }
 
-    public void setResult(ResultBean result) {
+    public void setResultsetResult(ResultBean result) {
         this.result = result;
     }
 

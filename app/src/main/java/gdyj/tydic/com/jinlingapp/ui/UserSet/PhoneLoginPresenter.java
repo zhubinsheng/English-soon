@@ -31,12 +31,12 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
 
     public PhoneLoginPresenter(PhoneLoginContract.View view){
         this.mView = view;
-        mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class);
+        mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class,null);
     }
 
     public PhoneLoginPresenter(){
         this.mView = null;
-        mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class);
+        mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class,null);
     }
 
     @SuppressLint("CheckResult")

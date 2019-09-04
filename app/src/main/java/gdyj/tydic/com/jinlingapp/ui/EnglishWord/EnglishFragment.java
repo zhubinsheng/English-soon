@@ -1,8 +1,13 @@
 package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
+import android.annotation.SuppressLint;
 import android.graphics.Canvas;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,27 +15,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
-import com.warkiz.widget.IndicatorSeekBar;
+import com.google.gson.Gson;
+import com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
+import gdyj.tydic.com.jinlingapp.baiduUtils.java.bin.com.baidu.translate.demo.Main;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
+import gdyj.tydic.com.jinlingapp.bean.TransltResult;
 import gdyj.tydic.com.jinlingapp.bean.WordList;
 import gdyj.tydic.com.jinlingapp.bean.WordList_;
 import gdyj.tydic.com.jinlingapp.ui.Classify.ClassifyMessageEvent;
@@ -53,23 +64,49 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     private List<ClassifyBean> englishInfoList;
     private EnglishWordPresenter englishWordPresenter;
     private String classify;
-    private static int pageSize = 15;
+    private static int pageSize = 30;
     private static long delayMillis = 1000;
     private Box<WordList> notesBox;
     private Query<WordList> notesQuery;
     private BoxStore boxStore;
 
-    @BindView(R.id.seekbar)
-    IndicatorSeekBar seekBar;
 
-    @Nullable
+    @BindView(R.id.hengxiang)
+    LinearLayout hengxiang;
+
+    @BindView(R.id.shurudanci)
+    MaterialEditText shurudanci;
+
+    @BindView(R.id.sousuo)
+    TextView sousuo;
+
+    @SuppressLint("HandlerLeak")
+    Handler myHandler = new Handler() {
+        @RequiresApi(api = Build.VERSION_CODES.N)
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0: //xxx操作
+                    List<TransltResult.TransResultBean> transResultBeans = ( List<TransltResult.TransResultBean>) msg.obj;
+                    //Toasty.warning(getActivity(),transltResult).show();
+
+                    String value = transResultBeans.stream().map(productInfoVO -> String.valueOf(productInfoVO.getDst())).collect(Collectors.joining(","));
+                    shurudanci.setFloatingLabelText(value);
+                case 1: //yyy操作
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+        @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_english, container, false);
         englishWordPresenter = new EnglishWordPresenter(this);
         EventBus.getDefault().register(this);
         unbinder = ButterKnife.bind(this,layout);
-        seekBar.setEnabled(false);
         boxStore= MyApplication.getInstance().getBoxStore();
         notesBox = boxStore.boxFor(WordList.class);
         return layout;
@@ -97,7 +134,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         //back = (ImageView) layout.findViewById(R.id.img_back);
         title = (TextView) layout.findViewById(R.id.title);
         setBackBtn();
-        setTitle("英 文 四 级");
+        setTitle("单 词 列 表");
     }
     private void setTitle(String msg) {
         if (title != null) {
@@ -124,6 +161,41 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
     }
 
+    @OnClick({R.id.sousuo})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.sousuo:
+                if (
+                        shurudanci.getText() ==null ||shurudanci.getText().toString().isEmpty()
+                ){
+                    Toasty.warning(getActivity(),"请输入正确文字").show();
+                }else {
+                    new Thread(){
+                        @Override
+                        public void run() {
+                            //需要在子线程中处理的逻辑
+                            String str  =   Main.main(shurudanci.getText().toString());
+                            Gson gson = new Gson();
+                            TransltResult transltResult = gson.fromJson(str, TransltResult.class);
+                            //Toasty.warning(getActivity(),transltResult.getTrans_result().get(0).getDst()).show();
+
+                            //假设现在在子线程了
+
+                            Message msg = myHandler.obtainMessage();
+                            msg.what = 0;
+                            msg.obj = transltResult.getTrans_result();
+                            myHandler.sendMessage(msg);
+                        }
+                    }.start();
+
+                }
+
+                break;
+                default:
+                    break;
+
+        }
+    }
     @Override
     public void onValidCodeSend() {
 
@@ -161,7 +233,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                     youngJoes.get(0).classify = resultBean.getRecords().get(0).getClassify();
                     long Id=notesBox.put(youngJoes.get(0));
                 }
-
+                hengxiang.setVisibility(View.VISIBLE);
+                shurudanci.setFloatingLabelText("点击搜索这里会显示搜索的结果哦");
                 return false;
             }
         });

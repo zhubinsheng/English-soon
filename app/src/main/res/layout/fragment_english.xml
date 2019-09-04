@@ -7,49 +7,56 @@
 
     <include layout="@layout/toolbar_layout" />
 
-    <com.warkiz.widget.IndicatorSeekBar
-        android:id="@+id/seekbar"
+
+    <LinearLayout
+        android:id="@+id/hengxiang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:isb_max="100"
-        app:isb_min="0"
-        app:isb_progress="5"
-        app:isb_seek_smoothly="true"
-        app:isb_ticks_count="5"
-        app:isb_show_tick_marks_type="oval"
-        app:isb_tick_marks_size="10dp"
-        app:isb_tick_marks_drawable="@drawable/bigenguo"
-        app:isb_show_tick_texts="true"
-        app:isb_tick_texts_size="10dp"
-        app:isb_tick_texts_color="@color/color_blue"
-        app:isb_thumb_color="@color/color_green"
-        app:isb_thumb_size="10dp"
-        app:isb_show_indicator="rounded_rectangle"
-        app:isb_indicator_color="@color/color_gray"
-        app:isb_indicator_text_color="@color/colorAccent"
-        app:isb_indicator_text_size="18sp"
-        app:isb_track_background_color="@color/color_gray"
-        app:isb_track_background_size="2dp"
-        app:isb_track_progress_color="@color/color_blue"
-        app:isb_track_progress_size="4dp"
-        app:isb_only_thumb_draggable="false"/>
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText
+            android:id="@+id/shurudanci"
+            android:layout_width="wrap_content"
+            android:layout_height="51dp"
+            android:layout_marginLeft="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dp_10"
+            android:background="@drawable/edit_background"
+            android:hint="请输入单词或者意思"
+            android:textSize="@dimen/dp_15"
+            android:visibility="visible"
+            app:met_clearButton="true"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAnimating="true"
+            app:met_floatingLabelText="此处显示查询结果"
+            app:met_floatingLabelTextColor="@color/successColor"
+            app:met_floatingLabelTextSize="@dimen/dp_15"
+            app:met_hideUnderline="true" />
+
+        <TextView
+            android:id="@+id/sousuo"
+            android:layout_width="26dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="31dp"
+            android:textColor="@color/color_green"
+            android:gravity="center"
+            android:background="@color/white"
+            android:layout_marginRight="@dimen/dp_40"
+            android:layout_marginBottom="@dimen/dp_40"
+            android:text="搜索" />
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <!-- <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/xingkongbeijing"
-            />-->
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
     </FrameLayout>
 
 

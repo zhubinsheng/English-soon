@@ -1,5 +1,7 @@
 package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
+import android.annotation.SuppressLint;
+
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 
 
@@ -16,5 +18,8 @@ public interface EnglishContract {
 
     interface Presenter{
         void getClassify(String classify,int pageSize,int pageNo);
+
+        @SuppressLint("CheckResult")
+        void sousuoWord(String classify, int pageSize, int pageNo);
     }
 }

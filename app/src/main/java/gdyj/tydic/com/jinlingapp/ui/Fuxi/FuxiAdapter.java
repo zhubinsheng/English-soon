@@ -1,16 +1,15 @@
 package gdyj.tydic.com.jinlingapp.ui.Fuxi;
 
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.TextView;
 
-import com.chad.library.adapter.base.BaseItemDraggableAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
-import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.WordList;
 
 
@@ -29,12 +28,10 @@ public class FuxiAdapter extends BaseQuickAdapter<WordList, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper,  WordList item) {
         if (!item.getClassify().isEmpty()){
-            ((TextView) helper.getView(R.id.text2)).setText(item.getClassify());
+            ((TextView) helper.getView(R.id.text1)).setVisibility(View.GONE);
+            helper.setText(R.id.text2, item.getClassify())
+                    .setText(R.id.button2,"点击进入复习");
         }
-        helper.setText(R.id.text2, "123123");
-        ((TextView) helper.getView(R.id.text1)).setText("123123");
-        //((TextView) helper.getView(R.id.text2)).setText(item.getWord());
-
         switch (helper.getLayoutPosition() % 3) {
             case 0:
                 ((TextView) helper.getView(R.id.text2)).setTextColor(RED);
@@ -49,8 +46,6 @@ public class FuxiAdapter extends BaseQuickAdapter<WordList, BaseViewHolder> {
                 break;
         }
     }
-
-
     //改变显示删除的imageview，通过定义变量isShow去接收变量isManager
     public void changetShowDelImage(boolean isShow) {
         this.isShow = isShow;

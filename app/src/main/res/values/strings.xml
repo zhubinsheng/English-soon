@@ -3,4 +3,6 @@
     <string name="rule_text">0123456789abcdefghijklmnopqrstuvwxyz
 ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
     <string name="connection_code">密码</string>
+    <string name="regexp_number_only">qwertyuiopasdfghjklzxcvbnm</string>
+    <string name="tip_number_only_error_message">请不要输入字母以外的</string>
 </resources>

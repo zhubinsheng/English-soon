@@ -22,7 +22,7 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
 
     public ClassifyPresenter(ClassifyContract.View view){
         this.mView = view;
-        classifyApi = MyRetrofitManager.create(ClassifyApi.class);
+        classifyApi = MyRetrofitManager.create(ClassifyApi.class,null);
     }
 
 

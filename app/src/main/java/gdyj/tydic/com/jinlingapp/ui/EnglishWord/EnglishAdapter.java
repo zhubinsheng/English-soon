@@ -1,7 +1,6 @@
 package gdyj.tydic.com.jinlingapp.ui.EnglishWord;
 
 import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseItemDraggableAdapter;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
-import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
 
 
 public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, BaseViewHolder> {
@@ -28,8 +26,8 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
 
     @Override
     protected void convert(BaseViewHolder helper,  ClassifyBean item) {
-        ((TextView) helper.getView(R.id.text1)).setText(item.getMeaning());
-        ((TextView) helper.getView(R.id.text2)).setText(item.getWord());
+        ((TextView) helper.getView(R.id.text2)).setText(item.getMeaning());
+        ((TextView) helper.getView(R.id.text1)).setText(item.getWord());
 
         switch (helper.getLayoutPosition() % 3) {
             case 0:
@@ -44,6 +42,8 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
             default:
                 break;
         }
+        //单词默认显示绿色
+        ((TextView) helper.getView(R.id.text2)).setTextColor(GREEN);
     }
 
 

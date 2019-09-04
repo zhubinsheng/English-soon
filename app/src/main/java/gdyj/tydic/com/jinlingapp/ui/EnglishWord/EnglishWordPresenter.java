@@ -20,7 +20,7 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
 
     public EnglishWordPresenter(EnglishContract.View view){
         this.mView = view;
-        englishWordApi = MyRetrofitManager.create(EnglishWordApi.class);
+        englishWordApi = MyRetrofitManager.create(EnglishWordApi.class,null);
     }
 
 
@@ -53,6 +53,37 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
                                 mView.onLoginFail("网络出问题啦，请稍后再试");
+                        }
+                    }
+                });
+    }
+
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void sousuoWord(String classify,int pageSize,int pageNo) {
+        Observable<EnglishCodeVo> observable = englishWordApi.GetEnglishWord(classify, pageSize,pageNo);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<EnglishCodeVo>() {
+                    @Override
+                    public void accept(EnglishCodeVo classifyBeanBaseResult) throws Exception {
+                        if(mView!=null&&classifyBeanBaseResult.getResult()!=null){
+                            if (pageNo!=1){
+                                mView.onGetMoreSuccess(classifyBeanBaseResult.getResult());
+                            }else {
+                                mView.onLoginSuccess(classifyBeanBaseResult.getResult());
+                            }
+
+                        }else {
+                            mView.onLoginFail("获取单词列表为空，请重试");
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(mView!=null){
+                            mView.onLoginFail("网络出问题啦，请稍后再试");
                         }
                     }
                 });
