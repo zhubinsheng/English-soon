@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,6 +19,7 @@ import butterknife.Unbinder;
 import gdyj.tydic.com.jinlingapp.Base.BaseFragment;
 import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
+import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.WordList;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -60,7 +62,8 @@ public class FuxiFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), ActivityFuxi.class);
-                intent.putExtra("youngJoes",  youngJoes.get(position));
+                List<ClassifyBean> classifyBeanToMany = youngJoes.get(position).getClassifyBeanList();
+                intent.putExtra("youngJoes",  (Serializable) classifyBeanToMany);
                 startActivity(intent);
             }
         });

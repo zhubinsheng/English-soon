@@ -17,38 +17,46 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
+        android:layout_gravity="center"
         android:gravity="center"
         android:textSize="20dp"
+        android:background="@color/color_green"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:textSize="20dp"
+        android:background="@color/color_green"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:textSize="20dp"
+        android:background="@color/color_green"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
+        android:layout_gravity="center"
         android:textSize="20dp"
+        android:background="@color/color_green"
         android:text="TextView" />
 
     <LinearLayout

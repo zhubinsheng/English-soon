@@ -17,7 +17,6 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
 
     private EnglishContract.View mView;
     private final EnglishWordApi englishWordApi;
-
     public EnglishWordPresenter(EnglishContract.View view){
         this.mView = view;
         englishWordApi = MyRetrofitManager.create(EnglishWordApi.class,null);
