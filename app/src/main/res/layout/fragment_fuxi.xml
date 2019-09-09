@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/toolbar_layout" />
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        app:tb_titleText="测试列表"
+        app:tb_titleTextColor ="@color/successColor"
+        android:background="@color/xui_config_color_titlebar"
+        android:fitsSystemWindows="true" />
 
     <TextView
         android:id="@+id/textView7"
@@ -17,46 +25,46 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="20dp"
-        android:background="@color/color_green"
+
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView9"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="20dp"
-        android:background="@color/color_green"
+
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView10"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="20dp"
-        android:background="@color/color_green"
+
         android:text="TextView" />
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:layout_gravity="center"
         android:textSize="20dp"
-        android:background="@color/color_green"
+
         android:text="TextView" />
 
     <LinearLayout
@@ -71,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_40"
             android:layout_marginRight="@dimen/dp_40"
+            android:layout_gravity="center_vertical"
             android:lines="2"
             android:text="传到男生" />
 
@@ -79,6 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="TextView" />
 
@@ -89,14 +99,18 @@
             android:layout_marginLeft="@dimen/dp_40"
             android:layout_marginRight="@dimen/dp_40"
             android:lines="2"
+            android:layout_gravity="center_vertical"
             android:text="传到女生" />
     </LinearLayout>
 
-    <TextView
+    <com.xuexiang.xui.widget.button.shadowbutton.ShadowButton
         android:id="@+id/textView15"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_width="41dp"
+        android:layout_height="37dp"
+        android:layout_gravity="center"
+        android:background="@mipmap/ic_launcher"
+        android:gravity="center"
+        app:sb_radius="6dp" />
 
 
 </LinearLayout>

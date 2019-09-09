@@ -6,7 +6,14 @@
     android:id="@+id/beijing"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/toolbar_layout" />
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        app:tb_titleText="个人设置"
+        app:tb_titleTextColor ="@color/successColor"
+        android:background="@color/xui_config_color_titlebar"
+        android:fitsSystemWindows="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -116,7 +123,7 @@
             app:srcCompat="@android:drawable/ic_media_play" />
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:orientation="horizontal">
@@ -147,11 +154,12 @@
             app:kswTextOff="OFF"
             app:kswTextOn="ON"
             app:kswTintColor="#49416E" />
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="30dp"
         android:orientation="horizontal">
 
         <TextView

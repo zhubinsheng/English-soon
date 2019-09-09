@@ -82,6 +82,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                                 MyApplication.getInstance().setHasjwt(true);
                                 MyApplication.getInstance().setJwt(loginResult.getResult().getToken());
                                 MyApplication.getInstance().setUploadt(loginResult.getResult().getUpToken());
+                                MyApplication.getInstance().setUserInfoBean(loginResult.getResult().getUserInfo());
                                 if(mView!=null){
                                     mView.onLoginSuccess();
                                 }

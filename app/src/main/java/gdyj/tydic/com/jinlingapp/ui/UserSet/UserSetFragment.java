@@ -18,7 +18,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,7 +41,9 @@ import gdyj.tydic.com.jinlingapp.Utils.BlurUtil;
 import gdyj.tydic.com.jinlingapp.Utils.UploadPic;
 import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.ui.Login_Regist.LoginActivity;
+import gdyj.tydic.com.jinlingapp.ui.Login_Regist.tianxieziliaoAcitivity;
 import gdyj.tydic.com.jinlingapp.ui.skin.SkinActivity;
+import gdyj.tydic.com.jinlingapp.ui.skin.XitongShezhiActivity;
 
 /**
  * @author zbs
@@ -54,14 +55,8 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     private Unbinder unbinder;
     private PhoneLoginPresenter mLoginPresenter;
 
-    @BindView(R.id.button)
-    Button login;
-    @BindView(R.id.button1)
-    Button login1;
-    @BindView(R.id.button2)
-    Button login2;
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.textView2)
+    TextView textView2;
     @BindView(R.id.beijing)
     LinearLayout beijing;
 
@@ -91,7 +86,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initView();
+        //initView();
         initData();
         initAdapter();
     }
@@ -107,6 +102,17 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
     }
 
     private void initData() {
+        if (MyApplication.getInstance().getHasjwt()){
+            if (MyApplication.getInstance().getUserInfoBean().getRealname()==null||MyApplication.getInstance().getUserInfoBean().getRealname().isEmpty()){
+                textView2.setText("吴彦祖");
+            }else {
+                textView2.setText(MyApplication.getInstance().getUserInfoBean().getRealname());
+            }
+        }else {
+
+        }
+
+        circleImageView.setImageResource(R.drawable.touxiang);
        /* new Thread(){
             @Override
             public void run() {
@@ -117,45 +123,22 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
         }.start();*/
     }
 
-    private void initView() {
+   /* private void initView() {
         setTitle("个 人 中 心");
     }
     private void setTitle(String msg) {
         if (title != null) {
             title.setText(msg);
         }
-    }
+    }*/
 
 
-    @OnClick({R.id.button, R.id.button1, R.id.button2,R.id.profile_image,R.id.textView2,R.id.textView29})
+    @OnClick({R.id.profile_image,R.id.textView2,R.id.textView29,R.id.textView26,R.id.textView5})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button:
             case R.id.textView2:
-
-                //speak();
-                //  String phone = mEdtPhone.getText().toString();
-
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
-               /* SysLoginModel sysLoginModel = new SysLoginModel();
-                sysLoginModel.setCaptcha("123");
-                sysLoginModel.setUsername("admin19");
-                sysLoginModel.setPassword("123456");
-                mLoginPresenter.PhoneLogin(sysLoginModel);*/
-
-                break;
-            case R.id.button1:
-                //sendCode(getActivity());
-                /*SysLoginModel sysLoginModel1 = new SysLoginModel();
-                sysLoginModel1.setCaptcha("123");
-                sysLoginModel1.setUsername("admin19");
-                sysLoginModel1.setPassword("123456");
-                mLoginPresenter.PhoneRegister(sysLoginModel1);*/
-
-                break;
-            case R.id.button2:
-
                 break;
             case R.id.profile_image:
                 if (MyApplication.getInstance().getHasjwt()){
@@ -171,10 +154,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 //intent2.setType("image/*");
                 //intent2.setAction(Intent.ACTION_GET_CONTENT);
                 //intent2.addCategory(Intent.CATEGORY_OPENABLE);
-                //getActivity().startActivityForResult(Intent.createChooser(intent2, "选择图片"), REQUEST_SELECT_PICTURE);
-
-
-
+                //getActivity().startActivityForResult(Intent.createChooser(intent2, "选择图片"), REQUEST_SELECT_PICTURE)
 
                 break;
 
@@ -189,6 +169,22 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 Intent intent13 = new Intent(getActivity(), SkinActivity.class);
                 startActivity(intent13);
                 break;
+
+            case R.id.textView26:
+                //系统设置
+                Intent intent14 = new Intent(getActivity(), XitongShezhiActivity.class);
+                startActivity(intent14);
+
+                break;
+
+
+            case R.id.textView5:
+                Intent intent16 = new Intent(getActivity(), tianxieziliaoAcitivity.class);
+                startActivity(intent16);
+                break;
+
+
+
                 default:break;
         }
     }

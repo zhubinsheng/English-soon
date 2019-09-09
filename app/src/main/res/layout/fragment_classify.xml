@@ -4,7 +4,16 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <include layout="@layout/toolbar_layout" />
+
+    <com.xuexiang.xui.widget.actionbar.TitleBar
+        android:id="@+id/topbar"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        app:tb_titleText="词库列表"
+        app:tb_titleTextColor ="@color/successColor"
+        android:background="@color/xui_config_color_titlebar"
+        android:fitsSystemWindows="true" />
+
     <com.mingle.widget.LoadingView
         android:id="@+id/loadView"
         android:layout_width="fill_parent"

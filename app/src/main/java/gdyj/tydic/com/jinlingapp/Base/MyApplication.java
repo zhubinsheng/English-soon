@@ -9,6 +9,7 @@ import com.mob.MobSDK;
 import com.xuexiang.xui.XUI;
 import com.zhy.changeskin.SkinManager;
 
+import gdyj.tydic.com.jinlingapp.bean.LoginResilt;
 import gdyj.tydic.com.jinlingapp.bean.MyObjectBox;
 import io.objectbox.BoxStore;
 
@@ -28,6 +29,7 @@ public class MyApplication extends Application {
     private String uploadt;
     private Boolean hasjwt = false;
     private BoxStore boxStore;
+    private LoginResilt.ResultBean.UserInfoBean userInfoBean;
 
     public static MyApplication getInstance() {
         return instance;
@@ -88,6 +90,14 @@ public class MyApplication extends Application {
 
     public void setUploadt(String uploadt) {
         this.uploadt = uploadt;
+    }
+
+    public LoginResilt.ResultBean.UserInfoBean getUserInfoBean() {
+        return userInfoBean;
+    }
+
+    public void setUserInfoBean(LoginResilt.ResultBean.UserInfoBean userInfoBean) {
+        this.userInfoBean = userInfoBean;
     }
 }
 

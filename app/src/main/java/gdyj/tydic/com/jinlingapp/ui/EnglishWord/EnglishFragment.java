@@ -11,9 +11,12 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +25,10 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.google.gson.Gson;
+import com.scwang.smart.refresh.header.ClassicsHeader;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 import com.xuexiang.xui.widget.edittext.materialedittext.MaterialEditText;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +45,7 @@ import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import gdyj.tydic.com.jinlingapp.Base.MyApplication;
 import gdyj.tydic.com.jinlingapp.R;
+import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.baiduUtils.java.bin.com.baidu.translate.demo.Main;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 import gdyj.tydic.com.jinlingapp.bean.EnglishCodeVo;
@@ -55,6 +63,7 @@ import io.objectbox.query.QueryBuilder;
  * @author Administrator
  */
 public class EnglishFragment extends Fragment implements EnglishContract.View {
+    private static final String TAG = "inword";
     private Unbinder unbinder;
     private View layout;
     private ImageView back;
@@ -69,7 +78,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     private Box<WordList> notesBox;
     private Query<WordList> notesQuery;
     private BoxStore boxStore;
-
+    int pastVisiblesItems, visibleItemCount, totalItemCount;
 
     @BindView(R.id.hengxiang)
     LinearLayout hengxiang;
@@ -99,8 +108,9 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
             }
         }
     };
+    private LinearLayoutManager mLayoutManager;
 
-        @Nullable
+    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         layout = inflater.inflate(R.layout.fragment_english, container, false);
@@ -109,6 +119,36 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         unbinder = ButterKnife.bind(this,layout);
         boxStore= MyApplication.getInstance().getBoxStore();
         notesBox = boxStore.boxFor(WordList.class);
+        shurudanci.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        shurudanci.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId,
+                                              KeyEvent event) {
+                    if ((actionId == 0 || actionId == 3) && event != null) {
+                        //写你要做的事情
+                        GOsousuo();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+
+        RefreshLayout refreshLayout = (RefreshLayout)layout.findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                startUpFetch();
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
         return layout;
     }
     @Override
@@ -129,12 +169,35 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         englishWordPresenter.onDetach();
     }
     private void initView() {
+        mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         //back = (ImageView) layout.findViewById(R.id.img_back);
         title = (TextView) layout.findViewById(R.id.title);
         setBackBtn();
         setTitle("单 词 列 表");
+
+
+
+       /* mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Log.i(TAG, "--------------------------------------");
+                if(mRecyclerView.canScrollVertically(1)){
+                    Log.i(TAG, "direction 1: true");
+                }else {
+                    Log.i(TAG, "direction 1: false");//滑动到底部
+                }
+                if(mRecyclerView.canScrollVertically(-1)){
+                    Log.i(TAG, "direction -1: true");
+                }else {
+                    Log.i(TAG, "direction -1: false");//滑动到顶部
+                }
+            }
+        });*/
+
     }
     private void setTitle(String msg) {
         if (title != null) {
@@ -165,30 +228,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.sousuo:
-                if (
-                        shurudanci.getText() ==null ||shurudanci.getText().toString().isEmpty()
-                ){
-                    Toasty.warning(getActivity(),"请输入正确文字").show();
-                }else {
-                    new Thread(){
-                        @Override
-                        public void run() {
-                            //需要在子线程中处理的逻辑
-                            String str  =   Main.main(shurudanci.getText().toString());
-                            Gson gson = new Gson();
-                            TransltResult transltResult = gson.fromJson(str, TransltResult.class);
-                            //Toasty.warning(getActivity(),transltResult.getTrans_result().get(0).getDst()).show();
-
-                            //假设现在在子线程了
-
-                            Message msg = myHandler.obtainMessage();
-                            msg.what = 0;
-                            msg.obj = transltResult.getTrans_result();
-                            myHandler.sendMessage(msg);
-                        }
-                    }.start();
-
-                }
+               GOsousuo();
 
                 break;
                 default:
@@ -196,6 +236,34 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
         }
     }
+
+    private void GOsousuo() {
+        if (
+                shurudanci.getText() ==null ||shurudanci.getText().toString().isEmpty()
+        ){
+            Toasty.warning(getActivity(),"请输入正确文字").show();
+        }else {
+            new Thread(){
+                @Override
+                public void run() {
+                    //需要在子线程中处理的逻辑
+                    String str  =   Main.main(shurudanci.getText().toString());
+                    Gson gson = new Gson();
+                    TransltResult transltResult = gson.fromJson(str, TransltResult.class);
+                    //Toasty.warning(getActivity(),transltResult.getTrans_result().get(0).getDst()).show();
+
+                    //假设现在在子线程了
+
+                    Message msg = myHandler.obtainMessage();
+                    msg.what = 0;
+                    msg.obj = transltResult.getTrans_result();
+                    myHandler.sendMessage(msg);
+                }
+            }.start();
+
+        }
+    }
+
     @Override
     public void onValidCodeSend() {
 
@@ -206,6 +274,26 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
+
+
+        //条目子控件点击事件
+        englishAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                //判断id
+                if (view.getId() == R.id.text1) {
+                    if (englishInfoList.get(position).getWord()==null||englishInfoList.get(position).getWord().isEmpty()){
+                        return;
+                    }
+                   speak(englishInfoList.get(position).getWord());
+                } else if (view.getId() == R.id.tv_title) {
+                    Log.i("tag", "点击了第" + position + "条条目的 标题");
+                }
+            }
+        });
+
+
 
         //开启动画（默认为渐显效果）
         //使用缩放动画
@@ -258,6 +346,32 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 Toast.makeText(getActivity(), "onItemSwipeMoving", Toast.LENGTH_SHORT).show();
             }
         };
+        /*englishAdapter.setUpFetchEnable(true);
+        englishAdapter.setStartUpFetchPosition(0);
+        englishAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
+            @Override
+            public void onUpFetch() {
+                Log.v("...setUpFetchEnable", "0");
+                //startUpFetch();
+            }
+        });*/
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                visibleItemCount = mLayoutManager.getChildCount();
+                totalItemCount = mLayoutManager.getItemCount();
+                pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+                Log.v("...", String.valueOf(pastVisiblesItems));
+                Log.v("...2", String.valueOf(totalItemCount));
+                Log.v("...3", String.valueOf(visibleItemCount));
+                if (dy>70){
+                    hengxiang.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
         englishAdapter.enableSwipeItem();
         englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
 
@@ -295,6 +409,11 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         mRecyclerView.setAdapter(englishAdapter);
     }
 
+    private void startUpFetch() {
+        hengxiang.setVisibility(View.VISIBLE);
+        shurudanci.setFloatingLabelText("点击搜索这里会显示搜索的结果哦");
+    }
+
     @Override
     public void onGetMoreSuccess(EnglishCodeVo.ResultBean resultBean) {
         englishAdapter.addData(resultBean.getRecords());
@@ -314,5 +433,9 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
             classify = message.getClassify();
             englishWordPresenter.getClassify(classify,pageSize,1);
         }
+    }
+    private void speak(String text) {
+        TTSUtils.getInstance().init();
+        TTSUtils.getInstance().speak(text);
     }
 }

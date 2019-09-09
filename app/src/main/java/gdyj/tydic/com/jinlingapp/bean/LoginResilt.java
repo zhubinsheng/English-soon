@@ -139,7 +139,7 @@ public class LoginResilt {
 
             private String id;
             private String username;
-            private Object realname;
+            private String realname;
             private String password;
             private String salt;
             private Object avatar;
@@ -172,11 +172,11 @@ public class LoginResilt {
                 this.username = username;
             }
 
-            public Object getRealname() {
+            public String getRealname() {
                 return realname;
             }
 
-            public void setRealname(Object realname) {
+            public void setRealname(String realname) {
                 this.realname = realname;
             }
 

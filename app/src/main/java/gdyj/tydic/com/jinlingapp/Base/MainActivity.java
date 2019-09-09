@@ -53,6 +53,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*//默认API 最低19
+        Window window = getWindow();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.color_blue));
+        } else {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            ViewGroup systemContent = findViewById(android.R.id.content);
+            View statusBarView = new View(this);
+            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight());
+            statusBarView.setBackgroundColor(getResources().getColor(R.color.color_blue));
+            systemContent.getChildAt(0).setFitsSystemWindows(true);
+            systemContent.addView(statusBarView, 0, lp);
+        }*/
+
         mLoginPresenter = new PhoneLoginPresenter();
         String mima  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"mima",""));
         String zhanghao  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(this,"phone",""));
@@ -78,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            setBlurBackground(bit,10);
+            setBlurBackground(bit,20);
         }
         // 创建Fragment集合
         List<Fragment> fragments = new ArrayList<>();
@@ -172,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            setBlurBackground(bit,10);
+            setBlurBackground(bit,20);
         }else if (message.getRecode().equals("res")){
             SysRegisterInfoModel sysLoginModel = new SysRegisterInfoModel();
             sysLoginModel.setAvatar(message.getClassify());
@@ -188,7 +204,9 @@ public class MainActivity extends AppCompatActivity {
     {
         //0-25，表示模糊值 Radius out of range (0 < r <= 25).
         final Bitmap blurBmp = BlurUtil.fastblur(this, bmp, i);
-        BitmapDrawable drawable = new BitmapDrawable(blurBmp);
+        final Bitmap blurBmp2 = BlurUtil.fastblur(this, blurBmp, i);
+        final Bitmap blurBmp3 = BlurUtil.fastblur(this, blurBmp2, i);
+        BitmapDrawable drawable = new BitmapDrawable(blurBmp3);
         mainskin.setBackgroundDrawable(drawable);
     }
 }

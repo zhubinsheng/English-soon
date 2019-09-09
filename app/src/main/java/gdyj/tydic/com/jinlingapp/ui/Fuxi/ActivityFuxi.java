@@ -85,7 +85,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
         //int ranInt =  random.nextInt(4);
         List<String> wordList = new ArrayList<>();
         wordList.add(classifyBean.getWord());
-        for (int j = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
             ClassifyBean classifyBean1   =  englishInfoList.get(random.nextInt(englishInfoList.size()+1));
             englishInfoList.remove(classifyBean1);
             wordList.add(classifyBean1.getWord());
@@ -96,7 +96,10 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
         textView10.setText(wordList.get(2));
         textView11.setText(wordList.get(3));
 
-
+        textView8.setBackgroundColor(Color.GREEN);
+        textView9.setBackgroundColor(Color.GREEN);
+        textView10.setBackgroundColor(Color.GREEN);
+        textView11.setBackgroundColor(Color.GREEN);
 
 
     }

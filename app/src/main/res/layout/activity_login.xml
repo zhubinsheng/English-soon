@@ -11,7 +11,8 @@
         android:layout_height="66dp"
         app:tb_titleText="登录"
         app:tb_titleTextColor ="@color/successColor"
-        android:background="@color/xui_config_color_titlebar" />
+        android:background="@color/xui_config_color_titlebar"
+        android:fitsSystemWindows="true"/>
 
     <TextView
         android:layout_width="match_parent"

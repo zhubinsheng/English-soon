@@ -93,4 +93,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
     //七牛云保存头像
     implementation 'com.qiniu:qiniu-android-sdk:7.3.15'
+    // 注意：分包之后不会有默认的Header和Footer需要手动添加！还是原来的三种方法！
+    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'      //核心必须依赖
+    implementation  'com.scwang.smart:refresh-header-classics:2.0.0-alpha-1'    //经典刷新头
 }

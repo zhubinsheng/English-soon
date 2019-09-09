@@ -8,14 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="AppTheme.NoActionBar" parent="XUITheme.Phone">
-            <!-- 隐藏标题栏 -->
+            <!--&lt;!&ndash; 隐藏标题栏 &ndash;&gt;
             <item name="windowNoTitle">true</item>
-            <!-- 隐藏状态栏 -->
-            <item name="android:windowFullscreen">true</item>
+            &lt;!&ndash; 隐藏状态栏 &ndash;&gt;
+            <item name="android:windowFullscreen">true</item>-->
 
-        <item name="colorPrimary">@color/colorPrimary</item>
+
+<!--        <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>-->
 
     </style>
     <!-- 默认文本框样式 -->

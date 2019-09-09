@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">趣英语</string>
+    <string name="app_name">"闪记"</string>
     <string name="rule_text">0123456789abcdefghijklmnopqrstuvwxyz
 ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
     <string name="connection_code">密码</string>

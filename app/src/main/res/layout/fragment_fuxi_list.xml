@@ -11,7 +11,8 @@
         android:layout_height="66dp"
         app:tb_titleText="复习列表"
         app:tb_titleTextColor ="@color/successColor"
-        android:background="@color/xui_config_color_titlebar" />
+        android:background="@color/xui_config_color_titlebar"
+        android:fitsSystemWindows="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"

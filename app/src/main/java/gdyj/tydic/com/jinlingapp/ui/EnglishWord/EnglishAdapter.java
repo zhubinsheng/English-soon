@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import gdyj.tydic.com.jinlingapp.R;
+import gdyj.tydic.com.jinlingapp.baiduUtils.TTSUtils;
 import gdyj.tydic.com.jinlingapp.bean.ClassifyBean;
 
 
@@ -42,8 +43,10 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
             default:
                 break;
         }
+        helper.addOnClickListener(R.id.text1);    //给图标添加 点击事件
         //单词默认显示绿色
-        ((TextView) helper.getView(R.id.text2)).setTextColor(GREEN);
+        //((TextView) helper.getView(R.id.text2)).setTextColor(GREEN);
+        //
     }
 
 
@@ -51,5 +54,9 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
     public void changetShowDelImage(boolean isShow) {
         this.isShow = isShow;
         notifyDataSetChanged();
+    }
+
+    private void speak(String text) {
+        TTSUtils.getInstance().speak(text);
     }
 }
