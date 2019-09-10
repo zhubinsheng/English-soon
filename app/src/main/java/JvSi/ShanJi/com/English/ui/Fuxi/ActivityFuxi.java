@@ -23,6 +23,7 @@ import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
 import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.ui.EnglishWord.EnglishContract;
 import JvSi.ShanJi.com.English.ui.EnglishWord.EnglishWordPresenter;
+import es.dmoral.toasty.Toasty;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
@@ -75,6 +76,11 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
 
     private void setView(int i) {
 
+        if (classifyBeanToMany.size()==i){
+            Toasty.info(this,"本词库已全部结束测试").show();
+            --i;
+            return;
+        }
         ClassifyBean classifyBean =  classifyBeanToMany.get(i);
         textView7.setText(classifyBean.getMeaning());
         cureectWord = classifyBean.getWord();
@@ -96,10 +102,10 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
         textView10.setText(wordList.get(2));
         textView11.setText(wordList.get(3));
 
-        textView8.setBackgroundColor(Color.GREEN);
-        textView9.setBackgroundColor(Color.GREEN);
-        textView10.setBackgroundColor(Color.GREEN);
-        textView11.setBackgroundColor(Color.GREEN);
+        textView8.setTextColor(Color.WHITE);
+        textView9.setTextColor(Color.WHITE);
+        textView10.setTextColor(Color.WHITE);
+        textView11.setTextColor(Color.WHITE);
 
 
     }
@@ -117,7 +123,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     i++;
                     setView(i);
                 }else {
-                    textView8.setBackgroundColor(Color.RED);
+                    textView8.setTextColor(Color.RED);
                 }
                 break;
             case R.id.textView9:
@@ -125,7 +131,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     i++;
                     setView(i);
                 }else {
-                    textView9.setBackgroundColor(Color.RED);
+                    textView9.setTextColor(Color.RED);
                 }
                 break;
             case R.id.textView10:
@@ -133,7 +139,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     i++;
                     setView(i);
                 }else {
-                    textView10.setBackgroundColor(Color.RED);
+                    textView10.setTextColor(Color.RED);
                 }
                 break;
             case R.id.textView11:
@@ -141,7 +147,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     i++;
                     setView(i);
                 }else {
-                    textView11.setBackgroundColor(Color.RED);
+                    textView11.setTextColor(Color.RED);
                 }
                 break;
 

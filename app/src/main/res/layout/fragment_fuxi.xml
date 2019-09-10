@@ -3,6 +3,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.xuexiang.xui.widget.actionbar.TitleBar
@@ -11,7 +12,6 @@
         android:layout_height="66dp"
         app:tb_titleText="测试列表"
         app:tb_titleTextColor ="@color/successColor"
-        android:background="@color/xui_config_color_titlebar"
         android:fitsSystemWindows="true" />
 
     <TextView
@@ -20,6 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:gravity="center"
+        android:textColor="@color/white"
         android:textSize="20dp"
         android:text="完成的任务等" />
 

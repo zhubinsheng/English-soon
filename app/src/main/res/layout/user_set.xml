@@ -176,9 +176,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/smssdk_arrow_right" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            app:srcCompat="@drawable/xuanzeciku" />
     </LinearLayout>
 
     <LinearLayout
@@ -199,9 +201,11 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/smssdk_arrow_right" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            app:srcCompat="@drawable/xueshegngouwu" />
     </LinearLayout>
 
     <LinearLayout
@@ -222,9 +226,11 @@
 
         <ImageView
             android:id="@+id/imageView5"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/smssdk_arrow_right" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            app:srcCompat="@drawable/yingyongjiaochegn" />
     </LinearLayout>
 
     <LinearLayout
@@ -245,9 +251,11 @@
 
         <ImageView
             android:id="@+id/imageView7"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/smssdk_arrow_right" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            app:srcCompat="@drawable/gexingshezhi" />
     </LinearLayout>
 
     <LinearLayout
@@ -268,9 +276,11 @@
 
         <ImageView
             android:id="@+id/imageView8"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/smssdk_arrow_right" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            app:srcCompat="@drawable/banjizhuangtai" />
     </LinearLayout>
 
     <LinearLayout
@@ -291,14 +301,16 @@
 
         <ImageView
             android:id="@+id/imageView9"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/smssdk_arrow_right" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/dp_10"
+            app:srcCompat="@drawable/gexingzhuangban" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="226dp" />
+        android:layout_height="150dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -346,23 +358,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_72"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/tubiao" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/weixin" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/tubiao" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/qq" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/tubiao" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/qqqun" />
 
         </LinearLayout>
     </LinearLayout>

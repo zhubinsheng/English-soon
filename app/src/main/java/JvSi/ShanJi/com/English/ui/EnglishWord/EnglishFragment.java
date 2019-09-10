@@ -79,6 +79,10 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     private Query<WordList> notesQuery;
     private BoxStore boxStore;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private int isShow = 0;
+
+    @BindView(R.id.jieguo)
+    LinearLayout jieguo;
 
     @BindView(R.id.hengxiang)
     LinearLayout hengxiang;
@@ -88,6 +92,14 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
     @BindView(R.id.sousuo)
     TextView sousuo;
+
+    @BindView(R.id.textView32)
+    TextView textView32;
+
+
+    @BindView(R.id.imageView11)
+    ImageView imageView11;
+
 
     @SuppressLint("HandlerLeak")
     Handler myHandler = new Handler() {
@@ -100,7 +112,9 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                     //Toasty.warning(getActivity(),transltResult).show();
 
                     String value = transResultBeans.stream().map(productInfoVO -> String.valueOf(productInfoVO.getDst())).collect(Collectors.joining(","));
-                    shurudanci.setFloatingLabelText(value);
+                    jieguo.setVisibility(View.VISIBLE);
+                    textView32.setText(value);
+                    //shurudanci.setFloatingLabelText(value);
                 case 1: //yyy操作
                     break;
                 default:
@@ -201,15 +215,35 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         //mRecyclerView.setAdapter(englishAdapter);
     }
 
-    @OnClick({R.id.sousuo,R.id.imageView10,R.id.imageView11})
+    @OnClick({R.id.sousuo,R.id.imageView10,R.id.imageView11,R.id.tianjia})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.tianjia:
+
+
+                break;
+
             case R.id.sousuo:
                GOsousuo();
 
                 break;
 
             case R.id.imageView11:
+
+                if (englishInfoList == null){
+                    Toasty.info(getActivity(),"右滑进进入菜单加入词库/观看教程").show();
+                    return;
+                }
+                if (isShow == 0){
+                    this.isShow =1;
+                    imageView11.setImageResource(R.drawable.jyishi);
+                }else if (isShow == 1){
+                    this.isShow =2;
+                    imageView11.setImageResource(R.drawable.jyingyu);
+                }else if (isShow == 2){
+                    this.isShow =0;
+                    imageView11.setImageResource(R.drawable.jdanci);
+                }
                 englishAdapter.changetShowDelImage();
                 break;
             case R.id.imageView10:
