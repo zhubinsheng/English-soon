@@ -27,18 +27,18 @@
 
     </LinearLayout>
 
-    <gdyj.tydic.com.jinlingapp.fragment.SlideShowView
+    <JvSi.ShanJi.com.English.fragment.SlideShowView
         android:id="@+id/slideshowView"
         android:layout_width="match_parent"
         android:layout_height="168dp"
         android:layout_centerHorizontal="true" />
 
-    <gdyj.tydic.com.jinlingapp.fragment.ButtunView
+    <JvSi.ShanJi.com.English.fragment.ButtunView
         android:id="@+id/ButunView"
         android:layout_width="match_parent"
         android:layout_height="195dp" />
 
-    <gdyj.tydic.com.jinlingapp.fragment.ImageView
+    <JvSi.ShanJi.com.English.fragment.ImageView
         android:layout_width="match_parent"
-        android:layout_height="117dp"></gdyj.tydic.com.jinlingapp.fragment.ImageView>
+        android:layout_height="117dp"></JvSi.ShanJi.com.English.fragment.ImageView>
 </LinearLayout>

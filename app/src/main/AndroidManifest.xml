@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="gdyj.tydic.com.jinlingapp">
+    package="JvSi.ShanJi.com.English">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
@@ -14,9 +14,9 @@
         android:name=".Base.MyApplication"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/tubiao"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/tubiao"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
@@ -38,6 +38,10 @@
         <activity android:name=".ui.Login_Regist.tianxieziliaoAcitivity"></activity>
         <activity android:name=".ui.skin.SkinActivity"></activity>
         <activity android:name=".ui.skin.XitongShezhiActivity"></activity>
+        <activity android:name=".ui.Classify.ClassifyhActivty"></activity>
+        <activity android:name=".ui.EnglishWord.EnglishActivity2"></activity>
+        <activity android:name=".ui.UserSet.UserSetActivity2"></activity>
+
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"

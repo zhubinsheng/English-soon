@@ -3,16 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
-    <com.xuexiang.xui.widget.actionbar.TitleBar
+    <!--<com.xuexiang.xui.widget.actionbar.TitleBar
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="66dp"
         app:tb_titleText="词库列表"
-        app:tb_titleTextColor ="@color/successColor"
-        android:background="@color/xui_config_color_titlebar"
-        android:fitsSystemWindows="true" />
+        app:tb_titleTextColor ="@color/white"
+        android:fitsSystemWindows="true" />-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView30"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/size_20"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="词库" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="@dimen/dp_15"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </LinearLayout>
 
     <com.mingle.widget.LoadingView
         android:id="@+id/loadView"
