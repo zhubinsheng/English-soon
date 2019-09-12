@@ -33,7 +33,7 @@
     },
     {
       "id": "4:3538015766652367787",
-      "lastPropertyId": "4:6613571719820934257",
+      "lastPropertyId": "5:3647741751316763963",
       "name": "ClassifyBean",
       "properties": [
         {
@@ -51,6 +51,10 @@
         {
           "id": "4:6613571719820934257",
           "name": "classify"
+        },
+        {
+          "id": "5:3647741751316763963",
+          "name": "colorf"
         }
       ],
       "relations": []

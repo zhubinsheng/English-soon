@@ -36,6 +36,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,7 +59,6 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 import io.objectbox.query.QueryBuilder;
-import io.objectbox.relation.ToMany;
 
 
 /**
@@ -85,6 +85,12 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
     private int position = 0;
 
+    private static final long DOUBLE_TIME = 400;
+    private static long lastClickTime = 0;
+    private int positionDobuu;
+    private List<WordList> youngJoes = new ArrayList<>();
+    private WordList wordLists =new WordList();
+
     @BindView(R.id.jieguo)
     LinearLayout jieguo;
 
@@ -103,6 +109,15 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
     @BindView(R.id.imageView11)
     ImageView imageView11;
+
+    @BindView(R.id.imageView12)
+    ImageView imageView12;
+
+    @BindView(R.id.imageView13)
+    ImageView imageView13;
+
+    @BindView(R.id.imageView14)
+    ImageView imageView14;
 
     @BindView(R.id.loadView)
     LoadingView loadingView;
@@ -172,7 +187,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         return layout;
     }
 
-    private void onGetSuccess(ToMany<ClassifyBean> classifyBeanList) {
+    private void onGetSuccess(List<ClassifyBean> classifyBeanList) {
         englishInfoList = classifyBeanList;
 
         loadingView.setVisibility(View.GONE);
@@ -183,17 +198,42 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         englishAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
                 //判断id
-                if (view.getId() == R.id.text2) {
+                if (view.getId() == R.id.text1) {
+                    Log.v("====", String.valueOf(position));
                     speak(englishInfoList.get(position).getWord());
-                } else if (view.getId() == R.id.tv_title) {
-                    Log.i("tag", "点击了第" + position + "条条目的 标题");
+                } else if (view.getId() == R.id.shuangji) {
+                    long currentTimeMillis = System.currentTimeMillis();
+                    if (currentTimeMillis - lastClickTime < DOUBLE_TIME) {
+                        Log.v("..--------------------.", String.valueOf(position));
+                        if (englishInfoList.get(position).getColorf() != 0) {
+                            englishInfoList.get(position).setColorf(0);
+
+                        } else {
+                            englishInfoList.get(position).setColorf(1);
+                        }
+                        new Thread(){
+                            @Override
+                            public void run() {
+                                Log.v("..--------------------.", String.valueOf(wordLists.classifyBeanList.size()));
+                                wordLists.classify = englishInfoList.get(0).getClassify();
+                                //wordList.classifyBeanList.addAll(englishInfoList);
+                                ClassifyBean classifyBean = wordLists.classifyBeanList.get(position);
+                                wordLists.classifyBeanList.get(position).setColorf(1);
+                                long Id=notesBox.put(wordLists);
+                                Log.v("..--------------------.", String.valueOf(Id));
+                            }
+                        }.start();
+                        englishAdapter.notifyDataSetChanged();
+                    }
+                    lastClickTime = currentTimeMillis;
                 }
             }
         });
         //开启动画（默认为渐显效果）
         //使用缩放动画
-        englishAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT );
+        //englishAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT );
         //设置重复执行动画
         englishAdapter.isFirstOnly(false);
         //条目长按事件
@@ -258,9 +298,9 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 visibleItemCount = mLayoutManager.getChildCount();
                 totalItemCount = mLayoutManager.getItemCount();
                 pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
-                Log.v("...", String.valueOf(pastVisiblesItems));
-                Log.v("...2", String.valueOf(totalItemCount));
-                Log.v("...3", String.valueOf(visibleItemCount));
+//                Log.v("...", String.valueOf(pastVisiblesItems));
+//                Log.v("...2", String.valueOf(totalItemCount));
+//                Log.v("...3", String.valueOf(visibleItemCount));
                 if (dy>70){
                     hengxiang.setVisibility(View.GONE);
                 }
@@ -305,6 +345,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         mRecyclerView.setAdapter(englishAdapter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -322,6 +363,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         unbinder.unbind();
         englishWordPresenter.onDetach();
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void initView() {
         Toasty.info(getActivity(),"右滑进进入菜单选择词库/观看教程").show();
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -351,9 +393,15 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
         QueryBuilder<WordList> builder = notesBox.query();
         builder.equal(WordList_.classify,classify_cuncu);
-        List<WordList> youngJoes = builder.build().find();
-        if (youngJoes.size()!=0){
-            onGetSuccess(youngJoes.get(0).getClassifyBeanList());
+        youngJoes = builder.build().find();
+
+        List<WordList> list = youngJoes.stream()
+                .filter((WordList b) -> b.getClassify().equals(classify_cuncu))
+                .collect(Collectors.toList());
+
+        if (list.size()!=0){
+            onGetSuccess((List<ClassifyBean>)list.get(0).getClassifyBeanList());
+            wordLists = list.get(0);
         }
 
     }
@@ -438,20 +486,20 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     }
     @Override
     public void onLoginSuccess(List<ClassifyBean> result) {
-        englishInfoList = result;
         new Thread(){
             @Override
             public void run() {
                 WordList  wordList2 = new WordList();
                 wordList2.classify = result.get(0).getClassify();
-                wordList2.classifyBeanList.addAll(englishInfoList);
+                wordList2.classifyBeanList.addAll(result);
                 long Id=notesBox.put(wordList2);
                 SharedPreferencesUtils.setParam(getActivity(),"classify",classify);
                 String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
             }
         }.start();
 
-        loadingView.setVisibility(View.GONE);
+        onGetSuccess(result);
+       /* loadingView.setVisibility(View.GONE);
         Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
@@ -465,8 +513,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 //判断id
                 if (view.getId() == R.id.text2) {
                    speak(englishInfoList.get(position).getWord());
-                } else if (view.getId() == R.id.tv_title) {
-                    Log.i("tag", "点击了第" + position + "条条目的 标题");
+                } else if (view.getId() == R.id.shuangji) {
+
                 }
             }
         });
@@ -487,7 +535,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 builder.equal(WordList_.classify,result.get(0).getClassify());
                 List<WordList> youngJoes = builder.build().find();
                // List<WordList> resultBeans = notesQuery.find();
-                /*WordList  wordList = new WordList();
+                *//*WordList  wordList = new WordList();
                 if (youngJoes.size()==0){
                     wordList.classify = result.get(0).getClassify();
                     wordList.classifyBeanList.add(englishInfoList.get(position));
@@ -496,7 +544,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                     youngJoes.get(0).classifyBeanList.add(englishInfoList.get(position));
                     youngJoes.get(0).classify = result.get(0).getClassify();
                     long Id=notesBox.put(youngJoes.get(0));
-                }*/
+                }*//*
                 hengxiang.setVisibility(View.VISIBLE);
                 shurudanci.setFloatingLabelText("点击搜索下面会显示搜索的结果哦");
                 return false;
@@ -522,7 +570,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 Toast.makeText(getActivity(), "onItemSwipeMoving", Toast.LENGTH_SHORT).show();
             }
         };
-        /*englishAdapter.setUpFetchEnable(true);
+        *//*englishAdapter.setUpFetchEnable(true);
         englishAdapter.setStartUpFetchPosition(0);
         englishAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
             @Override
@@ -530,7 +578,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 Log.v("...setUpFetchEnable", "0");
                 //startUpFetch();
             }
-        });*/
+        });*//*
 
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -557,13 +605,13 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 mRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                       /* if (resultBean.getCurrent() >= resultBean.getPages()) {
+                       *//* if (resultBean.getCurrent() >= resultBean.getPages()) {
                             //数据全部加载完毕
                             englishAdapter.loadMoreEnd();
                         } else {
                             englishWordPresenter.getClassify(classify,pageSize,resultBean.getCurrent()+1);
 
-                           *//* if (isErr) {
+                           *//**//* if (isErr) {
                                 //成功获取更多数据
                                 englishAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
                                 mCurrentCounter = mQuickAdapter.getData().size();
@@ -574,15 +622,15 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                                 Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
                                 mQuickAdapter.loadMoreFail();
 
-                            }*//*
-                        }*/
+                            }*//**//*
+                        }*//*
                     }
 
                 }, delayMillis);
             }
         }, mRecyclerView);
 
-        mRecyclerView.setAdapter(englishAdapter);
+        mRecyclerView.setAdapter(englishAdapter);*/
     }
 
     private void startUpFetch() {
@@ -609,6 +657,9 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
             loadingView.setVisibility(View.VISIBLE);
             classify = message.getClassify();
             englishWordPresenter.getClassify(classify,pageSize,1);
+        }else if (message.getRecode().equals("word")){
+            String word = message.getClassify();
+            //englishInfoList.get();
         }
     }
     private void speak(String text) {

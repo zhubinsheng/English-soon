@@ -16,6 +16,7 @@ import JvSi.ShanJi.com.English.bean.ClassifyBean;
 
 public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, BaseViewHolder> {
 
+    private int colorf = 0;
     private int isShow = 0;
     private static final int RED = 0xFFFF0000;
     private static final int GREEN = 0xFF00FF00;
@@ -31,7 +32,45 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
         ((TextView) helper.getView(R.id.text2)).setText(item.getMeaning());
         ((TextView) helper.getView(R.id.text1)).setText(item.getWord());
 
-        switch (helper.getLayoutPosition() % 3) {
+        /*((LinearLayout) helper.getView(R.id.shuangji)).setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onDoubleClick(View v) {
+                Log.v(".334341czcfsd..", "Doublec");
+                //EventBus.getDefault().post(ClassifyMessageEvent.getInstance("word",item.getWord()));
+                if (item.getColorf() == 0){
+                    ((TextView) helper.getView(R.id.text1)).setTextColor(GREEN);
+
+                }else {
+                    ((TextView) helper.getView(R.id.text1)).setTextColor(RED);
+
+                }
+            }
+        });
+        helper.itemView.setOnClickListener(new DoubleClickListener() {
+            @Override
+            public void onDoubleClick(View v) {
+                Log.v(".3343==41fsd..", ((TextView) helper.getView(R.id.text1)).getTextColors().toString());
+                //EventBus.getDefault().post(ClassifyMessageEvent.getInstance("word",item.getWord()));
+                if (item.getColorf() == 0){
+                    ((TextView) helper.getView(R.id.text1)).setTextColor(RED);
+
+
+                }else {
+                    ((TextView) helper.getView(R.id.text1)).setTextColor(GREEN);
+
+                }
+                notifyDataSetChanged();
+            }
+        });*/
+
+        if (item.getColorf() == 0){
+            ((TextView) helper.getView(R.id.text1)).setTextColor(GREEN);
+        }else {
+            ((TextView) helper.getView(R.id.text1)).setTextColor(RED);
+        }
+
+
+        /*switch (helper.getLayoutPosition() % 3) {
             case 0:
                 ((TextView) helper.getView(R.id.text2)).setTextColor(RED);
                 break;
@@ -43,8 +82,9 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
                 break;
             default:
                 break;
-        }
+        }*/
         helper.addOnClickListener(R.id.text1);    //给图标添加 点击事件
+        helper.addOnClickListener(R.id.shuangji);    //给图标添加 点击事件
         //单词默认显示绿色
         //((TextView) helper.getView(R.id.text2)).setTextColor(GREEN);
         //

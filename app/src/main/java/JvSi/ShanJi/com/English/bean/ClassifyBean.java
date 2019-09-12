@@ -29,6 +29,8 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
         private String word;
         private String meaning;
         private String classify;
+        private int colorf;
+        // 0 代表　绿色
 
         public String getWord() {
             return word;
@@ -57,5 +59,13 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
     @Override
     public int getItemType() {
         return 2;
+    }
+
+    public int getColorf() {
+        return colorf;
+    }
+
+    public void setColorf(int colorf) {
+        this.colorf = colorf;
     }
 }
