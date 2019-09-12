@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemSwipeListener;
 import com.google.gson.Gson;
+import com.mingle.widget.LoadingView;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
 
 import JvSi.ShanJi.com.English.Base.MyApplication;
 import JvSi.ShanJi.com.English.R;
+import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
 import JvSi.ShanJi.com.English.baiduUtils.TTSUtils;
 import JvSi.ShanJi.com.English.baiduUtils.java.bin.com.baidu.translate.demo.Main;
 import JvSi.ShanJi.com.English.bean.ClassifyBean;
@@ -56,6 +58,7 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 import io.objectbox.query.QueryBuilder;
+import io.objectbox.relation.ToMany;
 
 
 /**
@@ -80,6 +83,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private int isShow = 0;
 
+    private int position = 0;
+
     @BindView(R.id.jieguo)
     LinearLayout jieguo;
 
@@ -99,6 +104,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     @BindView(R.id.imageView11)
     ImageView imageView11;
 
+    @BindView(R.id.loadView)
+    LoadingView loadingView;
 
     @SuppressLint("HandlerLeak")
     Handler myHandler = new Handler() {
@@ -164,6 +171,140 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         });
         return layout;
     }
+
+    private void onGetSuccess(ToMany<ClassifyBean> classifyBeanList) {
+        englishInfoList = classifyBeanList;
+
+        loadingView.setVisibility(View.GONE);
+        Toasty.success(getActivity(),"获取单词成功").show();
+        //englishAdapter.notifyDataSetChanged();
+        englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
+        //条目子控件点击事件
+        englishAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                //判断id
+                if (view.getId() == R.id.text2) {
+                    speak(englishInfoList.get(position).getWord());
+                } else if (view.getId() == R.id.tv_title) {
+                    Log.i("tag", "点击了第" + position + "条条目的 标题");
+                }
+            }
+        });
+        //开启动画（默认为渐显效果）
+        //使用缩放动画
+        englishAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT );
+        //设置重复执行动画
+        englishAdapter.isFirstOnly(false);
+        //条目长按事件
+        englishAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+                Toast.makeText(getActivity(), "长按了第" + englishInfoList.get(position).getWord(), Toast.LENGTH_SHORT).show();
+                //notesQuery = notesBox.query().order(ClassifyBean).build();
+                //notesBox.put(classifyBean);
+                //QueryBuilder<WordList> builder = notesBox.query();
+                //builder.equal(WordList_.classify,result.get(0).getClassify());
+                //List<WordList> youngJoes = builder.build().find();
+                // List<WordList> resultBeans = notesQuery.find();
+                /*WordList  wordList = new WordList();
+                if (youngJoes.size()==0){
+                    wordList.classify = result.get(0).getClassify();
+                    wordList.classifyBeanList.add(englishInfoList.get(position));
+                    long Id=notesBox.put(wordList);
+                }else {
+                    youngJoes.get(0).classifyBeanList.add(englishInfoList.get(position));
+                    youngJoes.get(0).classify = result.get(0).getClassify();
+                    long Id=notesBox.put(youngJoes.get(0));
+                }*/
+                hengxiang.setVisibility(View.VISIBLE);
+                shurudanci.setFloatingLabelText("点击搜索下面会显示搜索的结果哦");
+                return false;
+            }
+        });
+        // 开启滑动删除
+        OnItemSwipeListener onItemSwipeListener = new OnItemSwipeListener() {
+            @Override
+            public void onItemSwipeStart(RecyclerView.ViewHolder viewHolder, int pos) {
+                Toast.makeText(getActivity(), "onItemSwipeStart", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void clearView(RecyclerView.ViewHolder viewHolder, int pos) {
+                Toast.makeText(getActivity(), "clearView", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onItemSwiped(RecyclerView.ViewHolder viewHolder, int pos) {
+                Toast.makeText(getActivity(), "onItemSwiped", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemSwipeMoving(Canvas canvas, RecyclerView.ViewHolder viewHolder, float dX, float dY, boolean isCurrentlyActive) {
+                Toast.makeText(getActivity(), "onItemSwipeMoving", Toast.LENGTH_SHORT).show();
+            }
+        };
+        /*englishAdapter.setUpFetchEnable(true);
+        englishAdapter.setStartUpFetchPosition(0);
+        englishAdapter.setUpFetchListener(new BaseQuickAdapter.UpFetchListener() {
+            @Override
+            public void onUpFetch() {
+                Log.v("...setUpFetchEnable", "0");
+                //startUpFetch();
+            }
+        });*/
+
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                visibleItemCount = mLayoutManager.getChildCount();
+                totalItemCount = mLayoutManager.getItemCount();
+                pastVisiblesItems = mLayoutManager.findFirstVisibleItemPosition();
+                Log.v("...", String.valueOf(pastVisiblesItems));
+                Log.v("...2", String.valueOf(totalItemCount));
+                Log.v("...3", String.valueOf(visibleItemCount));
+                if (dy>70){
+                    hengxiang.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        englishAdapter.enableSwipeItem();
+        englishAdapter.setOnItemSwipeListener(onItemSwipeListener);
+
+        // 滑动最后一个Item的时候回调onLoadMoreRequested方法
+        englishAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override public void onLoadMoreRequested() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                       /* if (resultBean.getCurrent() >= resultBean.getPages()) {
+                            //数据全部加载完毕
+                            englishAdapter.loadMoreEnd();
+                        } else {
+                            englishWordPresenter.getClassify(classify,pageSize,resultBean.getCurrent()+1);
+
+                           *//* if (isErr) {
+                                //成功获取更多数据
+                                englishAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
+                                mCurrentCounter = mQuickAdapter.getData().size();
+                                mQuickAdapter.loadMoreComplete();
+                            } else {
+                                //获取更多数据失败
+                                isErr = true;
+                                Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
+                                mQuickAdapter.loadMoreFail();
+
+                            }*//*
+                        }*/
+                    }
+
+                }, delayMillis);
+            }
+        }, mRecyclerView);
+
+        mRecyclerView.setAdapter(englishAdapter);
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -182,7 +323,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         englishWordPresenter.onDetach();
     }
     private void initView() {
-        Toasty.info(getActivity(),"右滑进进入菜单加入词库/观看教程").show();
+        Toasty.info(getActivity(),"右滑进进入菜单选择词库/观看教程").show();
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -206,6 +347,14 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 }
             }
         });*/
+
+        String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
+        QueryBuilder<WordList> builder = notesBox.query();
+        builder.equal(WordList_.classify,classify_cuncu);
+        List<WordList> youngJoes = builder.build().find();
+        if (youngJoes.size()!=0){
+            onGetSuccess(youngJoes.get(0).getClassifyBeanList());
+        }
 
     }
     private void initAdapter() {
@@ -290,6 +439,19 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     @Override
     public void onLoginSuccess(List<ClassifyBean> result) {
         englishInfoList = result;
+        new Thread(){
+            @Override
+            public void run() {
+                WordList  wordList2 = new WordList();
+                wordList2.classify = result.get(0).getClassify();
+                wordList2.classifyBeanList.addAll(englishInfoList);
+                long Id=notesBox.put(wordList2);
+                SharedPreferencesUtils.setParam(getActivity(),"classify",classify);
+                String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
+            }
+        }.start();
+
+        loadingView.setVisibility(View.GONE);
         Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
@@ -325,7 +487,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 builder.equal(WordList_.classify,result.get(0).getClassify());
                 List<WordList> youngJoes = builder.build().find();
                // List<WordList> resultBeans = notesQuery.find();
-                WordList  wordList = new WordList();
+                /*WordList  wordList = new WordList();
                 if (youngJoes.size()==0){
                     wordList.classify = result.get(0).getClassify();
                     wordList.classifyBeanList.add(englishInfoList.get(position));
@@ -334,9 +496,9 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                     youngJoes.get(0).classifyBeanList.add(englishInfoList.get(position));
                     youngJoes.get(0).classify = result.get(0).getClassify();
                     long Id=notesBox.put(youngJoes.get(0));
-                }
+                }*/
                 hengxiang.setVisibility(View.VISIBLE);
-                shurudanci.setFloatingLabelText("点击搜索这里会显示搜索的结果哦");
+                shurudanci.setFloatingLabelText("点击搜索下面会显示搜索的结果哦");
                 return false;
             }
         });
@@ -444,6 +606,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveMsg2(ClassifyMessageEvent message) {
         if (message.getRecode().equals("classify")){
+            loadingView.setVisibility(View.VISIBLE);
             classify = message.getClassify();
             englishWordPresenter.getClassify(classify,pageSize,1);
         }

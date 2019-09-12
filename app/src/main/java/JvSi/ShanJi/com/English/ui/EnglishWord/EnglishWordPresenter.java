@@ -37,11 +37,11 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
                     @Override
                     public void accept(EnglishCodeVo classifyBeanBaseResult) throws Exception {
                         if(mView!=null&&classifyBeanBaseResult.getResult()!=null){
-                            if (pageNo!=1){
+                            /*if (pageNo!=1){
                                 mView.onGetMoreSuccess(classifyBeanBaseResult.getResult());
-                            }else {
+                            }else {*/
                                 mView.onLoginSuccess(classifyBeanBaseResult.getResult());
-                            }
+
 
                         }else {
                             mView.onLoginFail("获取单词列表为空，请重试");
