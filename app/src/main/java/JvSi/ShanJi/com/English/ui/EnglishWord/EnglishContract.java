@@ -2,7 +2,9 @@ package JvSi.ShanJi.com.English.ui.EnglishWord;
 
 import android.annotation.SuppressLint;
 
-import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
+import java.util.List;
+
+import JvSi.ShanJi.com.English.bean.ClassifyBean;
 
 
 /**
@@ -11,8 +13,8 @@ import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
 public interface EnglishContract {
     interface View{
         void onValidCodeSend();
-        void onLoginSuccess(EnglishCodeVo.ResultBean resultBean);
-        void onGetMoreSuccess(EnglishCodeVo.ResultBean resultBean);
+        void onLoginSuccess(List<ClassifyBean> result);
+        void onGetMoreSuccess(List<ClassifyBean> result);
         void onLoginFail(String errorTip);
     }
 

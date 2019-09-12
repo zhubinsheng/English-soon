@@ -11,18 +11,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 import JvSi.ShanJi.com.English.Base.BaseActivity;
 import JvSi.ShanJi.com.English.Base.MyApplication;
 import JvSi.ShanJi.com.English.R;
 import JvSi.ShanJi.com.English.bean.ClassifyBean;
-import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
 import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.ui.EnglishWord.EnglishContract;
 import JvSi.ShanJi.com.English.ui.EnglishWord.EnglishWordPresenter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
@@ -162,13 +161,13 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     }
 
     @Override
-    public void onLoginSuccess(EnglishCodeVo.ResultBean resultBean) {
-        englishInfoList = resultBean.getRecords();
+    public void onLoginSuccess(List<ClassifyBean> result) {
+        englishInfoList = result;
         setView(i);
     }
 
     @Override
-    public void onGetMoreSuccess(EnglishCodeVo.ResultBean resultBean) {
+    public void onGetMoreSuccess(List<ClassifyBean> result) {
 
     }
 

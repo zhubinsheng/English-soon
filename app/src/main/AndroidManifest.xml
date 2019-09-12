@@ -39,7 +39,6 @@
         <activity android:name=".ui.skin.SkinActivity"></activity>
         <activity android:name=".ui.skin.XitongShezhiActivity"></activity>
         <activity android:name=".ui.Classify.ClassifyhActivty"></activity>
-        <activity android:name=".ui.EnglishWord.EnglishActivity2"></activity>
         <activity android:name=".ui.UserSet.UserSetActivity2"></activity>
 
         <activity

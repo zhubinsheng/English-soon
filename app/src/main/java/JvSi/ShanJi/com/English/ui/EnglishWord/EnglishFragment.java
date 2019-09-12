@@ -43,7 +43,6 @@ import JvSi.ShanJi.com.English.R;
 import JvSi.ShanJi.com.English.baiduUtils.TTSUtils;
 import JvSi.ShanJi.com.English.baiduUtils.java.bin.com.baidu.translate.demo.Main;
 import JvSi.ShanJi.com.English.bean.ClassifyBean;
-import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
 import JvSi.ShanJi.com.English.bean.TransltResult;
 import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.bean.WordList_;
@@ -289,8 +288,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
     }
     @Override
-    public void onLoginSuccess(EnglishCodeVo.ResultBean resultBean) {
-        englishInfoList = resultBean.getRecords();
+    public void onLoginSuccess(List<ClassifyBean> result) {
+        englishInfoList = result;
         Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
@@ -323,17 +322,17 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 //notesQuery = notesBox.query().order(ClassifyBean).build();
                 //notesBox.put(classifyBean);
                 QueryBuilder<WordList> builder = notesBox.query();
-                builder.equal(WordList_.classify,resultBean.getRecords().get(0).getClassify());
+                builder.equal(WordList_.classify,result.get(0).getClassify());
                 List<WordList> youngJoes = builder.build().find();
                // List<WordList> resultBeans = notesQuery.find();
                 WordList  wordList = new WordList();
                 if (youngJoes.size()==0){
-                    wordList.classify = resultBean.getRecords().get(0).getClassify();
+                    wordList.classify = result.get(0).getClassify();
                     wordList.classifyBeanList.add(englishInfoList.get(position));
                     long Id=notesBox.put(wordList);
                 }else {
                     youngJoes.get(0).classifyBeanList.add(englishInfoList.get(position));
-                    youngJoes.get(0).classify = resultBean.getRecords().get(0).getClassify();
+                    youngJoes.get(0).classify = result.get(0).getClassify();
                     long Id=notesBox.put(youngJoes.get(0));
                 }
                 hengxiang.setVisibility(View.VISIBLE);
@@ -396,13 +395,13 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 mRecyclerView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (resultBean.getCurrent() >= resultBean.getPages()) {
+                       /* if (resultBean.getCurrent() >= resultBean.getPages()) {
                             //数据全部加载完毕
                             englishAdapter.loadMoreEnd();
                         } else {
                             englishWordPresenter.getClassify(classify,pageSize,resultBean.getCurrent()+1);
 
-                           /* if (isErr) {
+                           *//* if (isErr) {
                                 //成功获取更多数据
                                 englishAdapter.addData(DataServer.getSampleData(PAGE_SIZE));
                                 mCurrentCounter = mQuickAdapter.getData().size();
@@ -413,8 +412,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                                 Toast.makeText(PullToRefreshUseActivity.this, R.string.network_err, Toast.LENGTH_LONG).show();
                                 mQuickAdapter.loadMoreFail();
 
-                            }*/
-                        }
+                            }*//*
+                        }*/
                     }
 
                 }, delayMillis);
@@ -430,8 +429,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     }
 
     @Override
-    public void onGetMoreSuccess(EnglishCodeVo.ResultBean resultBean) {
-        englishAdapter.addData(resultBean.getRecords());
+    public void onGetMoreSuccess(List<ClassifyBean> result) {
+        englishAdapter.addData(result);
         englishAdapter.loadMoreComplete();
     }
 
