@@ -10,9 +10,14 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.Serializable;
 import java.util.List;
 
+import JvSi.ShanJi.com.English.ui.Classify.ClassifyMessageEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -32,6 +37,8 @@ public class FuxiFragment extends BaseFragment {
     private Query<WordList> notesQuery;
     private BoxStore boxStore;
 
+    private List<WordList> youngJoes;
+
     private FuxiAdapter fuxiAdapter;
 
     @BindView(R.id.rv_list)
@@ -50,9 +57,9 @@ public class FuxiFragment extends BaseFragment {
         boxStore= MyApplication.getInstance().getBoxStore();
         notesBox = boxStore.boxFor(WordList.class);
         QueryBuilder<WordList> builder = notesBox.query();
-        List<WordList> youngJoes = builder.build().find();
-
-        //创建布局管理
+        youngJoes = builder.build().find();
+        EventBus.getDefault().register(this);
+         //创建布局管理
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv_list.setLayoutManager(layoutManager);
@@ -70,10 +77,29 @@ public class FuxiFragment extends BaseFragment {
 
         rv_list.setAdapter(fuxiAdapter);
     }
+
+    @Override
+    public void onResume() {
+        QueryBuilder<WordList> builder = notesBox.query();
+        youngJoes = builder.build().find();
+        fuxiAdapter.notifyDataSetChanged();
+        super.onResume();
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         //EventBus.getDefault().unregister(this);
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveMsg2(ClassifyMessageEvent message) {
+        if (message.getRecode().equals("gegnxin")){
+            QueryBuilder<WordList> builder = notesBox.query();
+            youngJoes = builder.build().find();
+            fuxiAdapter = new FuxiAdapter(R.layout.english_ceshi, youngJoes);
+            rv_list.setAdapter(fuxiAdapter);
+        }
     }
 }

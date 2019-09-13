@@ -214,15 +214,39 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                             englishInfoList.get(position).setColorf(1);
                         }
                         new Thread(){
+                            @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
                             public void run() {
-                                Log.v("..--------------------.", String.valueOf(wordLists.classifyBeanList.size()));
+                               /* Log.v("..--------------------.", String.valueOf(wordLists.classifyBeanList.size()));
                                 wordLists.classify = englishInfoList.get(0).getClassify();
                                 //wordList.classifyBeanList.addAll(englishInfoList);
                                 ClassifyBean classifyBean = wordLists.classifyBeanList.get(position);
                                 wordLists.classifyBeanList.get(position).setColorf(1);
                                 long Id=notesBox.put(wordLists);
-                                Log.v("..--------------------.", String.valueOf(Id));
+                                Log.v("..--------------------.", String.valueOf(Id));*/
+
+
+
+                                String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
+                                QueryBuilder<WordList> builder = notesBox.query();
+                                builder.equal(WordList_.classify,classify_cuncu);
+                                youngJoes = builder.build().find();
+                                List<WordList> list = youngJoes.stream()
+                                        .filter((WordList b) -> b.getClassify().equals(classify_cuncu))
+                                        .collect(Collectors.toList());
+                                if (list.size()!=0){
+                                    list.get(0).getClassifyBeanList().get(position).setColorf(1);
+                                    wordLists = list.get(0);
+                                    long Id=notesBox.put(wordLists);
+                                }
+
+                                boxStore.boxFor(ClassifyBean.class).put(wordLists.getClassifyBeanList().get(position));
+
+
+
+
+
+
                             }
                         }.start();
                         englishAdapter.notifyDataSetChanged();
@@ -495,6 +519,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 long Id=notesBox.put(wordList2);
                 SharedPreferencesUtils.setParam(getActivity(),"classify",classify);
                 String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
+                EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
             }
         }.start();
 
