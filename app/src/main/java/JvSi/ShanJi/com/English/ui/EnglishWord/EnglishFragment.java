@@ -435,9 +435,14 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         //mRecyclerView.setAdapter(englishAdapter);
     }
 
-    @OnClick({R.id.sousuo,R.id.imageView10,R.id.imageView11,R.id.tianjia})
+    @OnClick({R.id.sousuo,R.id.imageView10,R.id.imageView11,R.id.tianjia,R.id.imageView13})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.imageView13:
+
+
+                break;
+
             case R.id.tianjia:
 
 
