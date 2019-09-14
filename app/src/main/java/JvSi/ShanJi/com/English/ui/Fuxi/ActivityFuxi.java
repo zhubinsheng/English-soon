@@ -1,8 +1,11 @@
 package JvSi.ShanJi.com.English.ui.Fuxi;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,6 +32,7 @@ import io.objectbox.query.Query;
 
 public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
 
+    private static final int MSG_SUCCESS = 1;
     private Unbinder unbinder;
     private EnglishWordPresenter englishWordPresenter;
 
@@ -53,6 +57,22 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     private Query<WordList> notesQuery;
     private BoxStore boxStore;
 
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage (Message msg) {//此方法在ui线程运行
+            switch(msg.what) {
+                case MSG_SUCCESS:
+                    setView(i);
+                    break;
+
+               /* case MSG_FAILURE:
+                    Toast.makeText(getApplication(), getApplication().getString(R.string.get_pic_failure), Toast.LENGTH_LONG).show();
+                    break;*/
+               default: break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +140,12 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
             case R.id.textView8:
                 if (textView8.getText().toString().equals(cureectWord)){
                     i++;
-                    setView(i);
+                    textView8.setTextColor(Color.WHITE);
+                    Runner1 r1 = new Runner1();
+                    Thread t = new Thread(r1);
+                    t.start();
+
+                    //setView(i);
                 }else {
                     textView8.setTextColor(Color.RED);
                 }
@@ -128,7 +153,11 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
             case R.id.textView9:
                 if (textView9.getText().toString().equals(cureectWord)){
                     i++;
-                    setView(i);
+                    textView9.setTextColor(Color.WHITE);
+                    //setView(i);
+                    Runner1 r1 = new Runner1();
+                    Thread t = new Thread(r1);
+                    t.start();
                 }else {
                     textView9.setTextColor(Color.RED);
                 }
@@ -136,7 +165,11 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
             case R.id.textView10:
                 if (textView10.getText().toString().equals(cureectWord)){
                     i++;
-                    setView(i);
+                    textView10.setTextColor(Color.WHITE);
+                    //setView(i);
+                    Runner1 r1 = new Runner1();
+                    Thread t = new Thread(r1);
+                    t.start();
                 }else {
                     textView10.setTextColor(Color.RED);
                 }
@@ -144,7 +177,11 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
             case R.id.textView11:
                 if (textView11.getText().toString().equals(cureectWord)){
                     i++;
-                    setView(i);
+                    textView11.setTextColor(Color.WHITE);
+                    //setView(i);
+                    Runner1 r1 = new Runner1();
+                    Thread t = new Thread(r1);
+                    t.start();
                 }else {
                     textView11.setTextColor(Color.RED);
                 }
@@ -163,7 +200,8 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     @Override
     public void onLoginSuccess(List<ClassifyBean> result) {
         englishInfoList = result;
-        setView(i);
+
+        mHandler.obtainMessage(MSG_SUCCESS).sendToTarget();//更新下一个
     }
 
     @Override
@@ -175,4 +213,19 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     public void onLoginFail(String errorTip) {
 
     }
+
+
+    class Runner1 implements Runnable{
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                //Thread.currentThread().sleep(1000);
+                setView(i);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }
