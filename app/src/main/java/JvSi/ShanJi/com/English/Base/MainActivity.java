@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import JvSi.ShanJi.com.English.R;
+import JvSi.ShanJi.com.English.Utils.BadgeUtil;
 import JvSi.ShanJi.com.English.Utils.BlurUtil;
 import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
 import JvSi.ShanJi.com.English.baiduUtils.TTSUtils;
@@ -39,6 +40,10 @@ import JvSi.ShanJi.com.English.ui.Fuxi.FuxiFragment;
 import JvSi.ShanJi.com.English.ui.UserSet.PhoneLoginPresenter;
 import JvSi.ShanJi.com.English.ui.UserSet.UserSetFragment;
 import es.dmoral.toasty.Toasty;
+import me.leolin.shortcutbadger.ShortcutBadger;
+
+import static JvSi.ShanJi.com.English.Utils.HeXinUtil.insertCalendarEvent;
+
 /**
  * @author binshengzhu
  */
@@ -115,8 +120,16 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //需要在子线程中处理的逻辑
                 initPermission();
+                insertCalendarEvent(MainActivity.this,"该复习单词了","本日需复习单词20个，记忆效果特别好哦",0,0);
             }
         }.start();
+       // BadgeUtil.setBadgeCount(getApplicationContext(), 2, R.mipmap.tubiao);
+
+        int badgeCount = 1;
+        ShortcutBadger.applyCount(this, badgeCount);
+        //for 1.1.4+
+        //ShortcutBadger.with(getApplicationContext()).count(badgeCount);
+        //for 1.1.3
     }
     @Override
     protected void onDestroy()
@@ -142,7 +155,9 @@ public class MainActivity extends AppCompatActivity {
                 //Manifest.permission.WRITE_SETTINGS,
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.ACCESS_WIFI_STATE,
-                Manifest.permission.CHANGE_WIFI_STATE
+                Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.READ_CALENDAR,
+                Manifest.permission.WRITE_CALENDAR
         };
 
         ArrayList<String> toApplyList = new ArrayList<String>();

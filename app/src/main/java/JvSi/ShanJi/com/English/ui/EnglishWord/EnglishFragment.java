@@ -37,6 +37,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -239,6 +241,21 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                                     wordLists = list.get(0);
                                     long Id=notesBox.put(wordLists);
                                 }
+
+                                Calendar calendar =Calendar. getInstance();
+                                calendar.add( Calendar. DATE, +1); //向前走一天
+                                Date date= calendar.getTime();
+
+                                // 获取日
+                                int date2 = calendar.get(Calendar.DATE);
+                                wordLists.getClassifyBeanList().get(position).setDate(date);
+
+                                //当前月的第几天：即当前日
+                                int day_of_month = calendar.get(Calendar.DAY_OF_MONTH);
+
+                                //当前年的第几天
+                                int day_of_year = calendar.get(Calendar.DAY_OF_YEAR);
+
 
                                 boxStore.boxFor(ClassifyBean.class).put(wordLists.getClassifyBeanList().get(position));
 

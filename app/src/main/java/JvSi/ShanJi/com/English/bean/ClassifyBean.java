@@ -3,6 +3,8 @@ package JvSi.ShanJi.com.English.bean;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Date;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -24,13 +26,18 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
          * classify : 人教版7年级下
          */
 
-    @Id
-    public long id;
+        @Id
+        public long id;
         private String word;
         private String meaning;
         private String classify;
         private int colorf;
-        // 0 代表　绿色
+        // 0 代表　绿色    1  代表 红色   2 代表 蓝色
+
+        private int level;
+        //等级 1-7
+
+        private Date date;
 
         public String getWord() {
             return word;
@@ -67,5 +74,21 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
 
     public void setColorf(int colorf) {
         this.colorf = colorf;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
