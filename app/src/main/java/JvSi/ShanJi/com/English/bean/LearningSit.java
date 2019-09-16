@@ -13,6 +13,38 @@ public class LearningSit {
 
 	private String userid;
 
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+
+	public String getClassifyId() {
+		return classifyId;
+	}
+
+	public void setClassifyId(String classifyId) {
+		this.classifyId = classifyId;
+	}
+
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+
 	/**classifyId*/
 
 	private String classifyId;

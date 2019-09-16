@@ -3,8 +3,6 @@ package JvSi.ShanJi.com.English.bean;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Date;
 
 import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
@@ -34,10 +32,10 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
         private int colorf;
         // 0 代表　绿色    1  代表 红色   2 代表 蓝色
 
-        private int level;
+        private int level = 1;
         //等级 1-7
 
-        private Date date;
+        private int date;
 
         public String getWord() {
             return word;
@@ -84,11 +82,11 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
         this.level = level;
     }
 
-    public Date getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(int date) {
         this.date = date;
     }
 }

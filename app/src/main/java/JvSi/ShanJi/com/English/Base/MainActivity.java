@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import JvSi.ShanJi.com.English.R;
-import JvSi.ShanJi.com.English.Utils.BadgeUtil;
 import JvSi.ShanJi.com.English.Utils.BlurUtil;
 import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
 import JvSi.ShanJi.com.English.baiduUtils.TTSUtils;
@@ -41,8 +40,6 @@ import JvSi.ShanJi.com.English.ui.UserSet.PhoneLoginPresenter;
 import JvSi.ShanJi.com.English.ui.UserSet.UserSetFragment;
 import es.dmoral.toasty.Toasty;
 import me.leolin.shortcutbadger.ShortcutBadger;
-
-import static JvSi.ShanJi.com.English.Utils.HeXinUtil.insertCalendarEvent;
 
 /**
  * @author binshengzhu
@@ -120,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 //需要在子线程中处理的逻辑
                 initPermission();
-                insertCalendarEvent(MainActivity.this,"该复习单词了","本日需复习单词20个，记忆效果特别好哦",0,0);
+
             }
         }.start();
        // BadgeUtil.setBadgeCount(getApplicationContext(), 2, R.mipmap.tubiao);

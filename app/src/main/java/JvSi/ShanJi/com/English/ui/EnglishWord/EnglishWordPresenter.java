@@ -2,12 +2,17 @@ package JvSi.ShanJi.com.English.ui.EnglishWord;
 
 import android.annotation.SuppressLint;
 
+import com.google.gson.Gson;
+
 import JvSi.ShanJi.com.English.Base.MyRetrofitManager;
+import JvSi.ShanJi.com.English.bean.BaseResult;
 import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
+import JvSi.ShanJi.com.English.bean.LearningSit;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 /**
  * Created by
@@ -53,6 +58,25 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
                         if(mView!=null){
                                 mView.onLoginFail("网络出问题啦，请稍后再试");
                         }
+                    }
+                });
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void addLearningSit(LearningSit learningSit) {
+        Gson gson = new Gson();
+        String requestBody = gson.toJson(learningSit);
+        RequestBody body= RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),requestBody);
+        Observable<BaseResult> observable = englishWordApi.addLearningSit(body);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(loginResult -> {
+
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+
                     }
                 });
     }

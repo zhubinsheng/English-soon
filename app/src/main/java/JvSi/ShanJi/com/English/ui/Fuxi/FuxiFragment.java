@@ -14,18 +14,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.Serializable;
 import java.util.List;
 
+import JvSi.ShanJi.com.English.Base.BaseFragment;
+import JvSi.ShanJi.com.English.Base.MyApplication;
+import JvSi.ShanJi.com.English.R;
+import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.ui.Classify.ClassifyMessageEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import JvSi.ShanJi.com.English.Base.BaseFragment;
-import JvSi.ShanJi.com.English.Base.MyApplication;
-import JvSi.ShanJi.com.English.R;
-import JvSi.ShanJi.com.English.bean.ClassifyBean;
-import JvSi.ShanJi.com.English.bean.WordList;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
@@ -69,8 +67,8 @@ public class FuxiFragment extends BaseFragment {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(getActivity(), ActivityFuxi.class);
-                List<ClassifyBean> classifyBeanToMany = youngJoes.get(position).getClassifyBeanList();
-                intent.putExtra("youngJoes",  (Serializable) classifyBeanToMany);
+                String classify  = youngJoes.get(position).getClassify();
+                intent.putExtra("youngJoes",classify);
                 startActivity(intent);
             }
         });

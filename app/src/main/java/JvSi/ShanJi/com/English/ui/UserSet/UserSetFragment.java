@@ -192,7 +192,7 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
                 break;
 
 
-            case R.id.textView5:
+            case R.id.gouwu:
                 Intent intent16 = new Intent(getActivity(), tianxieziliaoAcitivity.class);
                 startActivity(intent16);
                 break;
@@ -330,6 +330,9 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
             final Throwable cropError = UCrop.getError(data);
         }else if (requestCode == REQUEST_SELECT_PICTURE){
             // 获取图片的uri
+            if (data.getData()==null){
+                return;
+            }
             Uri uri = data.getData();
             final Uri resultUri = UCrop.getOutput(data);
             //new File(resultUri);

@@ -2,6 +2,7 @@ package JvSi.ShanJi.com.English.ui.EnglishWord;
 
 import android.annotation.SuppressLint;
 import android.graphics.Canvas;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -38,7 +39,6 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +48,7 @@ import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
 import JvSi.ShanJi.com.English.baiduUtils.TTSUtils;
 import JvSi.ShanJi.com.English.baiduUtils.java.bin.com.baidu.translate.demo.Main;
 import JvSi.ShanJi.com.English.bean.ClassifyBean;
+import JvSi.ShanJi.com.English.bean.LearningSit;
 import JvSi.ShanJi.com.English.bean.TransltResult;
 import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.bean.WordList_;
@@ -61,6 +62,8 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 import io.objectbox.query.QueryBuilder;
+
+import static JvSi.ShanJi.com.English.Utils.HeXinUtil.insertCalendarEvent;
 
 
 /**
@@ -87,6 +90,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
     private int position = 0;
 
+
+    private int count=0;
     private static final long DOUBLE_TIME = 400;
     private static long lastClickTime = 0;
     private int positionDobuu;
@@ -211,21 +216,47 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                         Log.v("..--------------------.", String.valueOf(position));
                         if (englishInfoList.get(position).getColorf() != 0) {
                             englishInfoList.get(position).setColorf(0);
-
                         } else {
                             englishInfoList.get(position).setColorf(1);
                         }
-                        new Thread(){
+                        //更新单词状态
+                        AsyncTask.execute(new Runnable() {
                             @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
                             public void run() {
-                               /* Log.v("..--------------------.", String.valueOf(wordLists.classifyBeanList.size()));
+                                String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
+                                QueryBuilder<WordList> builder = notesBox.query();
+                                builder.equal(WordList_.classify,classify_cuncu);
+                                youngJoes = builder.build().find();
+                                List<WordList> list = youngJoes.stream()
+                                        .filter((WordList b) -> b.getClassify().equals(classify_cuncu))
+                                        .collect(Collectors.toList());
+                                if (list.size()!=0){
+                                    wordLists= list.get(0);
+                                    wordLists.getClassifyBeanList().get(position).setColorf(1);
+                                    wordLists.getClassifyBeanList().get(position).setLevel(2);
+                                    //wordLists = list.get(0);
+                                    //long Id=notesBox.put(wordLists);
+                                }
+                                Calendar calendar =Calendar.getInstance();
+                                //当前年的第几天
+                                int day_of_year = calendar.get(Calendar.DAY_OF_YEAR);
+                                wordLists.getClassifyBeanList().get(position).setDate(day_of_year);
+                                boxStore.boxFor(ClassifyBean.class).put(wordLists.getClassifyBeanList().get(position));
+                                count++;
+                            }
+                        });
+                        /*new Thread(){
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void run() {
+                               *//* Log.v("..--------------------.", String.valueOf(wordLists.classifyBeanList.size()));
                                 wordLists.classify = englishInfoList.get(0).getClassify();
                                 //wordList.classifyBeanList.addAll(englishInfoList);
                                 ClassifyBean classifyBean = wordLists.classifyBeanList.get(position);
                                 wordLists.classifyBeanList.get(position).setColorf(1);
                                 long Id=notesBox.put(wordLists);
-                                Log.v("..--------------------.", String.valueOf(Id));*/
+                                Log.v("..--------------------.", String.valueOf(Id));*//*
 
 
 
@@ -265,7 +296,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
 
                             }
-                        }.start();
+                        }.start();*/
                         englishAdapter.notifyDataSetChanged();
                     }
                     lastClickTime = currentTimeMillis;
@@ -404,12 +435,37 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         unbinder.unbind();
         englishWordPresenter.onDetach();
     }
+
+    /**
+     * RecyclerView 移动到当前位置，
+     *
+     * @param manager   设置RecyclerView对应的manager
+     * @param mRecyclerView  当前的RecyclerView
+     * @param n  要跳转的位置
+     */
+    public static void MoveToPosition(LinearLayoutManager manager, RecyclerView mRecyclerView, int n) {
+
+
+        int firstItem = manager.findFirstVisibleItemPosition();
+        int lastItem = manager.findLastVisibleItemPosition();
+        if (n <= firstItem) {
+            mRecyclerView.scrollToPosition(n);
+        } else if (n <= lastItem) {
+            int top = mRecyclerView.getChildAt(n - firstItem).getTop();
+            mRecyclerView.scrollBy(0, top);
+        } else {
+            mRecyclerView.scrollToPosition(n);
+        }
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void initView() {
         Toasty.info(getActivity(),"右滑进进入菜单选择词库/观看教程").show();
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        MoveToPosition(mLayoutManager,mRecyclerView,20);
         //back = (ImageView) layout.findViewById(R.id.img_back);
 
        /* mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -456,6 +512,24 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imageView13:
+                Calendar beginCalendar = Calendar.getInstance();
+                beginCalendar.add( Calendar. MINUTE, +45); //向前走一天
+                long beginTimeMillis = beginCalendar.getTimeInMillis();
+                insertCalendarEvent(getActivity(),"该复习单词了","本日需复习单词20个，现在复习记忆效果特别好哦",beginTimeMillis,0);
+                Toasty.info(getActivity(),"已提交本次所记单词,并加入复习计划").show();
+
+                //上传到后台今日所学
+
+                if (MyApplication.getInstance().getHasjwt()&&count!=0){
+                    LearningSit learningSit = new LearningSit();
+                    learningSit.setUserid(MyApplication.getInstance().getUserInfoBean().getId());
+                    learningSit.setClassifyId(wordLists.getClassify());
+                    learningSit.setCount(String.valueOf(count));
+                    englishWordPresenter.addLearningSit(learningSit);
+                    count=0;
+                }else {
+                    Toasty.info(getActivity(),"请先登录并改变所记数量").show();
+                }
 
 
                 break;

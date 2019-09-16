@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import java.util.List;
 
 import JvSi.ShanJi.com.English.bean.ClassifyBean;
+import JvSi.ShanJi.com.English.bean.LearningSit;
 
 
 /**
@@ -20,6 +21,10 @@ public interface EnglishContract {
 
     interface Presenter{
         void getClassify(String classify,int pageSize,int pageNo);
+//"classifyId": "string",
+//  "count": "string",
+//  "userid": "string",
+        void addLearningSit(LearningSit learningSit);
 
         @SuppressLint("CheckResult")
         void sousuoWord(String classify, int pageSize, int pageNo);
