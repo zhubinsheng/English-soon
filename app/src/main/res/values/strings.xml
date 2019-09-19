@@ -5,4 +5,6 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#03
     <string name="connection_code">密码</string>
     <string name="regexp_number_only">qwertyuiopasdfghjklzxcvbnm</string>
     <string name="tip_number_only_error_message">请不要输入字母以外的</string>
+    <string name="lab_yes">是</string>
+    <string name="lab_no">否</string>
 </resources>

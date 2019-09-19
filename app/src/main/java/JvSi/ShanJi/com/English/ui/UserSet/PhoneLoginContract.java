@@ -25,6 +25,10 @@ public interface PhoneLoginContract {
         void queryByClasss(String classs);
 
         void getValideCode(String phoneNumber);
+
+        @SuppressLint("CheckResult")
+        void CLASSadd(String classs, String userID);
+
         void PhoneLogin(SysLoginModel sysLoginModel);
         void PhoneRegister(SysLoginModel sysLoginModel);
         void registerInfo(SysRegisterInfoModel sysLoginModel);

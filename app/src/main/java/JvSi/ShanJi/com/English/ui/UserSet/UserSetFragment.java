@@ -199,8 +199,15 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
 
             case R.id.gouwu:
-                Intent intent16 = new Intent(getActivity(), tianxieziliaoAcitivity.class);
-                startActivity(intent16);
+
+                if (MyApplication.getInstance().getHasjwt()){
+                    Intent intent16 = new Intent(getActivity(), tianxieziliaoAcitivity.class);
+                    startActivity(intent16);
+                }else {
+                    Toasty.normal(getActivity(),"请先登录").show();
+                    Intent inten5 = new Intent(getActivity(), LoginActivity.class);
+                    startActivity(inten5);
+                }
                 break;
 
             case R.id.ciku:

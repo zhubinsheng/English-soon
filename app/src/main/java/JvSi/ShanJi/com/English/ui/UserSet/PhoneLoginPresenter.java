@@ -10,6 +10,7 @@ import JvSi.ShanJi.com.English.Base.MyRetrofitManager;
 import JvSi.ShanJi.com.English.bean.BaseInfo;
 import JvSi.ShanJi.com.English.bean.BaseResult;
 import JvSi.ShanJi.com.English.bean.ClassResult;
+import JvSi.ShanJi.com.English.bean.IntClassResult;
 import JvSi.ShanJi.com.English.bean.LoginResilt;
 import JvSi.ShanJi.com.English.bean.SysLoginModel;
 import JvSi.ShanJi.com.English.bean.SysRegisterInfoModel;
@@ -90,6 +91,35 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
 
     @SuppressLint("CheckResult")
     @Override
+    public void CLASSadd(String classs, String userID) {
+        Observable<IntClassResult> observable = mPhoneLoginApi.CLASSadd(classs,userID);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<IntClassResult>() {
+                    @Override
+                    public void accept(IntClassResult baseInfo) throws Exception {
+                        if(mView!=null){
+                            if (baseInfo.getMessage().equals("添加成功！")){
+                                mView.onLoginSuccess();
+                            }else {
+                                mView.onValidCodeSend();
+                            }
+
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(mView!=null){
+                            mView.onLoginFail("请稍后重试");
+                        }
+                    }
+                });
+
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
     public void PhoneLogin(SysLoginModel sysLoginModel) {
         Gson gson = new Gson();
         String requestBody = gson.toJson(sysLoginModel);
@@ -132,6 +162,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                 });
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void PhoneRegister(SysLoginModel sysLoginModel) {
         Gson gson = new Gson();
@@ -158,6 +189,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                 });
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void registerInfo(SysRegisterInfoModel sysLoginModel) {
         Gson gson = new Gson();

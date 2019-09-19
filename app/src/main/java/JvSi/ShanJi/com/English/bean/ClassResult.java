@@ -16,7 +16,7 @@ public class ClassResult {
     private String message;
     private int code;
     private long timestamp;
-    private List<ResultBean> result;
+    private List<ClassResultBean> result;
 
     public boolean isSuccess() {
         return success;
@@ -50,15 +50,15 @@ public class ClassResult {
         this.timestamp = timestamp;
     }
 
-    public List<ResultBean> getResult() {
+    public List<ClassResultBean> getResult() {
         return result;
     }
 
-    public void setResult(List<ResultBean> result) {
+    public void setResult(List<ClassResultBean> result) {
         this.result = result;
     }
 
-    public static class ResultBean {
+    public static class ClassResultBean {
         /**
          * classs : 小学生一班
          * userid : e4fd3d71e117b3f5158add55b95d93d9
@@ -69,7 +69,7 @@ public class ClassResult {
         private String classs;
         private String userid;
         private String uuid;
-        private Object allcount;
+        private String allcount;
 
         public String getClasss() {
             return classs;
@@ -95,11 +95,11 @@ public class ClassResult {
             this.uuid = uuid;
         }
 
-        public Object getAllcount() {
+        public String getAllcount() {
             return allcount;
         }
 
-        public void setAllcount(Object allcount) {
+        public void setAllcount(String allcount) {
             this.allcount = allcount;
         }
     }

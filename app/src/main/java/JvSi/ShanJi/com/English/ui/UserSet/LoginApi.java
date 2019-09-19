@@ -3,6 +3,7 @@ package JvSi.ShanJi.com.English.ui.UserSet;
 import JvSi.ShanJi.com.English.bean.BaseInfo;
 import JvSi.ShanJi.com.English.bean.BaseResult;
 import JvSi.ShanJi.com.English.bean.ClassResult;
+import JvSi.ShanJi.com.English.bean.IntClassResult;
 import JvSi.ShanJi.com.English.bean.LoginResilt;
 import JvSi.ShanJi.com.English.bean.LoginResult;
 import JvSi.ShanJi.com.English.bean.SysUser;
@@ -11,6 +12,7 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -41,8 +43,13 @@ public interface LoginApi {
     @POST("api/registerInfo")
     Observable<BaseResult<SysUser>> registerInfo(@Body RequestBody  requestBody);
 
-    @FormUrlEncoded
-    @POST("demo/sYSCLASS/queryByClasss")
+
+    @GET("demo/sYSCLASS/queryByClasss")
     Observable<ClassResult> queryByClasss(@Query("classs") String classs);
+
+
+    @FormUrlEncoded
+    @POST("demo/sYSCLASS/add")
+    Observable<IntClassResult> CLASSadd(@Field("classs") String classs, @Field("userID") String userID);
 
 }

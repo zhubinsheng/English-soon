@@ -99,6 +99,7 @@
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="@dimen/dp_15"
         android:layout_weight="1"
+        android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
