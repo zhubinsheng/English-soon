@@ -69,6 +69,17 @@ public class ClassifyBean implements MultiItemEntity , Serializable {
     public int getColorf() {
         return colorf;
     }
+    public int getColorf2() {
+            if (colorf == 0){
+                return 2;
+            }else if (colorf == 1){
+                return 0;
+            }else if (colorf == 2){
+                return 1;
+            }
+        return 3;
+            //根据返回值进行排序
+    }
 
     public void setColorf(int colorf) {
         this.colorf = colorf;

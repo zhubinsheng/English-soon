@@ -39,6 +39,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -194,9 +196,24 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         return layout;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void onGetSuccess(List<ClassifyBean> classifyBeanList) {
         englishInfoList = classifyBeanList;
-
+        //排序
+        //单字段排序，根据id排序
+        englishInfoList.sort(Comparator.comparing(ClassifyBean::getColorf2));
+        //多字段排序，根据id，年龄排序
+        //englishInfoList.sort(Comparator.comparing(ClassifyBean::getColorf).thenComparing(ClassifyBean::getAge));
+        Iterator it = englishInfoList.iterator();
+        int countNET = 0;
+        while(it.hasNext()) {
+            ClassifyBean classifyBean = (ClassifyBean) it.next();
+            if (classifyBean.getColorf() == 0){
+                break;
+            }
+            countNET++;
+        }
+        MoveToPosition(mLayoutManager,mRecyclerView,countNET);
         loadingView.setVisibility(View.GONE);
         Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
@@ -465,7 +482,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView=(RecyclerView)layout.findViewById(R.id.rv_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        MoveToPosition(mLayoutManager,mRecyclerView,20);
+        //MoveToPosition(mLayoutManager,mRecyclerView,20);
         //back = (ImageView) layout.findViewById(R.id.img_back);
 
        /* mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -604,6 +621,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     public void onValidCodeSend() {
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoginSuccess(List<ClassifyBean> result) {
         new Thread(){

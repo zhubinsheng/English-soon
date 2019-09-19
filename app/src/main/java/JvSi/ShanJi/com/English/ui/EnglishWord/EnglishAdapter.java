@@ -65,8 +65,10 @@ public class EnglishAdapter extends BaseItemDraggableAdapter <ClassifyBean, Base
 
         if (item.getColorf() == 0){
             ((TextView) helper.getView(R.id.text1)).setTextColor(GREEN);
-        }else {
+        }else if (item.getColorf() == 1){
             ((TextView) helper.getView(R.id.text1)).setTextColor(RED);
+        }else if (item.getColorf() == 2){
+            ((TextView) helper.getView(R.id.text1)).setTextColor(BLUE);
         }
 
 

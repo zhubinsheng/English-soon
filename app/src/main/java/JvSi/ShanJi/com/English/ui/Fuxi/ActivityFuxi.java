@@ -67,6 +67,8 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     private WordList wordLists =new WordList();
     private List<ClassifyBean> classifyBeanToMany = new ArrayList<>();
 
+    private boolean cannot = true;
+
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
@@ -165,7 +167,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
         textView9.setTextColor(Color.WHITE);
         textView10.setTextColor(Color.WHITE);
         textView11.setTextColor(Color.WHITE);
-
+        cannot = true;
 
     }
 
@@ -184,10 +186,16 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
-                    baocun();
+                    if (cannot){
+                        baocun();
+                    }
                     //setView(i);
                 }else {
                     textView8.setTextColor(Color.RED);
+                    if (cannot){
+                        cannot = false;
+                        baocunCUO();
+                    }
                 }
                 break;
             case R.id.textView9:
@@ -198,9 +206,15 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
-                    baocun();
+                    if (cannot){
+                        baocun();
+                    }
                 }else {
                     textView9.setTextColor(Color.RED);
+                    if (cannot){
+                        cannot = false;
+                        baocunCUO();
+                    }
                 }
                 break;
             case R.id.textView10:
@@ -211,9 +225,15 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
-                    baocun();
+                    if (cannot){
+                        baocun();
+                    }
                 }else {
                     textView10.setTextColor(Color.RED);
+                    if (cannot){
+                        cannot = false;
+                        baocunCUO();
+                    }
                 }
                 break;
             case R.id.textView11:
@@ -224,9 +244,15 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
-                    baocun();
+                    if (cannot){
+                        baocun();
+                    }
                 }else {
                     textView11.setTextColor(Color.RED);
+                    if (cannot){
+                        cannot = false;
+                        baocunCUO();
+                    }
                 }
                 break;
 
@@ -275,6 +301,58 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
 
                 classifyBeanToMany.get(i-1).setDate(calendar.get(Calendar.DAY_OF_YEAR));
                 boxStore.boxFor(ClassifyBean.class).put(classifyBeanToMany.get(i-1));
+
+            }
+        });
+    }
+
+    private void baocunCUO() {
+
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                Calendar calendar =Calendar.getInstance();
+
+                switch(classifyBeanToMany.get(i).getLevel() ){
+                    case 1:
+                        //calendar.add( Calendar. DATE, +1); //向前走一天
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    case 2:
+                        calendar.add( Calendar. DATE, +1); //向前走一天
+                        classifyBeanToMany.get(i).setLevel(3);
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    case 3:
+                        calendar.add( Calendar. DATE, +2); //向前走一天
+                        classifyBeanToMany.get(i).setLevel(4);
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    case 4:
+                        calendar.add( Calendar. DATE, +6); //向前走一天
+                        classifyBeanToMany.get(i).setLevel(5);
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    case 5:
+                        calendar.add( Calendar. DATE, +22); //向前走一天
+                        classifyBeanToMany.get(i).setLevel(6);
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    case 6:
+                        calendar.add( Calendar. DATE, +66); //向前走一天
+                        classifyBeanToMany.get(i).setLevel(7);
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    case 7:
+                        //不在提醒
+                        classifyBeanToMany.get(i).setLevel(8);
+                        classifyBeanToMany.get(i).setColorf(2);
+                        break;
+                    default:break;
+                }
+
+                classifyBeanToMany.get(i).setDate(calendar.get(Calendar.DAY_OF_YEAR));
+                boxStore.boxFor(ClassifyBean.class).put(classifyBeanToMany.get(i));
 
             }
         });
