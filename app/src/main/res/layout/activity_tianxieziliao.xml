@@ -30,35 +30,78 @@
         android:textColor="#ADD8E6"
         android:text="开启新时代英语" />
 
-    <EditText
-        android:id="@+id/xingming"
-        style="@style/EditTextStyle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="姓名"
-        android:maxLength="11"
-        android:inputType="number"
-        android:maxLines="1" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/banji"
-        style="@style/EditTextStyle"
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/size_20"
+            android:text="代号:" />
+
+        <EditText
+            android:id="@+id/xingming"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="姓名"
+            android:maxLength="11"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="班级"
-        android:maxLength="11"
-        android:inputType="text"
-        android:maxLines="1" />
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="@dimen/size_20"
+            android:text="班级:" />
 
 
+        <EditText
+            android:id="@+id/banji"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="班级"
+            android:layout_weight="1"
+            android:maxLength="11"
+            android:inputType="text"
+            android:maxLines="1" />
 
-    <View
-        android:id="@+id/view"
+        <TextView
+            android:id="@+id/banjichaxun"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/xui_config_color_50_white"
+
+            android:layout_marginRight="@dimen/dp_10"
+            android:textSize="@dimen/size_20"
+            android:text="查询" />
+
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="0dp" />
+
 
     <TextView
         android:id="@+id/quedingtijiao"

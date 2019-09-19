@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import JvSi.ShanJi.com.English.bean.ClassResult;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -130,6 +131,11 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
 
     @Override
     public void onRegisterFail(String errorTip) {
+
+    }
+
+    @Override
+    public void onGetValideCode(ClassResult baseInfo) {
 
     }
 

@@ -10,7 +10,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +28,7 @@ import JvSi.ShanJi.com.English.R;
 import JvSi.ShanJi.com.English.bean.ClassifyBean;
 import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.bean.WordList_;
+import JvSi.ShanJi.com.English.ui.Classify.ClassifyMessageEvent;
 import JvSi.ShanJi.com.English.ui.EnglishWord.EnglishContract;
 import JvSi.ShanJi.com.English.ui.EnglishWord.EnglishWordPresenter;
 import butterknife.BindView;
@@ -36,6 +40,8 @@ import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
 import io.objectbox.query.QueryBuilder;
+
+import static JvSi.ShanJi.com.English.Utils.HeXinUtil.insertCalendarEvent;
 
 public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
 
@@ -55,6 +61,9 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     @BindView(R.id.textView11)
     TextView textView11;
 
+    @BindView(R.id.page1)
+    LinearLayout page1;
+
     private List<ClassifyBean> englishInfoList;
     private String classify;
     private int i =0;
@@ -68,6 +77,8 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     private List<ClassifyBean> classifyBeanToMany = new ArrayList<>();
 
     private boolean cannot = true;
+
+    private boolean canFouc;
 
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
@@ -138,9 +149,18 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     private void setView(int i) {
 
         if (classifyBeanToMany.size()==i){
-            Toasty.info(this,"本词库已全部结束测试").show();
+            if (i==1){
+                textView7.setText("当前词库无需复习测试");
+                EventBus.getDefault().post(ClassifyMessageEvent.getInstance("zoze","zoze"));
+                finish();
+            }else {
+                Toasty.info(this,"本词库已全部结束复习测试").show();
+            }
             --i;
+            canFouc = false;
             return;
+        }else {
+            canFouc = true;
         }
         ClassifyBean classifyBean =  classifyBeanToMany.get(i);
         textView7.setText(classifyBean.getMeaning());
@@ -178,11 +198,15 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     }
     @OnClick({R.id.textView8,R.id.textView9,R.id.textView10,R.id.textView11})
     public void onClick(View v) {
+        if (!canFouc){
+            return;
+        }
         switch (v.getId()) {
             case R.id.textView8:
                 if (textView8.getText().toString().equals(cureectWord)){
                     i++;
                     textView8.setTextColor(Color.GREEN);
+                    canFouc = false;
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
@@ -202,6 +226,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                 if (textView9.getText().toString().equals(cureectWord)){
                     i++;
                     textView9.setTextColor(Color.GREEN);
+                    canFouc = false;
                     //setView(i);
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
@@ -222,6 +247,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     i++;
                     textView10.setTextColor(Color.GREEN);
                     //setView(i);
+                    canFouc = false;
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
@@ -241,6 +267,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     i++;
                     textView11.setTextColor(Color.GREEN);
                     //setView(i);
+                    canFouc = false;
                     Runner1 r1 = new Runner1();
                     Thread t = new Thread(r1);
                     t.start();
@@ -262,7 +289,6 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
     }
 
     private void baocun() {
-
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -277,19 +303,19 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                         classifyBeanToMany.get(i-1).setLevel(3);
                         break;
                     case 3:
-                        calendar.add( Calendar. DATE, +2); //向前走一天
+                        calendar.add( Calendar. DATE, +2); //向前走天
                         classifyBeanToMany.get(i-1).setLevel(4);
                         break;
                     case 4:
-                        calendar.add( Calendar. DATE, +6); //向前走一天
+                        calendar.add( Calendar. DATE, +6); //向前走天
                         classifyBeanToMany.get(i-1).setLevel(5);
                         break;
                     case 5:
-                        calendar.add( Calendar. DATE, +22); //向前走一天
+                        calendar.add( Calendar. DATE, +22); //向前走天
                         classifyBeanToMany.get(i-1).setLevel(6);
                         break;
                     case 6:
-                        calendar.add( Calendar. DATE, +66); //向前走一天
+                        calendar.add( Calendar. DATE, +66); //向前走天
                         classifyBeanToMany.get(i-1).setLevel(7);
                         break;
                     case 7:
@@ -300,6 +326,13 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                 }
 
                 classifyBeanToMany.get(i-1).setDate(calendar.get(Calendar.DAY_OF_YEAR));
+
+                calendar.set(Calendar.HOUR_OF_DAY, 11);
+                calendar.set(Calendar.MINUTE, 59);
+                calendar.set(Calendar.SECOND, 59);
+                long beginTimeMillis = calendar.getTimeInMillis();
+                insertCalendarEvent(ActivityFuxi.this,"该复习单词了","本日需复习单词20个，现在复习记忆效果特别好哦",beginTimeMillis,0);
+
                 boxStore.boxFor(ClassifyBean.class).put(classifyBeanToMany.get(i-1));
 
             }
@@ -351,6 +384,11 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
                     default:break;
                 }
 
+                calendar.set(Calendar.HOUR_OF_DAY, 11);
+                calendar.set(Calendar.MINUTE, 59);
+                calendar.set(Calendar.SECOND, 59);
+                long beginTimeMillis = calendar.getTimeInMillis();
+                insertCalendarEvent(ActivityFuxi.this,"该复习单词了"+beginTimeMillis,"本日需复习单词20个，现在复习记忆效果特别好哦",beginTimeMillis,0);
                 classifyBeanToMany.get(i).setDate(calendar.get(Calendar.DAY_OF_YEAR));
                 boxStore.boxFor(ClassifyBean.class).put(classifyBeanToMany.get(i));
 

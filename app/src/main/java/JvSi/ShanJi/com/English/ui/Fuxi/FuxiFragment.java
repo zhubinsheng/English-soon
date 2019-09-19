@@ -24,6 +24,7 @@ import JvSi.ShanJi.com.English.ui.Classify.ClassifyMessageEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import es.dmoral.toasty.Toasty;
 import io.objectbox.Box;
 import io.objectbox.BoxStore;
 import io.objectbox.query.Query;
@@ -98,6 +99,8 @@ public class FuxiFragment extends BaseFragment {
             youngJoes = builder.build().find();
             fuxiAdapter = new FuxiAdapter(R.layout.english_ceshi, youngJoes);
             rv_list.setAdapter(fuxiAdapter);
+        }else if (message.getRecode().equals("zoze")){
+            Toasty.info(getActivity(),"当前词库无单词需复习测试").show();
         }
     }
 }

@@ -233,11 +233,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode==KeyEvent.KEYCODE_BACK){
             if (backc){
+
+                /*Calendar beginCalendar = Calendar.getInstance();
+                beginCalendar.add( Calendar. MINUTE, +45); //向前走一天
+                long beginTimeMillis = beginCalendar.getTimeInMillis();
+                insertCalendarEvent(this,"该复习单词了","本日需复习单词20个，现在复习记忆效果特别好哦",beginTimeMillis,0);*/
+
                 finish();
             }else {
                 asd(1);
                 backc = true;
             }
+        }else {
+            return super.onKeyDown(keyCode, event);
         }
         return true;
     }

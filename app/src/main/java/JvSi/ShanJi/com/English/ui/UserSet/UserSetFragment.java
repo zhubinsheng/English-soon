@@ -33,6 +33,7 @@ import JvSi.ShanJi.com.English.R;
 import JvSi.ShanJi.com.English.Utils.BlurUtil;
 import JvSi.ShanJi.com.English.Utils.UploadPic;
 import JvSi.ShanJi.com.English.baiduUtils.TTSUtils;
+import JvSi.ShanJi.com.English.bean.ClassResult;
 import JvSi.ShanJi.com.English.ui.Classify.ClassifyhActivty;
 import JvSi.ShanJi.com.English.ui.Login_Regist.LoginActivity;
 import JvSi.ShanJi.com.English.ui.Login_Regist.tianxieziliaoAcitivity;
@@ -172,6 +173,11 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
                 break;
 
+            case R.id.zhuangtai:
+
+
+
+                break;
             case R.id.textView29:
 
                 //Bitmap bm = intent.getParcelableExtra("data");
@@ -232,6 +238,10 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
     }
 
+    @Override
+    public void onGetValideCode(ClassResult baseInfo) {
+
+    }
 
 
     private void speak() {

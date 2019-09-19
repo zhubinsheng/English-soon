@@ -100,6 +100,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     private List<WordList> youngJoes = new ArrayList<>();
     private WordList wordLists =new WordList();
 
+    private boolean focu1notcan = true;
     @BindView(R.id.jieguo)
     LinearLayout jieguo;
 
@@ -181,10 +182,12 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         RefreshLayout refreshLayout = (RefreshLayout)layout.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 startUpFetch();
-                //refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+                //englishAdapter.notifyDataSetChanged();
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
@@ -215,7 +218,6 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         }
         MoveToPosition(mLayoutManager,mRecyclerView,countNET);
         loadingView.setVisibility(View.GONE);
-        Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
         englishAdapter = new EnglishAdapter(R.layout.english_ceshi, englishInfoList);
         //条目子控件点击事件
@@ -230,18 +232,28 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 } else if (view.getId() == R.id.shuangji) {
                     long currentTimeMillis = System.currentTimeMillis();
                     if (currentTimeMillis - lastClickTime < DOUBLE_TIME) {
+                        if (focu1notcan){
+                            focu1notcan =false;
+                            Runner1 r1 = new Runner1();
+                            Thread t = new Thread(r1);
+                            t.start();
+                        }else {
+                            return;
+                        }
                         Log.v("..--------------------.", String.valueOf(position));
-                        if (englishInfoList.get(position).getColorf() != 0) {
-                            englishInfoList.get(position).setColorf(0);
-                        } else {
+                        if (englishInfoList.get(position).getColorf() == 0) {
                             englishInfoList.get(position).setColorf(1);
+                        } else if (englishInfoList.get(position).getColorf() == 2){
+                            englishInfoList.get(position).setColorf(1);
+                        }else {
+                            englishInfoList.get(position).setColorf(0);
                         }
                         //更新单词状态
                         AsyncTask.execute(new Runnable() {
                             @RequiresApi(api = Build.VERSION_CODES.N)
                             @Override
                             public void run() {
-                                String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
+                                /*String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
                                 QueryBuilder<WordList> builder = notesBox.query();
                                 builder.equal(WordList_.classify,classify_cuncu);
                                 youngJoes = builder.build().find();
@@ -254,13 +266,17 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                                     wordLists.getClassifyBeanList().get(position).setLevel(2);
                                     //wordLists = list.get(0);
                                     //long Id=notesBox.put(wordLists);
-                                }
+                                }*/
                                 Calendar calendar =Calendar.getInstance();
                                 //当前年的第几天
                                 int day_of_year = calendar.get(Calendar.DAY_OF_YEAR);
-                                wordLists.getClassifyBeanList().get(position).setDate(day_of_year);
-                                boxStore.boxFor(ClassifyBean.class).put(wordLists.getClassifyBeanList().get(position));
-                                count++;
+                                englishInfoList.get(position).setDate(day_of_year);
+                                if (englishInfoList.get(position).getLevel()==1||englishInfoList.get(position).getLevel()==0){
+                                    count++;
+                                    englishInfoList.get(position).setLevel(2);
+                                }
+                                boxStore.boxFor(ClassifyBean.class).put(englishInfoList.get(position));
+
                             }
                         });
                         /*new Thread(){
@@ -274,8 +290,6 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                                 wordLists.classifyBeanList.get(position).setColorf(1);
                                 long Id=notesBox.put(wordLists);
                                 Log.v("..--------------------.", String.valueOf(Id));*//*
-
-
 
                                 String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
                                 QueryBuilder<WordList> builder = notesBox.query();
@@ -293,25 +307,14 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                                 Calendar calendar =Calendar. getInstance();
                                 calendar.add( Calendar. DATE, +1); //向前走一天
                                 Date date= calendar.getTime();
-
                                 // 获取日
                                 int date2 = calendar.get(Calendar.DATE);
                                 wordLists.getClassifyBeanList().get(position).setDate(date);
-
                                 //当前月的第几天：即当前日
                                 int day_of_month = calendar.get(Calendar.DAY_OF_MONTH);
-
                                 //当前年的第几天
                                 int day_of_year = calendar.get(Calendar.DAY_OF_YEAR);
-
-
                                 boxStore.boxFor(ClassifyBean.class).put(wordLists.getClassifyBeanList().get(position));
-
-
-
-
-
-
                             }
                         }.start();*/
                         englishAdapter.notifyDataSetChanged();
@@ -529,15 +532,21 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imageView13:
-                Calendar beginCalendar = Calendar.getInstance();
-                beginCalendar.add( Calendar. MINUTE, +45); //向前走一天
-                long beginTimeMillis = beginCalendar.getTimeInMillis();
-                insertCalendarEvent(getActivity(),"该复习单词了","本日需复习单词20个，现在复习记忆效果特别好哦",beginTimeMillis,0);
-                Toasty.info(getActivity(),"已提交本次所记单词,并加入复习计划").show();
-
+                if (count==0){
+                    Toasty.info(getActivity(),"请先记忆并改变所记数量").show();
+                    return;
+                }
                 //上传到后台今日所学
+                if (MyApplication.getInstance().getHasjwt()){
 
-                if (MyApplication.getInstance().getHasjwt()&&count!=0){
+                    if (count!=0){
+                        Calendar beginCalendar = Calendar.getInstance();
+                        beginCalendar.add( Calendar. MINUTE, +45);
+                        long beginTimeMillis = beginCalendar.getTimeInMillis();
+                        insertCalendarEvent(getActivity(),"该复习单词了","本日需复习单词20个，现在复习记忆效果特别好哦",beginTimeMillis,0);
+                        Toasty.info(getActivity(),"已提交本次所记单词,并加入复习计划").show();
+                    }
+
                     LearningSit learningSit = new LearningSit();
                     learningSit.setUserid(MyApplication.getInstance().getUserInfoBean().getId());
                     learningSit.setClassifyId(wordLists.getClassify());
@@ -545,10 +554,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                     englishWordPresenter.addLearningSit(learningSit);
                     count=0;
                 }else {
-                    Toasty.info(getActivity(),"请先登录并改变所记数量").show();
+                    Toasty.info(getActivity(),"请先登录").show();
                 }
-
-
                 break;
 
             case R.id.tianjia:
@@ -636,7 +643,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                 EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
             }
         }.start();
-
+        Toasty.success(getActivity(),"获取单词成功").show();
         onGetSuccess(result);
        /* loadingView.setVisibility(View.GONE);
         Toasty.success(getActivity(),"获取单词成功").show();
@@ -772,9 +779,11 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         mRecyclerView.setAdapter(englishAdapter);*/
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void startUpFetch() {
         hengxiang.setVisibility(View.VISIBLE);
         shurudanci.setFloatingLabelText("点击搜索这里会显示搜索的结果哦");
+        onGetSuccess(englishInfoList);
     }
 
     @Override
@@ -803,5 +812,18 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     }
     private void speak(String text) {
         TTSUtils.getInstance().speak(text);
+    }
+
+    class Runner1 implements Runnable{
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                //Thread.currentThread().sleep(1000);
+                focu1notcan =true;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

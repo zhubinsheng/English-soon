@@ -9,6 +9,7 @@ import JvSi.ShanJi.com.English.Base.MyApplication;
 import JvSi.ShanJi.com.English.Base.MyRetrofitManager;
 import JvSi.ShanJi.com.English.bean.BaseInfo;
 import JvSi.ShanJi.com.English.bean.BaseResult;
+import JvSi.ShanJi.com.English.bean.ClassResult;
 import JvSi.ShanJi.com.English.bean.LoginResilt;
 import JvSi.ShanJi.com.English.bean.SysLoginModel;
 import JvSi.ShanJi.com.English.bean.SysRegisterInfoModel;
@@ -37,6 +38,30 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
     public PhoneLoginPresenter(){
         this.mView = null;
         mPhoneLoginApi = MyRetrofitManager.create(LoginApi.class,null);
+    }
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void queryByClasss(String classs) {
+        Observable<ClassResult> observable = mPhoneLoginApi.queryByClasss(classs);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ClassResult>() {
+                    @Override
+                    public void accept(ClassResult baseInfo) throws Exception {
+                        if(mView!=null){
+                            mView.onGetValideCode(baseInfo);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(mView!=null){
+                            mView.onLoginFail("请稍后重试");
+                        }
+                    }
+                });
+
     }
 
     @SuppressLint("CheckResult")

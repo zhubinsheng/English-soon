@@ -108,6 +108,8 @@ public class HeXinUtil {
             return false;
         }
 
+        deleteCalendarEvent( context,  title);
+
         // 如果起始时间为零，使用当前时间
         if (beginTimeMillis == 0) {
             Calendar beginCalendar = Calendar.getInstance();
