@@ -37,6 +37,7 @@ import JvSi.ShanJi.com.English.bean.ClassResult;
 import JvSi.ShanJi.com.English.ui.Classify.ClassifyhActivty;
 import JvSi.ShanJi.com.English.ui.Login_Regist.LoginActivity;
 import JvSi.ShanJi.com.English.ui.Login_Regist.tianxieziliaoAcitivity;
+import JvSi.ShanJi.com.English.ui.MyFunction.ImageDistinguishActivuty;
 import JvSi.ShanJi.com.English.ui.skin.SkinActivity;
 import JvSi.ShanJi.com.English.ui.skin.XitongShezhiActivity;
 import butterknife.BindView;
@@ -173,7 +174,13 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
                 break;
 
-            case R.id.zhuangtai:
+            case R.id.zhuangban:
+                Intent inten51 = new Intent(getActivity(), ImageDistinguishActivuty.class);
+                startActivity(inten51);
+
+                break;
+
+                case R.id.zhuangtai:
 
 
 

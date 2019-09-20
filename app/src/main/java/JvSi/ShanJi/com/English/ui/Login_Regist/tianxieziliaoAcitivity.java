@@ -3,8 +3,10 @@ package JvSi.ShanJi.com.English.ui.Login_Regist;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -22,6 +24,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import es.dmoral.toasty.Toasty;
+import io.agora.rtc.RtcEngine;
 
 /**
  * @author Administrator
@@ -43,6 +46,10 @@ public class tianxieziliaoAcitivity extends BaseActivity implements PhoneLoginCo
     @BindView(R.id.rv_list)
     RecyclerView rv_list;
 
+    //本地视图
+    @BindView(R.id.video_chat_small)
+    FrameLayout video_chat_small;
+
     private ClassAdapter classAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +60,22 @@ public class tianxieziliaoAcitivity extends BaseActivity implements PhoneLoginCo
             finish();
         }
         mLoginPresenter = new PhoneLoginPresenter(this);
+
+
+
+
+
+        SurfaceView surfaceView = RtcEngine.CreateRendererView(getBaseContext());
+        video_chat_small.setVisibility(View.VISIBLE);
+        surfaceView.setZOrderMediaOverlay(true);
+        video_chat_small.addView(surfaceView);
+
+
+
+
+
+
+
     }
 
     @OnClick({R.id.quedingtijiao,R.id.banjichaxun})

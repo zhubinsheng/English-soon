@@ -20,7 +20,9 @@
     <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
     <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
     <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
-
+    <!-- 多媒体 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <application
         android:name=".Base.MyApplication"
         android:usesCleartextTraffic="true"
@@ -51,6 +53,7 @@
         <activity android:name=".ui.skin.XitongShezhiActivity"></activity>
         <activity android:name=".ui.Classify.ClassifyhActivty"></activity>
         <activity android:name=".ui.UserSet.UserSetActivity2"></activity>
+        <activity android:name=".ui.MyFunction.ImageDistinguishActivuty"></activity>
 
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

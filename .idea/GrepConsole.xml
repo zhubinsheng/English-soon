@@ -56,6 +56,16 @@
                           </GrepModel>
                         </option>
                       </Pin>
+                      <Pin>
+                        <option name="consoleUUID" value="585301ce-2154-4028-b155-7bfd2c47a5fa" />
+                        <option name="contentType" value="ConsoleContent" />
+                        <option name="grepModel">
+                          <GrepModel>
+                            <option name="expression" value="" />
+                            <option name="unlessExpression" value="" />
+                          </GrepModel>
+                        </option>
+                      </Pin>
                     </list>
                   </option>
                 </Pins>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MyFunction.ImageDistinguishActivuty">
+
+    <JvSi.ShanJi.com.English.ui.MyFunction.MyTextureView
+        android:id="@+id/mytextureview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <Button
+        android:id="@+id/paizhai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="拍照" />
+
+    <Button
+        android:id="@+id/yulan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/paizhai"
+        android:visibility="gone"
+        android:text="预览" />
+
+</RelativeLayout>
