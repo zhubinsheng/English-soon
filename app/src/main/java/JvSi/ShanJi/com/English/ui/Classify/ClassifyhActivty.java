@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.mingle.widget.LoadingView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -221,6 +222,58 @@ public class ClassifyhActivty extends AppCompatActivity implements ClassifyContr
         return res;
     }
 
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private ArrayList<MultiItemEntity> generateData2() {
+
+        Map<String, List<WordList>> classifyBeans = new HashMap<>();
+
+        boxStore= MyApplication.getInstance().getBoxStore();
+        notesBox = boxStore.boxFor(WordList.class);
+        QueryBuilder<WordList> builder = notesBox.query();
+        List<WordList> youngJoes = builder.build().find();
+
+        classifyBeans.put("本地词库",youngJoes);
+
+        List<WordList> list2 = youngJoes.stream()
+                .filter((WordList b) -> b.getClassify().contains("个人词库"))
+                .collect(Collectors.toList());
+
+        ArrayList<MultiItemEntity> res = new ArrayList<>();
+
+        List<WordList> libraryls = new ArrayList<>();
+        if (list2.size()!=0){
+            for (int j = 0; j < list2.size(); j++) {
+                WordList library = new WordList();
+                library.setLibrary("个人词库");
+                library.setClassify(list2.get(j).getClassify());
+                libraryls.add(library);
+            }
+            classifyBeans.put("个人词库",libraryls);
+        }else {
+            WordList library = new WordList();
+            library.setLibrary("个人词库");
+            library.setClassify("空词库");
+            libraryls.add(library);
+            classifyBeans.put("个人词库",libraryls);
+        }
+
+        //遍历分组
+        for (Map.Entry<String, List<WordList>> entryUser : classifyBeans.entrySet()) {
+            String key = entryUser.getKey();
+            List<WordList> entryUserList = entryUser.getValue();
+
+            ClassifyLevel1Item lv0 = new ClassifyLevel1Item(key, "subtitle null");
+            for (int k = 0; k < entryUserList.size(); k++) {
+                lv0.addSubItem(entryUserList.get(k));
+            }
+            res.add(lv0);
+
+        }
+
+        return res;
+    }
+
     @Override
     public void onLoginFail(String errorTip) {
         Toasty.warning(this, errorTip, Toast.LENGTH_LONG, true).show();
@@ -229,6 +282,16 @@ public class ClassifyhActivty extends AppCompatActivity implements ClassifyContr
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onGetLibrarySuccess(Map<String, List<Library>> result) {
+        if (result==null){
+
+
+            list = generateData2();
+            ExpandableItemAdapter1 expandableItemAdapter1 = new ExpandableItemAdapter1(this,list);
+            mRecyclerView.setAdapter(expandableItemAdapter1);
+            Toasty.warning(this, "加载本地学习记录", Toast.LENGTH_LONG, true).show();
+            loadingView.setVisibility(View.GONE);
+            return;
+        }
         loadingView.setVisibility(View.GONE);
         list = generateData(result);
         expandableItemAdapter = new ExpandableItemAdapter(this,list);

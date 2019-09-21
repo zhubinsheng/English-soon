@@ -631,18 +631,21 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoginSuccess(List<ClassifyBean> result) {
-        new Thread(){
-            @Override
-            public void run() {
-                WordList  wordList2 = new WordList();
-                wordList2.classify = result.get(0).getClassify();
-                wordList2.classifyBeanList.addAll(result);
-                long Id=notesBox.put(wordList2);
-                SharedPreferencesUtils.setParam(getActivity(),"classify",classify);
-                String classify_cuncu  = java.lang.String.valueOf(SharedPreferencesUtils.getParam(getActivity(),"classify",""));
-                EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
-            }
-        }.start();
+
+
+        AsyncTask.execute(() -> {
+            String classify2 = result.get(0).getClassify();
+
+            QueryBuilder<WordList> builder = notesBox.query();
+            builder.equal(WordList_.classify,classify2);
+            youngJoes = builder.build().find();
+
+            List<WordList> list = youngJoes.stream()
+                    .filter((WordList b) -> b.getClassify().equals(classify2))
+                    .collect(Collectors.toList());
+            wordLists = list.get(0);
+
+        });
         Toasty.success(getActivity(),"获取单词成功").show();
         onGetSuccess(result);
        /* loadingView.setVisibility(View.GONE);
@@ -799,15 +802,34 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveMsg2(ClassifyMessageEvent message) {
         if (message.getRecode().equals("classify")){
             loadingView.setVisibility(View.VISIBLE);
             classify = message.getClassify();
-            englishWordPresenter.getClassify(classify,pageSize,1);
+            englishWordPresenter.getClassify(classify,pageSize,1,getActivity());
         }else if (message.getRecode().equals("word")){
             String word = message.getClassify();
             //englishInfoList.get();
+        }else if (message.getRecode().equals("classify1")){
+            loadingView.setVisibility(View.VISIBLE);
+            String classify1 = message.getClassify();
+            QueryBuilder<WordList> builder = notesBox.query();
+            builder.equal(WordList_.classify,classify1);
+            youngJoes = builder.build().find();
+
+            List<WordList> list = youngJoes.stream()
+                    .filter((WordList b) -> b.getClassify().equals(classify1))
+                    .collect(Collectors.toList());
+
+            if (list.size()!=0){
+                onGetSuccess((List<ClassifyBean>)list.get(0).getClassifyBeanList());
+                wordLists = list.get(0);
+            }
+
+            SharedPreferencesUtils.setParam(getActivity(),"classify",classify1);
+            EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
         }
     }
     private void speak(String text) {

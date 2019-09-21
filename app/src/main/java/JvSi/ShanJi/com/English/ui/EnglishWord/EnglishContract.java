@@ -1,6 +1,7 @@
 package JvSi.ShanJi.com.English.ui.EnglishWord;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public interface EnglishContract {
     }
 
     interface Presenter{
-        void getClassify(String classify,int pageSize,int pageNo);
+        void getClassify(String classify, int pageSize, int pageNo, Context context);
 //"classifyId": "string",
 //  "count": "string",
 //  "userid": "string",

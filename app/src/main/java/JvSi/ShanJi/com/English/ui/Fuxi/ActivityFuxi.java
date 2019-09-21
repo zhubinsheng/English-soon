@@ -143,7 +143,7 @@ public class ActivityFuxi extends BaseActivity implements EnglishContract.View{
         }
 
 
-        englishWordPresenter.getClassify(classify,10000,1);
+        englishWordPresenter.getClassify(classify,10000,1,this);
     }
 
     private void setView(int i) {

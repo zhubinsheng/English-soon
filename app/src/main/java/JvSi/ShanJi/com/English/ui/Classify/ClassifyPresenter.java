@@ -75,6 +75,7 @@ public class ClassifyPresenter implements ClassifyContract.Presenter {
                     public void accept(Throwable throwable) throws Exception {
                         if(mView!=null){
                             mView.onLoginFail("网络出问题啦，请稍后再试");
+                            mView.onGetLibrarySuccess(null);
                         }
                     }
                 });

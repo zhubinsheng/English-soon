@@ -1,13 +1,26 @@
 package JvSi.ShanJi.com.English.ui.EnglishWord;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.os.AsyncTask;
 
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.List;
+
+import JvSi.ShanJi.com.English.Base.MyApplication;
 import JvSi.ShanJi.com.English.Base.MyRetrofitManager;
+import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
 import JvSi.ShanJi.com.English.bean.BaseResult;
+import JvSi.ShanJi.com.English.bean.ClassifyBean;
 import JvSi.ShanJi.com.English.bean.EnglishCodeVo;
 import JvSi.ShanJi.com.English.bean.LearningSit;
+import JvSi.ShanJi.com.English.bean.WordList;
+import JvSi.ShanJi.com.English.ui.Classify.ClassifyMessageEvent;
+import io.objectbox.Box;
+import io.objectbox.BoxStore;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
@@ -34,7 +47,7 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
 
     @SuppressLint("CheckResult")
     @Override
-    public void getClassify(String classify,int pageSize,int pageNo) {
+    public void getClassify(String classify, int pageSize, int pageNo, Context context) {
         Observable<EnglishCodeVo> observable = englishWordApi.GetEnglishWord(classify, pageSize,pageNo);
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -45,8 +58,21 @@ public class EnglishWordPresenter implements EnglishContract.Presenter {
                             /*if (pageNo!=1){
                                 mView.onGetMoreSuccess(classifyBeanBaseResult.getResult());
                             }else {*/
-                                mView.onLoginSuccess(classifyBeanBaseResult.getResult());
+                            List<ClassifyBean> finalResult = classifyBeanBaseResult.getResult();
+                                mView.onLoginSuccess(finalResult);
 
+                            AsyncTask.execute(() -> {
+                                BoxStore boxStore= MyApplication.getInstance().getBoxStore();
+                                WordList wordList2 = new WordList();
+                                wordList2.classify = finalResult.get(0).getClassify();
+                                //boxStore.boxFor(ClassifyBean.class).put(finalResult);
+                                wordList2.classifyBeanList.addAll(finalResult);
+                                Box<WordList>  notesBox = boxStore.boxFor(WordList.class);
+                                long Id=notesBox.put(wordList2);
+
+                                SharedPreferencesUtils.setParam(context,"classify",classify);
+                                EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
+                            });
 
                         }else {
                             mView.onLoginFail("获取单词列表为空，请重试");
