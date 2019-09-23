@@ -54,6 +54,7 @@ import JvSi.ShanJi.com.English.bean.LearningSit;
 import JvSi.ShanJi.com.English.bean.TransltResult;
 import JvSi.ShanJi.com.English.bean.WordList;
 import JvSi.ShanJi.com.English.bean.WordList_;
+import JvSi.ShanJi.com.English.bean.localLibrary;
 import JvSi.ShanJi.com.English.ui.Classify.ClassifyMessageEvent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -435,6 +436,8 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
         }, mRecyclerView);
 
         mRecyclerView.setAdapter(englishAdapter);
+
+        Toasty.warning(getActivity(),"加载"+englishInfoList.get(0).getClassify()+"成功").show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -631,9 +634,7 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoginSuccess(List<ClassifyBean> result) {
-
-
-        AsyncTask.execute(() -> {
+        /*AsyncTask.execute(() -> {
             String classify2 = result.get(0).getClassify();
 
             QueryBuilder<WordList> builder = notesBox.query();
@@ -645,9 +646,35 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
                     .collect(Collectors.toList());
             wordLists = list.get(0);
 
-        });
+        });*/
         Toasty.success(getActivity(),"获取单词成功").show();
         onGetSuccess(result);
+
+        AsyncTask.execute(() -> {
+            Log.d("time0",">>>>>>>>>>>>>>>>>>222222      ");
+            BoxStore boxStore= MyApplication.getInstance().getBoxStore();
+            wordLists
+                    = new WordList();
+            wordLists
+                    .classify = result.get(0).getClassify();
+            //boxStore.boxFor(ClassifyBean.class).put(finalResult);
+            wordLists
+                    .classifyBeanList.addAll(result);
+            Box<WordList>  notesBox = boxStore.boxFor(WordList.class);
+            long Id=notesBox.put(         wordLists);
+            SharedPreferencesUtils.setParam(getActivity(),"classify",classify);
+            Box<localLibrary>  notesBox2 = boxStore.boxFor(localLibrary.class);
+
+            QueryBuilder<localLibrary> builder = notesBox2.query();
+
+            List<localLibrary> joes = builder.build().find();
+
+            joes.add(new localLibrary(classify));
+
+            notesBox2.put(new localLibrary(classify));
+
+            EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
+        });
        /* loadingView.setVisibility(View.GONE);
         Toasty.success(getActivity(),"获取单词成功").show();
         //englishAdapter.notifyDataSetChanged();
@@ -830,6 +857,19 @@ public class EnglishFragment extends Fragment implements EnglishContract.View {
 
             SharedPreferencesUtils.setParam(getActivity(),"classify",classify1);
             EventBus.getDefault().post(ClassifyMessageEvent.getInstance("gegnxin","0"));
+        }else if (message.getRecode().equals("classifytrue")){
+            QueryBuilder<WordList> builder = notesBox.query();
+            builder.equal(WordList_.classify,message.getClassify());
+            youngJoes = builder.build().find();
+
+            List<WordList> list = youngJoes.stream()
+                    .filter((WordList b) -> b.getClassify().equals(message.getClassify()))
+                    .collect(Collectors.toList());
+
+            if (list.size()!=0){
+                onGetSuccess((List<ClassifyBean>)list.get(0).getClassifyBeanList());
+                wordLists = list.get(0);
+            }
         }
     }
     private void speak(String text) {

@@ -2,6 +2,8 @@ package JvSi.ShanJi.com.English.bean;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 
+import io.objectbox.annotation.Id;
+
 /**
  * @Description: 类别表
  * @Author: jeecg-boot
@@ -13,6 +15,11 @@ public class Library implements MultiItemEntity {
 	private String classify;
 
 	private String library;
+
+	private boolean isStudy;
+
+	@Id
+	public long boxId;
 
 	public String getClassify() {
 		return classify;
@@ -46,5 +53,13 @@ public class Library implements MultiItemEntity {
 	@Override
 	public int getItemType() {
 		return 2;
+	}
+
+	public boolean isStudy() {
+		return isStudy;
+	}
+
+	public void setStudy(boolean study) {
+		isStudy = study;
 	}
 }

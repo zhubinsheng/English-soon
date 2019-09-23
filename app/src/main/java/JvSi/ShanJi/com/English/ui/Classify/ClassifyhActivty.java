@@ -27,6 +27,7 @@ import JvSi.ShanJi.com.English.bean.ClassifyBean;
 import JvSi.ShanJi.com.English.bean.Library;
 import JvSi.ShanJi.com.English.bean.MySection;
 import JvSi.ShanJi.com.English.bean.WordList;
+import JvSi.ShanJi.com.English.bean.localLibrary;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -284,7 +285,6 @@ public class ClassifyhActivty extends AppCompatActivity implements ClassifyContr
     public void onGetLibrarySuccess(Map<String, List<Library>> result) {
         if (result==null){
 
-
             list = generateData2();
             ExpandableItemAdapter1 expandableItemAdapter1 = new ExpandableItemAdapter1(this,list);
             mRecyclerView.setAdapter(expandableItemAdapter1);
@@ -294,7 +294,13 @@ public class ClassifyhActivty extends AppCompatActivity implements ClassifyContr
         }
         loadingView.setVisibility(View.GONE);
         list = generateData(result);
-        expandableItemAdapter = new ExpandableItemAdapter(this,list);
+
+        BoxStore boxStore= MyApplication.getInstance().getBoxStore();
+        Box<localLibrary> notesBox2 = boxStore.boxFor(localLibrary.class);
+        QueryBuilder<localLibrary> builder = notesBox2.query();
+        List<localLibrary> joes = builder.build().find();
+
+        expandableItemAdapter = new ExpandableItemAdapter(this,list,joes);
         mRecyclerView.setAdapter(expandableItemAdapter);
     }
 }
