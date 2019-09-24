@@ -11,6 +11,7 @@ import JvSi.ShanJi.com.English.bean.BaseInfo;
 import JvSi.ShanJi.com.English.bean.BaseResult;
 import JvSi.ShanJi.com.English.bean.ClassResult;
 import JvSi.ShanJi.com.English.bean.IntClassResult;
+import JvSi.ShanJi.com.English.bean.ListClasssStudyResult;
 import JvSi.ShanJi.com.English.bean.LoginResilt;
 import JvSi.ShanJi.com.English.bean.SysLoginModel;
 import JvSi.ShanJi.com.English.bean.SysRegisterInfoModel;
@@ -64,6 +65,34 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                 });
 
     }
+
+
+
+    @SuppressLint("CheckResult")
+    @Override
+    public void queryListClasss(String classs) {
+        Observable<ListClasssStudyResult> observable = mPhoneLoginApi.queryListClasss(classs);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<ListClasssStudyResult>() {
+                    @Override
+                    public void accept(ListClasssStudyResult baseInfo) throws Exception {
+                        if(mView!=null){
+                            mView.onGetValideCodeStudyResult(baseInfo);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if(mView!=null){
+                            mView.onLoginFail("请稍后重试");
+                        }
+                    }
+                });
+
+    }
+
+
 
     @SuppressLint("CheckResult")
     @Override
@@ -203,7 +232,7 @@ public class PhoneLoginPresenter implements PhoneLoginContract.Presenter {
                     public void accept(BaseResult<SysUser> loginResult) throws Exception {
                         Log.e(TAG,"4getApplication is "+loginResult);
                         if(mView!=null){
-                            mView.onRegisterSuccess();
+                            mView.onRegisterInfoSuccess();
                         }
                     }
                 }, new Consumer<Throwable>() {

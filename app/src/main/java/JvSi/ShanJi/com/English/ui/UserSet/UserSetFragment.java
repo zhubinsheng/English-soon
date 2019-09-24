@@ -257,6 +257,11 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
 
     }
 
+    @Override
+    public void onRegisterInfoSuccess() {
+
+    }
+
 
     private void speak() {
         String text = "onSynthesizeFinish";
@@ -354,6 +359,9 @@ public class UserSetFragment extends Fragment implements PhoneLoginContract.View
             final Throwable cropError = UCrop.getError(data);
         }else if (requestCode == REQUEST_SELECT_PICTURE){
             // 获取图片的uri
+            if (data==null){
+                return;
+            }
             if (data.getData()==null){
                 return;
             }

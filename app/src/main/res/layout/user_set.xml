@@ -310,16 +310,17 @@
 
     <View
         android:layout_width="match_parent"
+        android:layout_weight="1"
         android:layout_height="150dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_20"
             android:gravity="center|left"
@@ -328,7 +329,7 @@
             android:text="购买会员" />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_20"
             android:gravity="center|left"
@@ -337,7 +338,7 @@
             android:text="意见声明" />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_20"
             android:gravity="center|left"
@@ -346,7 +347,7 @@
             android:text="应用升级" />
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/dp_20"
             android:gravity="center|left"
@@ -359,7 +360,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_marginBottom="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_72"
+            android:layout_marginRight="150dp"
             android:orientation="horizontal">
 
             <ImageView

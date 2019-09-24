@@ -144,4 +144,9 @@ public class tianxieziliaoAcitivity extends BaseActivity implements PhoneLoginCo
         rv_list.setLayoutManager(new LinearLayoutManager(this));
         rv_list.setAdapter(classAdapter);
     }
+
+    @Override
+    public void onRegisterInfoSuccess() {
+
+    }
 }

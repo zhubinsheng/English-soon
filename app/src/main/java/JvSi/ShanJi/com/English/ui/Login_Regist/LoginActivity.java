@@ -10,7 +10,14 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+import JvSi.ShanJi.com.English.Base.BaseActivity;
+import JvSi.ShanJi.com.English.R;
+import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
+import JvSi.ShanJi.com.English.Utils.ValideUtil;
 import JvSi.ShanJi.com.English.bean.ClassResult;
+import JvSi.ShanJi.com.English.bean.SysLoginModel;
+import JvSi.ShanJi.com.English.ui.UserSet.PhoneLoginContract;
+import JvSi.ShanJi.com.English.ui.UserSet.PhoneLoginPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -19,14 +26,6 @@ import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 import cn.smssdk.gui.RegisterPage;
 import es.dmoral.toasty.Toasty;
-import JvSi.ShanJi.com.English.Base.BaseActivity;
-import JvSi.ShanJi.com.English.Base.MainActivity;
-import JvSi.ShanJi.com.English.R;
-import JvSi.ShanJi.com.English.Utils.SharedPreferencesUtils;
-import JvSi.ShanJi.com.English.Utils.ValideUtil;
-import JvSi.ShanJi.com.English.bean.SysLoginModel;
-import JvSi.ShanJi.com.English.ui.UserSet.PhoneLoginContract;
-import JvSi.ShanJi.com.English.ui.UserSet.PhoneLoginPresenter;
 
 @SuppressLint("Registered")
 public class LoginActivity extends BaseActivity implements PhoneLoginContract.View {
@@ -91,7 +90,12 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
 
                 break;
             case R.id.wangjimima:
-                sendCode(this);
+                //sendCode(this);
+                SysLoginModel sysLoginModel2 = new SysLoginModel();
+                sysLoginModel2.setCaptcha("123");
+                sysLoginModel2.setUsername("18709864407");
+                sysLoginModel2.setPassword("12345699");
+                mLoginPresenter.PhoneRegister(sysLoginModel2);
                 //startActivity(RegisterMiMaActivity.class);
                   break;
             default:
@@ -114,19 +118,23 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
             SharedPreferencesUtils.clear(this,"phone");
             SharedPreferencesUtils.clear(this,"mima");
         }
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        //startActivity(intent);
+        Intent intent = new Intent(LoginActivity.this, tianxieziliaoAcitivity.class);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void onLoginFail(String errorTip) {
-
+        Toasty.success(this,"账号或秘密错误").show();
     }
 
     @Override
     public void onRegisterSuccess() {
-
+        //Intent intent = new Intent(LoginActivity.this, tianxieziliaoAcitivity.class);
+        //this.startActivity(intent);
+        //finish();
     }
 
     @Override
@@ -136,6 +144,11 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
 
     @Override
     public void onGetValideCode(ClassResult baseInfo) {
+
+    }
+
+    @Override
+    public void onRegisterInfoSuccess() {
 
     }
 
@@ -153,14 +166,12 @@ public class LoginActivity extends BaseActivity implements PhoneLoginContract.Vi
                     String phone = (String) phoneMap.get("phone"); // 手机号码，如“13800138000”
                     // TODO 利用国家代码和手机号码进行后续的操作
 
-                    /*SysLoginModel sysLoginModel = new SysLoginModel();
+                    SysLoginModel sysLoginModel = new SysLoginModel();
                     sysLoginModel.setCaptcha("123");
-                    sysLoginModel.setUsername("admin19");
+                    sysLoginModel.setUsername(phone);
                     sysLoginModel.setPassword("123456");
-                    mLoginPresenter.PhoneRegister(sysLoginModel);*/
-                    Intent intent = new Intent(LoginActivity.this, tianxieziliaoAcitivity.class);
-                    startActivity(intent);
-                    finish();
+                    mLoginPresenter.PhoneRegister(sysLoginModel);
+
                 } else{
                     // TODO 处理错误的结果
                     Toasty.warning(LoginActivity.this,"注册失败").show();

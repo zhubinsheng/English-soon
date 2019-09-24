@@ -4,6 +4,7 @@ import JvSi.ShanJi.com.English.bean.BaseInfo;
 import JvSi.ShanJi.com.English.bean.BaseResult;
 import JvSi.ShanJi.com.English.bean.ClassResult;
 import JvSi.ShanJi.com.English.bean.IntClassResult;
+import JvSi.ShanJi.com.English.bean.ListClasssStudyResult;
 import JvSi.ShanJi.com.English.bean.LoginResilt;
 import JvSi.ShanJi.com.English.bean.LoginResult;
 import JvSi.ShanJi.com.English.bean.SysUser;
@@ -46,6 +47,9 @@ public interface LoginApi {
 
     @GET("demo/sYSCLASS/queryByClasss")
     Observable<ClassResult> queryByClasss(@Query("classs") String classs);
+
+    @GET("demo/sYSCLASS/list")
+    Observable<ListClasssStudyResult> queryListClasss(@Query("classs") String classs);
 
 
     @FormUrlEncoded

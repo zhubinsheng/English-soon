@@ -242,6 +242,11 @@ public class UserSetActivity2 extends AppCompatActivity implements PhoneLoginCon
 
     }
 
+    @Override
+    public void onRegisterInfoSuccess() {
+
+    }
+
 
     private void speak() {
         String text = "onSynthesizeFinish";

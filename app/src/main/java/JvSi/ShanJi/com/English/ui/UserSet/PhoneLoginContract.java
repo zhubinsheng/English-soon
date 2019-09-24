@@ -3,6 +3,7 @@ package JvSi.ShanJi.com.English.ui.UserSet;
 import android.annotation.SuppressLint;
 
 import JvSi.ShanJi.com.English.bean.ClassResult;
+import JvSi.ShanJi.com.English.bean.ListClasssStudyResult;
 import JvSi.ShanJi.com.English.bean.SysLoginModel;
 import JvSi.ShanJi.com.English.bean.SysRegisterInfoModel;
 
@@ -18,11 +19,18 @@ public interface PhoneLoginContract {
         void onRegisterFail(String errorTip);
 
         void onGetValideCode(ClassResult baseInfo);
+
+        void onRegisterInfoSuccess();
+
+        void onGetValideCodeStudyResult(ListClasssStudyResult baseInfo);
     }
 
     interface Presenter{
         @SuppressLint("CheckResult")
         void queryByClasss(String classs);
+
+        @SuppressLint("CheckResult")
+        void queryListClasss(String classs);
 
         void getValideCode(String phoneNumber);
 

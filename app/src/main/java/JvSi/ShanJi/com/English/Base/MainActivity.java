@@ -244,6 +244,7 @@ public class MainActivity extends AppCompatActivity {
             }else {
                 asd(1);
                 backc = true;
+                Toasty.warning(this,"再返回一次，退出程序").show();
             }
         }else {
             return super.onKeyDown(keyCode, event);

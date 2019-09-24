@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/main/shaders"/></dataSet><dataSet config="release" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/media/binshengzhu/364f440f-58a2-4348-8ae0-9d77ea2d900c/english/English-soon/changeskin/src/release/shaders"/></dataSet></merger>

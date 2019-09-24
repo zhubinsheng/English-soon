@@ -1,0 +1,3 @@
+com.zhy.changeskin
+id skin_tag_id
+string app_name
